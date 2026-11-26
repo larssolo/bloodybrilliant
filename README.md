@@ -46,6 +46,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 
 - **Scroll / swipe** driver fortællingen. **Piltaster, PageUp/PageDown, mellemrum, Home** virker også.
 - **Kapitel-skinnen** til højre hopper direkte til et kapitel.
+- **Trekanten** i hjørnet åbner kapitelkortet: otte levende miniaturer, hvor du kan hoppe til et kapitel eller trykke **NEW WORLD** for en helt ny verden. Esc eller klik udenfor lukker det.
+- **Tre hurtige klik på trekanten** slår et skjult kaos-mode til og fra: spejlvendt verden, roterende farver, dobbelt energi og glitch overalt.
 - **Trackpad, vandret swipe** giver vind.
 - `prefers-reduced-motion` dæmper bevægelse og rystelser.
 
@@ -62,5 +64,6 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `index.html`: hele oplevelsen.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
+- `assets/thumbs/ch1–8.webp`: miniaturer til kapitelkortet.
 - `assets/audio/ch1.mp3` … `ch8.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.
