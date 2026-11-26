@@ -29,10 +29,10 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-snd b:nth-child(2){animation-delay:-.25s}.un-snd b:nth-child(3){animation-delay:-.55s}.un-snd b:nth-child(4){animation-delay:-.4s}
 @keyframes unBar{0%,100%{height:3px}50%{height:11px}}
 .un-grain,.un-paper{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
-.un-grain{mix-blend-mode:overlay;opacity:.34}
-.un-grain::before{content:"";position:absolute;inset:-60%;background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.6 .6 .6 0 -.4 .6 .6 .6 0 -.4 .6 .6 .6 0 -.4 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/220px 220px;animation:unGrain .8s steps(1) infinite}
-.un-paper{mix-blend-mode:soft-light;opacity:.55;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 55%,rgba(20,8,4,.32) 100%),url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .045' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.9 .9 .9 0 -.85 .9 .9 .9 0 -.85 .9 .9 .9 0 -.85 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") 0 0/600px 600px}
-@keyframes unGrain{0%{transform:translate(0,0)}12%{transform:translate(-6%,-9%)}25%{transform:translate(-14%,4%)}37%{transform:translate(7%,-18%)}50%{transform:translate(-5%,16%)}62%{transform:translate(-12%,8%)}75%{transform:translate(13%,0)}87%{transform:translate(2%,12%)}}
+.un-grain{mix-blend-mode:overlay;opacity:.5}
+.un-grain::before{content:"";position:absolute;inset:-8px;background-image:var(--grain,none);background-size:256px 256px;animation:unGrain .42s steps(1) infinite}
+.un-paper{mix-blend-mode:multiply;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 58%,rgba(20,8,4,.22) 100%)}
+@keyframes unGrain{0%{transform:translate(0,0)}17%{transform:translate(-3px,2px)}33%{transform:translate(2px,-4px)}50%{transform:translate(-5px,-1px)}67%{transform:translate(4px,3px)}83%{transform:translate(-1px,5px)}}
 .un-cv{filter:contrast(1.04) saturate(.93) blur(.3px)}
 .un-lite .un-cv{filter:none}.un-lite .un-paper{display:none}
 .un-off .un-cv{filter:none}.un-off .un-grain,.un-off .un-paper{display:none}
@@ -1434,6 +1434,10 @@ class Component extends DCLogic {
     }
 
     // ---------- chapter UI: caption with rune-scramble, rail, scroll hint ----------
+    // film grain: fine, uncorrelated per-pixel noise (no blotches), centred on mid grey for the overlay blend
+    { const gc = document.createElement('canvas'); gc.width = gc.height = 256; const gx = gc.getContext('2d'), id = gx.createImageData(256, 256);
+      for (let i = 0; i < id.data.length; i += 4) { const v = 128 + ((Math.random() + Math.random() + Math.random() - 1.5) * 70) | 0; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
+      gx.putImageData(id, 0, 0); root.style.setProperty('--grain', 'url(' + gc.toDataURL('image/png') + ')'); }
     const capEl = root.querySelector('[data-cap]'), rail = root.querySelector('[data-rail]'), hint = root.querySelector('[data-hint]');
     const RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
     const railBtns = CH.map((c, i) => {
