@@ -1,6 +1,6 @@
-# Bloody Brilliant — en endeløs fortælling
+# Bloody Brilliant — The Unreal of North
 
-En scroll-styret, interaktiv fortælling i seks kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
+By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fortælling i syv kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
 
 | | Kapitel | Hvad sker der | Klik / tryk |
 |---|---|---|---|
@@ -9,9 +9,10 @@ En scroll-styret, interaktiv fortælling i seks kapitler. Den starter som et pas
 | III | **Lantern Woods** | Parallaks-skov med lysende svampe og lanterner, der svinger efter musens fart. Lanternerne slukker én efter én, og øjne åbner sig i mørket. | Slipper en sværm af møl løs, som følger musen |
 | IV | **Sunfall** | Solen styrter op, himlen brænder ravgul, det regner med blæk (musen er en paraply), og en ravn krydser solen. | Blæksprøjt |
 | V | **Bloody Brilliant** | En ravn af blæk dykker ned foran kæmpebogstaver, der drypper med blod. Vingen opløses i røg med en brændende kant, og musen river fjer løs. | Ravnen eksploderer til blæk og samler sig igen |
-| VI | **The Ink** | Blækket opsluger alt, og et ravøje åbner sig og følger dig. *Again?*, og så genfødes verden. | Øjet blinker |
+| VI | **Ragnarök** | Kulsort, med støj og glitch. Yggdrasil vokser op af mørket, runer brænder i en roterende cirkel, Odin ser med ét rødt øje, Huginn og Muninn kredser, og Fenrir bryder løs og sluger verden. | Thors lyn slår ned, og runerne gløder |
+| VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
 
-Undervejs er der "beats", der udløses, når du scroller fremad forbi dem: hvalen synger, stjerneskud, et vindstød slukker lanterner, ravnen lander og eksploderer.
+Undervejs er der "beats", der udløses, når du scroller fremad forbi dem: hvalen synger, stjerneskud, et vindstød slukker lanterner, ravnen lander og eksploderer, lynet slår ned, og Fenrir hyler.
 
 ## Kør den
 
@@ -26,8 +27,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 
 - `?seed=1234` låser verdenen (0 eller ingen giver en ny ved hver reload)
 - `?energi=1.5` styrer bevægelsesintensiteten (0.3–2)
-- `?kapitel=5` starter i et bestemt kapitel (1–6)
-- `?p=4.8` starter på et præcist punkt i fortællingen (0–6)
+- `?kapitel=6` starter i et bestemt kapitel (1–7)
+- `?p=6.0` starter på et præcist punkt i fortællingen (0–7.1)
 
 ### Styring
 
@@ -41,10 +42,12 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - Én `<canvas>` (2D) tegner alle kapitler. Kun de kapitler, der er synlige, bliver tegnet, og hvert nyt kapitel fader ind over det forrige.
 - Ravnen renderes med en lille WebGL-shader (vingeslag, bølgende røg, støjbaseret opløsning med blodrød brændekant og et hul ved musen), som tegnes ind i 2D-canvasset. Hvis GPU-stien er for langsom på en enhed (under ca. 22 fps), skifter den automatisk til 2D.
 - Blækpartiklerne bruger 2400 punkter, som er forudberegnet fra ravnens silhuet og indlejret i `index.html`. Siden læser derfor aldrig pixels fra billedet.
-- Overskrifterne bruger Fraunces' variable akser (wght, SOFT, WONK) bogstav for bogstav.
+- Overskrifterne bruger Fraunces' variable akser (wght, SOFT, WONK) bogstav for bogstav. RAGNARÖK glitcher med RGB-split.
+- Ragnarök: runerne er tegnet som linjegeometri (ingen font-afhængighed), og Yggdrasil er et procedurelt træ, der blækkes pr. dybde. Guderne er knoglehvide negativer med skivevis glitch og chromatic aberration, og et efter-pass forskyder billedet i skiver, laver farveblokke og inverterer i korte glimt.
 
 ## Filer
 
 - `index.html`: hele oplevelsen.
-- `assets/raven.webp`: ravnen (AI-genereret til projektet og frilagt med alfakanal).
+- `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
+- `assets/og.jpg`: delingsbillede til sociale medier.
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.
