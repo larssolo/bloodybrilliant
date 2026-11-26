@@ -18,6 +18,23 @@
 <style>
 body{margin:0;background:#f4eedd;overflow:hidden}
 a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
+.un-hr{display:flex;align-items:center;gap:20px}
+.un-snd{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.16em;transition:color .2s}
+.un-snd:hover{color:#ee5a2c}.un-snd:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:3px}
+.un-snd i{display:inline-flex;align-items:flex-end;gap:2px;height:11px}
+.un-snd b{display:block;width:2px;height:3px;background:currentColor;border-radius:1px}
+.un-snd[aria-pressed=true] b{animation:unBar .9s ease-in-out infinite}
+.un-snd b:nth-child(2){animation-delay:-.25s}.un-snd b:nth-child(3){animation-delay:-.55s}.un-snd b:nth-child(4){animation-delay:-.4s}
+@keyframes unBar{0%,100%{height:3px}50%{height:11px}}
+.un-grain,.un-paper{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.un-grain{mix-blend-mode:overlay;opacity:.34}
+.un-grain::before{content:"";position:absolute;inset:-60%;background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.6 .6 .6 0 -.4 .6 .6 .6 0 -.4 .6 .6 .6 0 -.4 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/220px 220px;animation:unGrain .8s steps(1) infinite}
+.un-paper{mix-blend-mode:soft-light;opacity:.55;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 55%,rgba(20,8,4,.32) 100%),url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .045' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.9 .9 .9 0 -.85 .9 .9 .9 0 -.85 .9 .9 .9 0 -.85 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E") 0 0/600px 600px}
+@keyframes unGrain{0%{transform:translate(0,0)}12%{transform:translate(-6%,-9%)}25%{transform:translate(-14%,4%)}37%{transform:translate(7%,-18%)}50%{transform:translate(-5%,16%)}62%{transform:translate(-12%,8%)}75%{transform:translate(13%,0)}87%{transform:translate(2%,12%)}}
+.un-cv{filter:contrast(1.04) saturate(.93) blur(.3px)}
+.un-lite .un-cv{filter:none}.un-lite .un-paper{display:none}
+.un-off .un-cv{filter:none}.un-off .un-grain,.un-off .un-paper{display:none}
+@media (prefers-reduced-motion:reduce){.un-grain::before{animation:none}}
 .un-credit{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.16em;transition:transform .35s cubic-bezier(.3,1.6,.5,1),color .2s}
 .un-credit:hover{transform:translateY(-2px) rotate(-2deg)}
 .un-logo{display:inline-block;transition:transform .6s cubic-bezier(.3,1.8,.4,1)}
@@ -37,10 +54,10 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </head>
 <body>
 <div data-k="unreal-a" style="position: relative; width: 100%; height: 100vh; min-height: 520px; overflow: hidden; background: #f4eedd; font-family: Inter, system-ui, sans-serif; touch-action: none; cursor: crosshair">
-<canvas role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
+<canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <a href="#" class="un-logo" aria-label="Bloody Brilliant, forside"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></a>
-<a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a>
+<div class="un-hr"><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -59,6 +76,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </p>
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
+<div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
 <nav data-rail="" class="un-rail" aria-label="Kapitler"></nav>
 <div data-hint="" aria-hidden="true" style="position: absolute; left: 50%; bottom: 22px; z-index: 2; width: 2px; height: 40px; margin-left: -1px; pointer-events: none">
 <svg class="un-drip" width="12" height="18" viewBox="0 0 12 18" style="position: absolute; left: -5px; top: 0"><path d="M6 1 C6 1 11 8 11 11.5 A5 5 0 0 1 1 11.5 C1 8 6 1 6 1 Z" fill="#47c2b1"></path></svg>
@@ -105,7 +123,7 @@ class Component extends DCLogic {
     const grade = (c) => { const w = lc(c, [Math.min(255, c[0] * 1.05 + 22), c[1] * 0.86, c[2] * 0.78], D * 0.35); return lc(w, [w[0] * 0.28 + 12, w[1] * 0.32 + 14, w[2] * 0.55 + 42], N * 0.78); };
     const G = (c, a) => css(grade(c), a);
 
-    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
+    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, P: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
     let W0 = null;
 
     function gen() {
@@ -363,7 +381,7 @@ class Component extends DCLogic {
     function typo(t, E) {
       const W = S.W, H = S.H;
       for (let h = 0; h < heads.length; h++) {
-        const w = WIN[h], p = (S.s - w[0]) / (w[1] - w[0]), inA = sstep(0, 0.3, p), outA = sstep(0.72, 1, p);
+        const w = WIN[h], p = (S.P - w[0]) / (w[1] - w[0]), inA = sstep(0, 0.3, p), outA = sstep(0.72, 1, p);
         const vis = inA * (1 - outA);
         for (let i = 0; i < heads[h].length; i++) {
           const L = heads[h][i], el = L.el;
@@ -381,8 +399,8 @@ class Component extends DCLogic {
           el.style.fontVariationSettings = '"SOFT" ' + (50 + 50 * Math.sin(t * 0.7 + L.ph)).toFixed(0) + ', "WONK" ' + (Math.sin(t * 0.5 + L.ph) > 0.6 ? 1 : 0) + ', "wght" ' + (IT[h] ? WB[h] : clamp(WB[h] + 200 * Math.sin(t * 0.6 + L.ph) * E * 0.5 + outA * 250, 100, 900)).toFixed(0);
         }
       }
-      tag.style.opacity = (1 - sstep(0.04, 0.18, S.s)).toFixed(3);
-      tag.style.transform = 'translateY(' + (-Math.min(1.5, S.s) * 260).toFixed(1) + 'px) skewX(' + clamp(S.sv * -20, -40, 40).toFixed(1) + 'deg)';
+      tag.style.opacity = (1 - sstep(0.04, 0.18, S.P)).toFixed(3);
+      tag.style.transform = 'translateY(' + (-Math.min(1.5, S.P) * 260).toFixed(1) + 'px) skewX(' + clamp(S.sv * -20, -40, 40).toFixed(1) + 'deg)';
       const nc = css(lc(hex('#1c2333'), C.cream, S.dk));
       if (nc !== S.ncol) { S.ncol = nc; nav.style.color = nc; rail.style.color = nc; capEl.style.color = nc; }
     }
@@ -391,7 +409,9 @@ class Component extends DCLogic {
     //  THE LONG TALE: chapters II-VI. Progress S.s runs 0..PMAX, then the
     //  world is reborn with a new seed, so the story never ends.
     // =====================================================================
-    const PMAX = 7.1;
+    const PMAX = 7.1, RMAX = PMAX + 1;
+    // raw scroll S.s runs 0..RMAX; story time P stretches chapter I over the first two raw units
+    const toRaw = (x) => (x < 1 ? x * 2 : x + 1), toStory = (x) => (x < 2 ? x / 2 : x - 1);
     const CH = [
       { a: 0, n: 'I', cap: 'I — THE UNREAL NORTH · SCROLL, CLICK, PLAY', aria: 'Kapitel I: levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod' },
       { a: 1.25, n: 'II', cap: 'II — WHERE THE WHALES LEARNED TO SING', aria: 'Kapitel II: stjernehav med en syngende hval af stjernebilleder og svævende vandmænd' },
@@ -494,6 +514,7 @@ class Component extends DCLogic {
       w.blobs = [{ a: 0, d: 0, k: 1.3, ph: 1 }].concat(Array.from({ length: 30 }, () => ({ a: rr(0, 6.28), d: rr(0.05, 0.6), k: rr(0.4, 1.1), ph: rr(0, 6.28) })));
       w.eye = { bl: 0, next: 0 };
       genRagnarok(w);
+      genNorth2(w);
     }
 
     // ---------- II · the singing sky ----------
@@ -505,6 +526,7 @@ class Component extends DCLogic {
     }
     function whaleSing(p) {
       const wh = S.wh; if (!wh) return;
+      snd('whale', p);
       W0.songs.push({ x: wh.hx, y: wh.hy, r: wh.L * 0.04, p, life: 1 });
       for (let i = 0; i < 16 * p; i++) { const a = Math.PI + rr(-0.9, 0.9), v = rr(80, 260) * p; W0.sparks.push({ x: wh.hx, y: wh.hy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, c: pick([C.mint, C.cream, C.pink, C.yellow]) }); }
       for (const j of W0.jellies) { const dx = j.x * S.W - wh.hx, dy = j.y * S.H - wh.hy, dd = Math.hypot(dx, dy) + 1; if (dd < S.u * 0.6) { j.vx += dx / dd * 0.12 * p; j.vy += dy / dd * 0.12 * p; } }
@@ -912,7 +934,7 @@ class Component extends DCLogic {
         const x = rc.x + p[0] * rc.w, y = rc.y + p[1] * rc.h, dx = x - cx, dy = y - cy, dd = Math.hypot(dx, dy) + 1, v = rr(250, 900) * (0.4 + 0.6 * Math.min(1, 300 / dd));
         W0.ink.push({ k: 2, x, y, vx: dx / dd * v + rr(-80, 80), vy: dy / dd * v + rr(-120, 40), h: [p[0], p[1]], g: p[2], s: rr(0.6, 1.4), life: 1, dl: 0 });
       }
-      shake(18);
+      shake(18); snd('boom', cx / S.W * 2 - 1); setTimeout(() => snd('caw', cx / S.W * 2 - 1), 120);
       for (let k = 0; k < 5; k++) splatter(stx, cx + rr(-0.5, 0.5) * rc.w, cy + rr(-0.4, 0.4) * rc.h, rr(10, 40) * S.u / 900, 'rgba(10,6,6,0.85)');
     }
     function inkStep(A, dt, t, rc) {
@@ -1140,7 +1162,7 @@ class Component extends DCLogic {
       for (let it = 0; it < 6; it++) { const ns = []; for (const [a, b] of segs) { const L = Math.hypot(b[0] - a[0], b[1] - a[1]), m = [(a[0] + b[0]) / 2 + rr(-1, 1) * L * 0.2, (a[1] + b[1]) / 2 + rr(-1, 1) * L * 0.04]; ns.push([a, m], [m, b]); } segs = ns; }
       const forks = [];
       for (let k = 0; k < 3; k++) { const s0 = segs[(segs.length * rr(0.2, 0.7)) | 0][1]; let fs = [[s0, [s0[0] + rr(-160, 160), s0[1] + rr(60, 200)]]]; for (let it = 0; it < 4; it++) { const ns = []; for (const [a, b] of fs) { const L = Math.hypot(b[0] - a[0], b[1] - a[1]), m = [(a[0] + b[0]) / 2 + rr(-1, 1) * L * 0.25, (a[1] + b[1]) / 2]; ns.push([a, m], [m, b]); } fs = ns; } forks.push(fs); }
-      W0.bolts.push({ segs, forks, life: 1, x, y });
+      W0.bolts.push({ segs, forks, life: 1, x, y }); snd('thunder', x / S.W * 2 - 1);
       S.gl = Math.max(S.gl, 0.9); S.bflash = 1; shake(10);
       splatter(stx, x, y, rr(14, 30) * S.u / 900, 'rgba(150,10,16,0.9)');
       for (let k = 0; k < 3; k++) splatter(stx, x + rr(-90, 90), y + rr(-60, 60), rr(4, 12) * S.u / 900, 'rgba(0,0,0,0.9)');
@@ -1236,32 +1258,96 @@ class Component extends DCLogic {
       for (let i = 0; i <= nseg; i++) { const a = i / nseg * 6.283, rad = r * (0.82 + 0.32 * vnoise(Math.cos(a) * 1.6 + ph, Math.sin(a) * 1.6 + t * 0.25)), px = x + Math.cos(a) * rad, py = y + Math.sin(a) * rad; if (i) ctx.lineTo(px, py); else ctx.moveTo(px, py); }
       ctx.closePath();
     }
+    // Odin's eye, in the same dirty ink as the gods: fibrous iris, ragged lids, bone lashes, veins, blood tears
+    const EYE = { iris: null };
+    function eyeTextures() {
+      const SZ = 512, m = SZ / 2, c = document.createElement('canvas'); c.width = c.height = SZ; const g = c.getContext('2d');
+      let gr = g.createRadialGradient(m, m, 0, m, m, m);
+      gr.addColorStop(0, '#120402'); gr.addColorStop(0.36, '#3a1205'); gr.addColorStop(0.56, '#8a4210'); gr.addColorStop(0.78, '#a85f18'); gr.addColorStop(0.93, '#40160a'); gr.addColorStop(1, 'rgba(10,3,1,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, SZ, SZ);
+      const cols = ['rgba(236,160,58,', 'rgba(196,106,30,', 'rgba(118,40,12,', 'rgba(28,8,3,', 'rgba(250,206,120,'];
+      for (let i = 0; i < 1700; i++) {
+        const a = Math.random() * 6.283, r0 = m * (0.36 + Math.random() * 0.2), r1 = m * (0.6 + Math.random() * 0.36), bend = (Math.random() - 0.5) * 0.25;
+        g.strokeStyle = cols[(Math.random() * cols.length) | 0] + (0.1 + Math.random() * 0.35).toFixed(2) + ')'; g.lineWidth = 0.6 + Math.random() * 1.8;
+        g.beginPath(); g.moveTo(m + Math.cos(a) * r0, m + Math.sin(a) * r0); g.quadraticCurveTo(m + Math.cos(a + bend) * (r0 + r1) / 2, m + Math.sin(a + bend) * (r0 + r1) / 2, m + Math.cos(a + bend * 0.5) * r1, m + Math.sin(a + bend * 0.5) * r1); g.stroke();
+      }
+      for (let i = 0; i < 46; i++) { const a = Math.random() * 6.283, r = m * (0.45 + Math.random() * 0.4); g.fillStyle = 'rgba(18,5,2,' + (0.25 + Math.random() * 0.45).toFixed(2) + ')'; g.beginPath(); g.ellipse(m + Math.cos(a) * r, m + Math.sin(a) * r, 3 + Math.random() * 10, 2 + Math.random() * 4, a, 0, 6.283); g.fill(); }
+      for (let i = 0; i < 4000; i++) { g.fillStyle = Math.random() < 0.5 ? 'rgba(0,0,0,0.35)' : 'rgba(255,220,170,0.12)'; g.fillRect(Math.random() * SZ, Math.random() * SZ, 1.5, 1.5); }
+      gr = g.createRadialGradient(m, m, m * 0.78, m, m, m); gr.addColorStop(0, 'rgba(10,3,1,0)'); gr.addColorStop(0.7, 'rgba(10,3,1,0.85)'); gr.addColorStop(1, 'rgba(10,3,1,0)'); g.fillStyle = gr; g.fillRect(0, 0, SZ, SZ);
+      EYE.iris = c;
+      EYE.dots = Array.from({ length: 80 }, () => { const a = Math.random() * 6.283, d = 1.2 + Math.pow(Math.random(), 1.5) * 2.6; return [Math.cos(a) * d * 1.6, Math.sin(a) * d * 0.85, 0.015 + Math.random() * Math.random() * 0.12, Math.random() < 0.3]; });
+      EYE.lash = Array.from({ length: 36 }, (_, i) => [0.06 + i / 35 * 0.88, 0.16 + Math.random() * 0.32, (Math.random() - 0.5) * 0.3]);
+      EYE.veins = Array.from({ length: 14 }, () => { const sd = Math.random() < 0.5 ? -1 : 1, pts = [[sd * 2.25, (Math.random() - 0.5) * 0.7]]; for (let k = 0; k < 6; k++) { const pp = pts[pts.length - 1]; pts.push([pp[0] - sd * (0.12 + Math.random() * 0.16), pp[1] + (Math.random() - 0.5) * 0.24]); } return pts; });
+      // ink skin around the eye, in units of the iris radius (U px per unit)
+      const U = 200, ik = document.createElement('canvas'); ik.width = Math.round(U * 5.6); ik.height = Math.round(U * 3.8); const k2 = ik.getContext('2d'), ox = ik.width / 2, oy = ik.height / 2;
+      const bone = (a) => 'rgba(233,223,207,' + a.toFixed(3) + ')';
+      for (let i = 0; i < 9; i++) { const a = Math.random() * 6.283, d = 1.25 + Math.random() * 0.55; splatter(k2, ox + Math.cos(a) * d * U * 1.35, oy + Math.sin(a) * d * U * 0.72, U * (0.04 + Math.random() * 0.07), i < 3 ? 'rgba(150,12,18,0.75)' : bone(0.1 + Math.random() * 0.12)); }
+      const brush = (pts, w0, a0) => { for (let pass = 0; pass < 4; pass++) { const jy = (Math.random() - 0.5) * U * 0.03, jx = (Math.random() - 0.5) * U * 0.03; k2.strokeStyle = bone(a0 * (1 - pass * 0.2)); k2.lineCap = 'round'; for (let i = 1; i < pts.length; i++) { const tt = i / (pts.length - 1); k2.lineWidth = Math.max(0.6, w0 * Math.sin(tt * Math.PI) * (0.5 + Math.random() * 0.7)); k2.beginPath(); k2.moveTo(ox + pts[i - 1][0] * U + jx, oy + pts[i - 1][1] * U + jy); k2.lineTo(ox + pts[i][0] * U + jx, oy + pts[i][1] * U + jy); k2.stroke(); } } };
+      const arcPts = (sx, sy, t0, t1, n) => Array.from({ length: n }, (_, i) => { const tt = t0 + (t1 - t0) * i / (n - 1); return [(-2.3 + 4.6 * tt) * sx, -4 * tt * (1 - tt) * sy + (Math.random() - 0.5) * 0.02]; });
+      for (let k = 0; k < 4; k++) brush(arcPts(0.9 + k * 0.06, 1.2 + k * 0.24, 0.14 + k * 0.04, 0.86 - k * 0.05, 26), U * (0.05 - k * 0.008), 0.3 - k * 0.05);
+      for (let k = 0; k < 2; k++) brush(arcPts(0.8 - k * 0.08, -(1.0 + k * 0.25), 0.22, 0.78, 22), U * 0.035, 0.18 - k * 0.05);
+      for (const sd of [-1, 1]) for (let k = 0; k < 7; k++) { const a = (k / 6 - 0.5) * 1.2, L = 0.35 + Math.random() * 0.55, pts = []; for (let i = 0; i < 10; i++) { const tt = i / 9; pts.push([sd * (2.35 + Math.cos(a) * L * tt), Math.sin(a) * L * tt + Math.sin(tt * 3 + k) * 0.03]); } brush(pts, U * 0.03, 0.22); }
+      EYE.ink = ik;
+    }
     function drawBigEye(o, t, dt) {
+      if (!EYE.iris) eyeTextures();
       const W = S.W, H = S.H, u = S.u, E0 = W0.eye;
       if (E0.bl > 0) E0.bl = Math.max(0, E0.bl - dt * 3.5); else if (t > E0.next) { E0.bl = 1; E0.next = t + rr(2.5, 5); }
-      const op = o * (1 - Math.sin(E0.bl * Math.PI)), cx = W / 2, cy = H * 0.42, rI = u * 0.14;
+      const op = o * (1 - Math.sin(E0.bl * Math.PI)), cx = W / 2, cy = H * 0.42, rI = u * 0.14, ew = rI * 2.3, eh = rI * 1.05 * Math.max(op, 0.02);
       const has = S.px > -999, lx = has ? clamp((S.px - cx) / (W * 0.5), -1, 1) : Math.sin(t * 0.4), ly = has ? clamp((S.py - cy) / (H * 0.5), -1, 1) : 0;
-      const ix = cx + lx * rI * 0.45, iy = cy + ly * rI * 0.25, ew = rI * 2.3, eh = rI * 1.05 * op;
+      const ix = cx + lx * rI * 0.45, iy = cy + ly * rI * 0.25;
       ctx.globalCompositeOperation = 'lighter';
-      const gl = ctx.createRadialGradient(cx, cy, 0, cx, cy, ew * 1.4); gl.addColorStop(0, css([240, 140, 40], 0.2 * o)); gl.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gl; ctx.fillRect(cx - ew * 1.4, cy - ew * 1.4, ew * 2.8, ew * 2.8);
+      const gl = ctx.createRadialGradient(cx, cy, 0, cx, cy, ew * 1.5); gl.addColorStop(0, css([170, 40, 20], 0.16 * o)); gl.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gl; ctx.fillRect(cx - ew * 1.5, cy - ew * 1.5, ew * 3, ew * 3);
       ctx.globalCompositeOperation = 'source-over';
-      if (op < 0.01) return;
-      ctx.save();
-      ctx.beginPath(); ctx.moveTo(cx - ew, cy); ctx.quadraticCurveTo(cx, cy - eh * 2, cx + ew, cy); ctx.quadraticCurveTo(cx, cy + eh * 2, cx - ew, cy); ctx.closePath();
-      ctx.strokeStyle = css([240, 168, 48], 0.6 * o); ctx.lineWidth = 2; ctx.stroke();
-      ctx.clip();
-      ctx.fillStyle = '#140806'; ctx.fillRect(cx - ew, cy - eh * 2, ew * 2, eh * 4);
-      const ig = ctx.createRadialGradient(ix, iy, 0, ix, iy, rI); ig.addColorStop(0, '#2a0a04'); ig.addColorStop(0.35, '#c8591a'); ig.addColorStop(0.7, '#f0a830'); ig.addColorStop(0.92, '#7a2a08'); ig.addColorStop(1, '#1a0503');
-      ctx.fillStyle = ig; ctx.beginPath(); ctx.arc(ix, iy, rI, 0, 6.283); ctx.fill();
-      ctx.strokeStyle = 'rgba(60,15,3,0.35)'; ctx.lineWidth = 1; ctx.beginPath();
-      for (let k = 0; k < 56; k++) { const a = k / 56 * 6.283 + Math.sin(k * 7.3) * 0.05; ctx.moveTo(ix + Math.cos(a) * rI * 0.42, iy + Math.sin(a) * rI * 0.42); ctx.lineTo(ix + Math.cos(a) * rI * 0.95, iy + Math.sin(a) * rI * 0.95); }
-      ctx.stroke();
-      const pr = rI * (0.36 + 0.06 * Math.sin(t * 0.7) + (has ? 0.06 * (1 - Math.min(1, Math.hypot(S.px - cx, S.py - cy) / (u * 0.6))) : 0));
-      ctx.fillStyle = '#030101'; ctx.beginPath(); ctx.arc(ix, iy, pr, 0, 6.283); ctx.fill();
-      ctx.fillStyle = 'rgba(255,248,230,0.9)'; ctx.beginPath(); ctx.ellipse(ix - rI * 0.32, iy - rI * 0.36, rI * 0.13, rI * 0.09, -0.5, 0, 6.283); ctx.fill();
-      ctx.fillStyle = 'rgba(255,248,230,0.5)'; ctx.beginPath(); ctx.arc(ix + rI * 0.28, iy + rI * 0.3, rI * 0.04, 0, 6.283); ctx.fill();
-      const lid = ctx.createLinearGradient(0, cy - eh * 1.1, 0, cy); lid.addColorStop(0, 'rgba(10,3,2,0.85)'); lid.addColorStop(1, 'rgba(10,3,2,0)'); ctx.fillStyle = lid; ctx.fillRect(cx - ew, cy - eh * 2, ew * 2, eh * 2);
-      ctx.restore();
+      ctx.globalAlpha = o; ctx.drawImage(EYE.ink, cx - 2.8 * rI, cy - 1.9 * rI, 5.6 * rI, 3.8 * rI); ctx.globalAlpha = 1;
+      // ragged lids
+      const N2 = 48, up = [], lo = [];
+      for (let i = 0; i <= N2; i++) { const tt = i / N2, x = cx - ew + 2 * ew * tt, b = 4 * tt * (1 - tt); up.push([x, cy - eh * b + (vnoise(tt * 7 + 3, t * 0.2) - 0.5) * rI * 0.12 * b]); lo.push([x, cy + eh * b * 0.85 + (vnoise(tt * 7 + 9, t * 0.2) - 0.5) * rI * 0.12 * b]); }
+      const lid = new Path2D(); lid.moveTo(up[0][0], up[0][1]); for (const pnt of up) lid.lineTo(pnt[0], pnt[1]); for (let i = N2; i >= 0; i--) lid.lineTo(lo[i][0], lo[i][1]); lid.closePath();
+      if (op > 0.03) {
+        ctx.save(); ctx.clip(lid);
+        const sg = ctx.createRadialGradient(cx, cy, rI * 0.4, cx, cy, ew); sg.addColorStop(0, '#2a1d17'); sg.addColorStop(0.6, '#140c09'); sg.addColorStop(1, '#040101'); ctx.fillStyle = sg; ctx.fillRect(cx - ew, cy - eh * 1.2, ew * 2, eh * 2.4);
+        ctx.strokeStyle = css([150, 22, 26], 0.6); ctx.lineWidth = Math.max(1, rI * 0.013); ctx.beginPath();
+        for (const v of EYE.veins) { v.forEach((pnt, k) => (k ? ctx.lineTo(cx + pnt[0] * rI, cy + pnt[1] * rI) : ctx.moveTo(cx + pnt[0] * rI, cy + pnt[1] * rI))); }
+        ctx.stroke();
+        if (!grainPat) grainPat = ctx.createPattern(grain, 'repeat');
+        ctx.globalAlpha = 0.6; ctx.fillStyle = grainPat; ctx.fillRect(cx - ew, cy - eh * 1.2, ew * 2, eh * 2.4); ctx.globalAlpha = 1;
+        ctx.save(); ctx.beginPath(); for (let i = 0; i <= 40; i++) { const a = i / 40 * 6.283, rad = rI * (0.94 + 0.08 * vnoise(Math.cos(a) * 3 + 11, Math.sin(a) * 3)); if (i) ctx.lineTo(ix + Math.cos(a) * rad, iy + Math.sin(a) * rad); else ctx.moveTo(ix + Math.cos(a) * rad, iy + Math.sin(a) * rad); } ctx.clip();
+        ctx.translate(ix, iy); ctx.rotate(t * 0.03); ctx.drawImage(EYE.iris, -rI, -rI, rI * 2, rI * 2); ctx.restore();
+        const pr = rI * (0.35 + 0.05 * Math.sin(t * 0.7) + (has ? 0.07 * (1 - Math.min(1, Math.hypot(S.px - cx, S.py - cy) / (u * 0.6))) : 0));
+        ctx.beginPath(); for (let i = 0; i <= 32; i++) { const a = i / 32 * 6.283, rad = pr * (0.9 + 0.2 * vnoise(Math.cos(a) * 2 + 5, Math.sin(a) * 2 + t * 0.3)); if (i) ctx.lineTo(ix + Math.cos(a) * rad, iy + Math.sin(a) * rad); else ctx.moveTo(ix + Math.cos(a) * rad, iy + Math.sin(a) * rad); }
+        ctx.fillStyle = '#020000'; ctx.fill();
+        ctx.fillStyle = 'rgba(255,232,205,0.5)'; ctx.beginPath(); ctx.ellipse(ix - rI * 0.3, iy - rI * 0.34, rI * 0.09, rI * 0.055, -0.5, 0, 6.283); ctx.fill();
+        ctx.fillStyle = 'rgba(255,232,205,0.3)'; for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.arc(ix - rI * (0.18 - k * 0.05), iy - rI * (0.42 - k * 0.03), rI * 0.012, 0, 6.283); ctx.fill(); }
+        const ls = ctx.createLinearGradient(0, cy - eh * 1.05, 0, cy + eh * 0.2); ls.addColorStop(0, 'rgba(6,2,1,0.95)'); ls.addColorStop(0.5, 'rgba(6,2,1,0.25)'); ls.addColorStop(1, 'rgba(6,2,1,0)'); ctx.fillStyle = ls; ctx.fillRect(cx - ew, cy - eh * 1.2, ew * 2, eh * 1.4);
+        ctx.strokeStyle = 'rgba(2,1,0,0.85)'; ctx.lineWidth = rI * 0.14; ctx.stroke(lid);
+        ctx.restore();
+      }
+      // dry-brush lid lines and bone lashes
+      const lidLine = (pts, j) => { const pth = new Path2D(); pts.forEach((pnt, i) => { const n0 = (hash2(i, j) - 0.5) * rI * 0.06 + (hash2(j, 99) - 0.5) * rI * 0.04; if (i) pth.lineTo(pnt[0], pnt[1] + n0); else pth.moveTo(pnt[0], pnt[1] + n0); }); return pth; };
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (let pass = 0; pass < 5; pass++) {
+        ctx.strokeStyle = css(BONE, (0.55 - pass * 0.09) * o); ctx.lineWidth = Math.max(0.8, rI * (0.06 - pass * 0.011)); ctx.stroke(lidLine(up, pass));
+        ctx.strokeStyle = css(BONE, (0.32 - pass * 0.05) * o); ctx.lineWidth = Math.max(0.7, rI * (0.035 - pass * 0.006)); ctx.stroke(lidLine(lo, pass + 7));
+      }
+      ctx.fillStyle = css(BONE, 0.62 * o); ctx.beginPath();
+      for (const l0 of EYE.lash) {
+        const i = Math.round(l0[0] * N2), pnt = up[i], tt = l0[0], nx = (tt - 0.5) * 1.3 + l0[2], L = rI * l0[1] * (0.45 + 0.55 * Math.sin(tt * Math.PI)) * Math.max(0.25, op), w0 = rI * (0.012 + 0.014 * hash2(i, 5));
+        const tx = pnt[0] + nx * L, ty = pnt[1] - L, cxl = pnt[0] + nx * L * 0.3, cyl = pnt[1] - L * 0.75;
+        ctx.moveTo(pnt[0] - w0, pnt[1]); ctx.quadraticCurveTo(cxl - w0 * 0.5, cyl, tx, ty); ctx.quadraticCurveTo(cxl + w0 * 0.5, cyl, pnt[0] + w0, pnt[1]); ctx.closePath();
+      }
+      for (let k = 0; k < 16; k++) { const tt = 0.15 + k / 15 * 0.7, i = Math.round(tt * N2), pnt = lo[i], L = rI * (0.08 + 0.1 * hash2(k, 3)) * Math.sin(tt * Math.PI), nx = (tt - 0.5) * 0.9, w0 = rI * 0.008; ctx.moveTo(pnt[0] - w0, pnt[1]); ctx.lineTo(pnt[0] + nx * L, pnt[1] + L); ctx.lineTo(pnt[0] + w0, pnt[1]); ctx.closePath(); }
+      ctx.fill();
+      // tears of blood
+      E0.tl = Math.min(1, (E0.tl || 0) + dt * 0.07 * o);
+      if (E0.tl > 0.02) for (const k of [0.62, 0.7]) { const i = Math.round(k * N2), pnt = lo[i], len = rI * 2.6 * E0.tl * (k > 0.65 ? 0.7 : 1), w = rI * 0.045; ctx.fillStyle = css(BLOOD, 0.9 * o); ctx.beginPath(); ctx.moveTo(pnt[0] - w, pnt[1]); ctx.quadraticCurveTo(pnt[0] - w * 0.4, pnt[1] + len * 0.6, pnt[0] - w * 0.5, pnt[1] + len); ctx.arc(pnt[0], pnt[1] + len, w * 0.6, Math.PI, 0, true); ctx.quadraticCurveTo(pnt[0] + w * 0.4, pnt[1] + len * 0.6, pnt[0] + w, pnt[1]); ctx.closePath(); ctx.fill(); }
+      // grain + scanlines so the eye lives in the same print as Ragnarök
+      if (!grainPat) grainPat = ctx.createPattern(grain, 'repeat');
+      if (!scanPat) scanPat = ctx.createPattern(scan, 'repeat');
+      const ox = (Math.random() * 128) | 0, oy = (Math.random() * 128) | 0;
+      ctx.globalAlpha = 0.32 * o; ctx.translate(ox, oy); ctx.fillStyle = grainPat; ctx.fillRect(-ox, -oy, W, H); ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+      ctx.globalAlpha = o * 0.7; ctx.fillStyle = scanPat; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
+      if (R() < dt * 0.5) S.gl = Math.max(S.gl, rr(0.2, 0.5));
     }
     function drawInk(q, t, dt) {
       const W = S.W, H = S.H, d = S.dpr, rc = RVS.rect;
@@ -1277,6 +1363,7 @@ class Component extends DCLogic {
       if (o > 0) drawBigEye(o, t, dt);
     }
     function rebirth() {
+      snd('chime'); snd('whoosh');
       W0 = gen(); S.s = S.sT = 0; S.flash = 1; S.next = S.t + 4; S.reborn = true; lastP = 0;
       stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null; S.inkC = null; S.gl = 0;
     }
@@ -1285,14 +1372,20 @@ class Component extends DCLogic {
     const BEATS = [
       { at: 1.62, fn: () => whaleSing(1.5) },
       { at: 2.02, fn: () => { whaleSing(2.6); for (let i = 0; i < 10; i++) W0.shoot.push(mkShoot()); shake(4); } },
-      { at: 2.95, fn: () => { S.gust = 1; for (const l of W0.lanterns) l.va += rr(-2.5, 2.5); shake(5); } },
-      { at: 3.95, fn: () => shake(9) },
-      { at: 4.62, fn: () => { shake(16); const W = S.W, H = S.H; for (let k = 0; k < 6; k++) splatter(stx, rr(0.05, 0.95) * W, rr(0.55, 0.98) * H, rr(12, 34) * S.u / 900, 'rgba(10,6,6,0.88)'); for (const f of W0.feathers) { f.vx += rr(-1.2, 1.2); f.va += rr(-6, 6); } } },
+      { at: 2.95, fn: () => { snd('wind'); S.gust = 1; for (const l of W0.lanterns) l.va += rr(-2.5, 2.5); shake(5); } },
+      { at: 3.95, fn: () => { shake(9); snd('caw', 0.4); } },
+      { at: 4.62, fn: () => { shake(16); snd('boom'); const W = S.W, H = S.H; for (let k = 0; k < 6; k++) splatter(stx, rr(0.05, 0.95) * W, rr(0.55, 0.98) * H, rr(12, 34) * S.u / 900, 'rgba(10,6,6,0.88)'); for (const f of W0.feathers) { f.vx += rr(-1.2, 1.2); f.va += rr(-6, 6); } } },
       { at: 5.18, fn: () => ravenBoom(null, null) },
       { at: 5.64, fn: () => strike(S.W * 0.5, S.H * 0.6) },
       { at: 5.97, fn: () => { S.gl = 1; shake(12); strike(S.W * rr(0.2, 0.8), S.H * rr(0.3, 0.7)); } },
-      { at: 6.3, fn: () => { S.gl = 1; shake(20); S.gust = 1; } },
-      { at: 6.95, fn: () => { W0.eye.bl = 1; shake(6); } },
+      { at: 6.3, fn: () => { S.gl = 1; shake(20); S.gust = 1; snd('howl'); snd('boom'); } },
+      { at: 6.95, fn: () => { W0.eye.bl = 1; shake(6); snd('blink'); } },
+      { at: 0.08, fn: () => snd('wake') },
+      { at: 0.17, fn: () => snd('giggle') },
+      { at: 0.4, fn: () => snd('chime') },
+      { at: 0.52, fn: () => snd('splash') },
+      { at: 0.62, fn: () => snd('wind') },
+      { at: 0.77, fn: () => snd('chime') },
     ];
     let lastP = 0;
     function beats(P) { if (P > lastP) for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); lastP = P; }
@@ -1306,18 +1399,19 @@ class Component extends DCLogic {
       else if (ci === 4 && boomT() > 4 && RVS.rect) { shake(4); const rc = RVS.rect; for (let i = 0; i < 40; i++) { const p = pick(RV.pts); W0.ink.push({ k: 1, x: rc.x + p[0] * rc.w, y: rc.y + p[1] * rc.h, vx: rr(-200, 200), vy: rr(-260, -40), r: rr(1, 3.5), life: 1, dl: rr(0.5, 0.9) }); } }
     }
     function chapterClick(x, y) {
-      const ci = chapterAt(S.s);
+      const ci = chapterAt(S.P);
       if (ci === 1) {
-        W0.jellies.push(mkJelly(x / S.W, y / S.H, rr(0.03, 0.055))); if (W0.jellies.length > 18) W0.jellies.shift();
+        W0.jellies.push(mkJelly(x / S.W, y / S.H, rr(0.03, 0.055))); snd('bell', x / S.W * 2 - 1); if (W0.jellies.length > 18) W0.jellies.shift();
         const wh = S.wh; if (wh && x > wh.hx - 60 && x < wh.hx + wh.L * 1.1 && Math.abs(y - wh.hy) < wh.L * 0.2) whaleSing(1.6); else W0.shoot.push(mkShoot(x + 200, y - 120));
       } else if (ci === 2) {
+        snd('flutter', x / S.W * 2 - 1);
         for (let i = 0; i < 14; i++) W0.moths.push({ x, y, vx: rr(-260, 260), vy: rr(-300, 60), ph: rr(0, 6.28), life: rr(8, 13), s: rr(4, 8), c: pick([C.cream, C.yellow, hex('#ffe9b0'), C.mint]) });
         if (W0.moths.length > 90) W0.moths.splice(0, W0.moths.length - 90);
         for (let i = 0; i < 24; i++) W0.spores.push({ x, y, vx: rr(-120, 120), vy: rr(-160, 40), life: 1, c: pick([C.mint, C.lav, C.pink]) });
-      } else if (ci === 3) { splatter(stx, x, y, rr(16, 34) * S.u / 900, 'rgba(12,7,7,0.92)'); splashAt(x, y, true); shake(5); }
-      else if (ci === 4) { if (boomT() < 2.8) splatter(stx, x, y, rr(10, 24) * S.u / 900, 'rgba(12,7,7,0.9)'); else ravenBoom(x, y); }
+      } else if (ci === 3) { splatter(stx, x, y, rr(16, 34) * S.u / 900, 'rgba(12,7,7,0.92)'); splashAt(x, y, true); shake(5); snd('splat', x / S.W * 2 - 1); }
+      else if (ci === 4) { if (boomT() < 2.8) { splatter(stx, x, y, rr(10, 24) * S.u / 900, 'rgba(12,7,7,0.9)'); snd('splat', x / S.W * 2 - 1); } else ravenBoom(x, y); }
       else if (ci === 5) strike(x, y);
-      else if (ci === 6) { W0.eye.bl = 1; shake(3); }
+      else if (ci === 6) { W0.eye.bl = 1; shake(3); snd('blink'); }
     }
 
     // ---------- chapter UI: caption with rune-scramble, rail, scroll hint ----------
@@ -1326,7 +1420,7 @@ class Component extends DCLogic {
     const railBtns = CH.map((c, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Gå til ' + c.cap.split(' · ')[0]);
       b.innerHTML = '<span>' + c.n + '</span><i></i>';
-      b.addEventListener('click', () => { S.sT = i ? CH[i].a + 0.1 : 0; S.last = performance.now(); });
+      b.addEventListener('click', () => { S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); });
       rail.appendChild(b); return b;
     });
     let capIdx = -1, capT = 1, capTxt = '';
@@ -1346,12 +1440,326 @@ class Component extends DCLogic {
       const ho = (1 - sstep(0.02, 0.1, P)).toFixed(2); if (hint.style.opacity !== ho) hint.style.opacity = ho;
     }
 
+    // ---------- I · more surprises in the North: faces, a troll, a balloon, Bifrost, a sea serpent, snow, a moose ----------
+    function genNorth2(w) {
+      for (const m of w.mountains) m.bl = 0;
+      w.troll = { x: rr(0.16, 0.36), up: 0, jump: 0, bl: 0, hit: null };
+      w.balloon = { popped: false, vik: null, hit: null };
+      w.snow = Array.from({ length: 150 }, () => ({ x: R(), y: R(), z: rr(0.2, 1), ph: rr(0, 6.28), vx: 0 }));
+      w.zz = []; w.fw = [];
+    }
+    const toScreen = (p, x, y) => [x * p.sc + FX() * (1 - p.sc) + p.ox, y * p.sc + FY() * (1 - p.sc) + p.oy];
+    const INK = hex('#1c2333');
+    function mountainFace(m, bx, by, mw, mh, p) {
+      const s = S.s1, wk = sstep(0.05, 0.1, s), sl = sstep(0.74, 0.8, s);
+      if (wk <= 0.01) return;
+      if (m.bl > 0) m.bl = Math.max(0, m.bl - S.dtt * 5); else if (R() < S.dtt * 0.22) m.bl = 1;
+      const er = mw * 0.045, ey = by - mh * 0.4, cur = toPlane(p, S.px, S.py), near = S.px > -999 && Math.hypot(cur[0] - bx, cur[1] - ey) < mw * 0.4;
+      const open = wk * (1 - sl) * (1 - Math.sin(m.bl * Math.PI)) * (near ? 1.3 : 1);
+      ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1.2, er * 0.26);
+      for (let side = -1; side <= 1; side += 2) {
+        const ex = bx + side * mw * 0.085;
+        if (open > 0.1) {
+          ctx.beginPath(); ctx.ellipse(ex, ey, er, er * Math.min(1.25, open), 0, 0, 6.283); ctx.fillStyle = G(C.cream); ctx.fill();
+          const dx = cur[0] - ex, dy = cur[1] - ey, dd = Math.hypot(dx, dy) || 1, ox = S.px > -999 ? dx / dd * er * 0.4 : 0, oy = S.px > -999 ? dy / dd * er * 0.4 * Math.min(1, open) : 0, pr = er * 0.52;
+          ctx.beginPath(); ctx.arc(ex + ox, ey + oy, pr, 0, 6.283); ctx.fillStyle = G(INK); ctx.fill();
+          ctx.beginPath(); ctx.arc(ex + ox - pr * 0.35, ey + oy - pr * 0.35, pr * 0.3, 0, 6.283); ctx.fillStyle = 'rgba(255,255,255,0.9)'; ctx.fill();
+        } else { ctx.beginPath(); ctx.arc(ex, ey - er * 0.4, er * 0.8, 0.35, Math.PI - 0.35); ctx.strokeStyle = G(INK, 0.8 * wk); ctx.stroke(); }
+        ctx.beginPath(); ctx.ellipse(ex + side * er * 0.7, ey + er * 1.7, er * 0.7, er * 0.38, 0, 0, 6.283); ctx.fillStyle = G(C.pink, 0.55 * wk); ctx.fill();
+      }
+      ctx.strokeStyle = G(INK, 0.85 * wk);
+      if (near && sl < 0.5) { ctx.beginPath(); ctx.ellipse(bx, ey + er * 2.3, er * 0.45, er * 0.62, 0, 0, 6.283); ctx.fillStyle = G(hex('#5a1f2a'), wk); ctx.fill(); }
+      else { ctx.beginPath(); ctx.arc(bx, ey + er * 1.3, er * 0.9, 0.3, Math.PI - 0.3); ctx.stroke(); }
+      if (sl > 0.5 && R() < S.dtt * 0.3 && W0.zz.length < 24) { const sc = toScreen(p, bx + mw * 0.1, ey - er * 2); W0.zz.push({ x: sc[0], y: sc[1], life: 1, s: Math.max(10, er * p.sc * 2.6), ph: rr(0, 6.28) }); }
+    }
+    function drawTroll(t, dt) {
+      const s = S.s1, tr = W0.troll, vis = sstep(0.15, 0.2, s) * (1 - sstep(0.5, 0.56, s));
+      tr.hit = null;
+      if (vis <= 0 && tr.up < 0.01) return;
+      const p = plane(0.42); setPlane(p);
+      const W = S.W, u = S.u, x = tr.x * W, r = u * 0.085, base = hillY(W0.hills[1], x, t);
+      const cur = toPlane(p, S.px, S.py), scared = S.px > -999 && Math.hypot(cur[0] - x, cur[1] - (base - r)) < r * 2.4 && tr.jump < 0.2;
+      tr.up += (vis * (scared ? 0.12 : 1) - tr.up) * Math.min(1, dt * (scared ? 9 : 2.2));
+      tr.jump *= Math.pow(0.06, dt);
+      if (tr.bl > 0) tr.bl = Math.max(0, tr.bl - dt * 6); else if (R() < dt * 0.4) tr.bl = 1;
+      const cy = base + r * 0.9 - tr.up * r * 1.7 - Math.abs(Math.sin(t * 14)) * tr.jump * r * 0.5;
+      tr.hit = [x, cy, r, p];
+      ctx.save(); ctx.translate(x, cy); ctx.rotate(Math.sin(t * 1.3) * 0.06 + tr.jump * Math.sin(t * 20) * 0.08);
+      const fur = G(hex('#7f9c55')), furD = G(hex('#5f7a3c'));
+      ctx.fillStyle = furD; for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(sd * r * 0.95, -r * 0.15, r * 0.24, r * 0.32, sd * 0.4, 0, 6.283); ctx.fill(); }
+      ctx.strokeStyle = G(C.orange); ctx.lineWidth = r * 0.09; ctx.lineCap = 'round'; ctx.beginPath();
+      for (let k = -1; k <= 1; k++) { ctx.moveTo(k * r * 0.18, -r * 0.92); ctx.quadraticCurveTo(k * r * 0.4, -r * 1.4, k * r * 0.25 + Math.sin(t * 3 + k) * r * 0.08, -r * 1.55); }
+      ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, 6.283); ctx.fillStyle = fur; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, r * 0.2, r * 0.7, r * 0.55, 0, 0, 6.283); ctx.fillStyle = G(hex('#b4cc83')); ctx.fill();
+      const lx = S.px > -999 ? clamp((cur[0] - x) / (W * 0.3), -1, 1) : Math.sin(t * 0.5), ly = S.px > -999 ? clamp((cur[1] - cy) / (W * 0.3), -1, 1) : 0, open = 1 - Math.sin(tr.bl * Math.PI);
+      for (const sd of [-1, 1]) {
+        const ex = sd * r * 0.32, ey = -r * 0.2;
+        ctx.beginPath(); ctx.ellipse(ex, ey, r * 0.17, r * 0.19 * open + 0.5, 0, 0, 6.283); ctx.fillStyle = G(C.cream); ctx.fill();
+        if (open > 0.3) { ctx.beginPath(); ctx.arc(ex + lx * r * 0.07, ey + ly * r * 0.07, r * 0.08, 0, 6.283); ctx.fillStyle = G(INK); ctx.fill(); }
+        if (tr.jump > 0.1) { ctx.beginPath(); ctx.ellipse(sd * r * 0.55, r * 0.2, r * 0.13, r * 0.08, 0, 0, 6.283); ctx.fillStyle = G(C.pink, tr.jump); ctx.fill(); }
+      }
+      ctx.beginPath(); ctx.ellipse(0, r * 0.12, r * 0.27, r * 0.22, 0, 0, 6.283); ctx.fillStyle = G(C.peach); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-r * 0.08, r * 0.04, r * 0.08, r * 0.05, -0.4, 0, 6.283); ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.fill();
+      ctx.strokeStyle = G(INK); ctx.lineWidth = r * 0.05; ctx.beginPath(); ctx.arc(0, r * 0.4, r * 0.22 + tr.jump * r * 0.1, 0.2, Math.PI - 0.2); ctx.stroke();
+      ctx.fillStyle = G(C.cream); ctx.fillRect(r * 0.04, r * 0.58 + tr.jump * r * 0.08, r * 0.08, r * 0.09);
+      ctx.restore();
+    }
+    function viking(x, y, sz, t, wave) {
+      ctx.lineCap = 'round';
+      if (wave) { ctx.strokeStyle = G(C.peach); ctx.lineWidth = sz * 0.16; ctx.beginPath(); ctx.moveTo(x + sz * 0.35, y + sz * 0.45); ctx.lineTo(x + sz * 1.05, y - sz * 0.25 + Math.sin(t * 9) * sz * 0.3); ctx.stroke(); }
+      ctx.beginPath(); ctx.arc(x, y, sz * 0.5, 0, 6.283); ctx.fillStyle = G(C.peach); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(x - sz * 0.45, y + sz * 0.05); ctx.quadraticCurveTo(x, y + sz * 1.15, x + sz * 0.45, y + sz * 0.05); ctx.fillStyle = G(C.orange); ctx.fill();
+      ctx.beginPath(); ctx.arc(x, y - sz * 0.08, sz * 0.53, Math.PI, 0); ctx.fillStyle = G(hex('#9aa3b5')); ctx.fill();
+      ctx.strokeStyle = G(C.cream); ctx.lineWidth = sz * 0.17; ctx.beginPath();
+      ctx.moveTo(x - sz * 0.45, y - sz * 0.22); ctx.quadraticCurveTo(x - sz * 0.95, y - sz * 0.35, x - sz * 0.82, y - sz * 0.95);
+      ctx.moveTo(x + sz * 0.45, y - sz * 0.22); ctx.quadraticCurveTo(x + sz * 0.95, y - sz * 0.35, x + sz * 0.82, y - sz * 0.95); ctx.stroke();
+      ctx.fillStyle = G(INK); ctx.fillRect(x - sz * 0.22, y - sz * 0.02, sz * 0.09, sz * 0.11); ctx.fillRect(x + sz * 0.13, y - sz * 0.02, sz * 0.09, sz * 0.11);
+    }
+    function drawBalloon(t, dt) {
+      const s = S.s1, b = W0.balloon, k = (s - 0.24) / 0.3, W = S.W, H = S.H, u = S.u, p = plane(0.2); setPlane(p);
+      b.hit = null;
+      if (!b.popped && k > 0 && k < 1) {
+        const x = mix(-0.12, 1.12, k) * W, y = H * (0.2 + 0.03 * Math.sin(t * 0.8)), rB = u * 0.07; b.hit = [x, y, rB, p];
+        ctx.save(); ctx.beginPath(); ctx.ellipse(x, y, rB, rB * 1.12, 0, 0, 6.283); ctx.clip();
+        const cols = [C.orange, C.cream, C.blue, C.cream, C.pink, C.cream];
+        for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.ellipse(x, y, rB * (1 - i / 6) + 0.5, rB * 1.12, 0, 0, 6.283); ctx.fillStyle = G(cols[i]); ctx.fill(); }
+        const sh = ctx.createRadialGradient(x - rB * 0.4, y - rB * 0.5, rB * 0.1, x, y, rB * 1.2); sh.addColorStop(0, 'rgba(255,255,255,0.35)'); sh.addColorStop(1, 'rgba(30,20,60,0.25)'); ctx.fillStyle = sh; ctx.fillRect(x - rB, y - rB * 1.2, rB * 2, rB * 2.4);
+        ctx.restore();
+        const by2 = y + rB * 1.6;
+        ctx.strokeStyle = G(C.brown); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x - rB * 0.55, y + rB * 0.95); ctx.lineTo(x - rB * 0.22, by2); ctx.moveTo(x + rB * 0.55, y + rB * 0.95); ctx.lineTo(x + rB * 0.22, by2); ctx.stroke();
+        viking(x, by2 - rB * 0.1, rB * 0.22, t, true);
+        ctx.fillStyle = G(hex('#a8734c')); ctx.fillRect(x - rB * 0.25, by2, rB * 0.5, rB * 0.3);
+      }
+      const v = b.vik;
+      if (v) {
+        v.vy += (45 - v.vy) * Math.min(1, dt * 2); v.y += v.vy * dt; v.x += Math.sin(t * 2 + v.ph) * 30 * dt;
+        const sz = u * 0.016, tilt = Math.sin(t * 2 + v.ph) * 0.2;
+        ctx.save(); ctx.translate(v.x, v.y); ctx.rotate(tilt);
+        ctx.strokeStyle = G(C.brown); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(0, -sz * 4.2); ctx.lineTo(0, -sz * 0.6); ctx.stroke();
+        ctx.beginPath(); ctx.arc(0, -sz * 4.2, sz * 3, Math.PI, 0); ctx.closePath(); ctx.fillStyle = G(C.pink); ctx.fill();
+        for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(0, -sz * 4.2); ctx.arc(0, -sz * 4.2, sz * 3, Math.PI + i * Math.PI / 3, Math.PI + (i + 0.5) * Math.PI / 3); ctx.closePath(); ctx.fillStyle = G(C.cream); ctx.fill(); }
+        viking(0, 0, sz, t, false);
+        ctx.restore();
+        if (v.y > H * 0.85) b.vik = null;
+      }
+    }
+    function popBalloon() {
+      const b = W0.balloon, h = b.hit; if (!h || b.popped) return false;
+      b.popped = true; const sc = toScreen(h[3], h[0], h[1]);
+      for (let k = 0; k < 40; k++) { const a = R() * 6.283, v = rr(80, 380); W0.petals.push({ x: sc[0], y: sc[1], vx: Math.cos(a) * v, vy: Math.sin(a) * v - 120, a: R() * 6.28, va: rr(-8, 8), c: pick([C.orange, C.blue, C.pink, C.yellow, C.mint, C.cream]), s: S.u * rr(0.008, 0.016), life: 1 }); }
+      b.vik = { x: h[0], y: h[1] + h[2] * 1.5, vy: -60, ph: rr(0, 6.28) };
+      snd('pop', sc[0] / S.W * 2 - 1); setTimeout(() => snd('giggle', sc[0] / S.W * 2 - 1), 250); return true;
+    }
+    function drawBifrost(t) {
+      const s = S.s1, g = sstep(0.36, 0.47, s), f = 1 - sstep(0.62, 0.72, s), a = g * f * (1 - N * 0.7); if (a <= 0.01) return;
+      const W = S.W, H = S.H, u = S.u, p = plane(0.18); setPlane(p);
+      const cx = W * 0.5, cy = H * 0.8, R0 = Math.max(W * 0.5, u * 0.7), bw = u * 0.016, cols = [C.pink, C.peach, C.yellow, C.lime, C.mint, hex('#9fd3f0'), C.lav], a1 = Math.PI + Math.PI * g;
+      ctx.lineCap = 'butt';
+      cols.forEach((c, i) => { ctx.beginPath(); ctx.arc(cx, cy, R0 - i * bw, Math.PI, a1); ctx.strokeStyle = G(c, 0.75 * a); ctx.lineWidth = bw + 0.6; ctx.stroke(); });
+      ctx.globalCompositeOperation = 'lighter';
+      for (let k = 0; k < 7; k++) { const aa = Math.PI + ((t * 0.12 + k / 7) % 1) * Math.PI; if (aa > a1) continue; const rad = R0 - bw * 3; ctx.fillStyle = css([255, 255, 240], 0.8 * a); ctx.beginPath(); ctx.arc(cx + Math.cos(aa) * rad, cy + Math.sin(aa) * rad, 2.4, 0, 6.283); ctx.fill(); }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    function drawSerpent(t, dt) {
+      const s = S.s1, k = (s - 0.5) / 0.17; if (k <= 0 || k >= 1) return;
+      const head = 0.22 + k * 0.7;
+      for (let i = 4; i >= 0; i--) {
+        const uu = head - i * 0.07; if (uu < 0.05 || uu > 0.98) continue;
+        const c = riverC(uu), rad = riverW(uu) * 0.2 + 3, bob = Math.sin(t * 3 - i) * rad * 0.15;
+        if (i === 0) {
+          const hx = c[0], hy = c[1] - rad * 1.15 + bob;
+          ctx.fillStyle = G(C.cream); for (const sd of [-1, 1]) { ctx.beginPath(); ctx.moveTo(hx + sd * rad * 0.25, hy - rad * 0.45); ctx.lineTo(hx + sd * rad * 0.45, hy - rad * 1.0); ctx.lineTo(hx + sd * rad * 0.05, hy - rad * 0.5); ctx.fill(); }
+          ctx.beginPath(); ctx.ellipse(hx, hy, rad * 0.75, rad * 0.62, -0.25, 0, 6.283); ctx.fillStyle = G(C.teal); ctx.fill();
+          ctx.beginPath(); ctx.ellipse(hx - rad * 0.55, hy + rad * 0.2, rad * 0.45, rad * 0.32, -0.3, 0, 6.283); ctx.fillStyle = G(C.mint); ctx.fill();
+          ctx.beginPath(); ctx.arc(hx + rad * 0.1, hy - rad * 0.15, rad * 0.2, 0, 6.283); ctx.fillStyle = G(C.cream); ctx.fill();
+          ctx.beginPath(); ctx.arc(hx + rad * 0.05, hy - rad * 0.13, rad * 0.1, 0, 6.283); ctx.fillStyle = G(INK); ctx.fill();
+          ctx.beginPath(); ctx.arc(hx - rad * 0.85, hy + rad * 0.1, rad * 0.05, 0, 6.283); ctx.fill();
+        } else {
+          ctx.lineCap = 'butt'; ctx.lineWidth = rad * 0.55; ctx.beginPath(); ctx.arc(c[0], c[1] + bob, rad, Math.PI, 0); ctx.strokeStyle = G(i % 2 ? C.teal : C.mint); ctx.stroke();
+          ctx.setLineDash([rad * 0.3, rad * 0.3]); ctx.strokeStyle = G(C.pink, 0.85); ctx.lineWidth = rad * 0.18; ctx.stroke(); ctx.setLineDash([]);
+        }
+        if (R() < dt * 2 && W0.rings.length < 30) W0.rings.push({ u: uu, off: R() < 0.5 ? -0.25 : 0.25, r: 4, life: 0.8 });
+      }
+    }
+    function drawMoose(t) {
+      const s = S.s1, k = (s - 0.8) / 0.19; if (k <= 0 || k >= 1) return;
+      const W = S.W, u = S.u, p = plane(0.42); setPlane(p);
+      const x = mix(1.12, -0.12, k) * W, L = u * 0.14, gy = hillY(W0.hills[1], x, t), wc = t * 5, col = G(C.navy);
+      ctx.save(); ctx.translate(x, gy - L * 0.95);
+      ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineWidth = L * 0.07;
+      [[-0.32, 0], [-0.2, Math.PI], [0.26, Math.PI], [0.38, 0]].forEach(([lx, ph]) => { const sw = Math.sin(wc + ph) * L * 0.12; ctx.beginPath(); ctx.moveTo(lx * L, L * 0.1); ctx.lineTo(lx * L + sw * 0.5, L * 0.55); ctx.lineTo(lx * L + sw, L * 0.95); ctx.stroke(); });
+      ctx.fillStyle = col;
+      ctx.beginPath(); ctx.ellipse(0, 0, L * 0.5, L * 0.26, 0, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-L * 0.22, -L * 0.16, L * 0.26, L * 0.18, -0.2, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-L * 0.3, -L * 0.25); ctx.quadraticCurveTo(-L * 0.58, -L * 0.42, -L * 0.72, -L * 0.26); ctx.lineTo(-L * 0.62, -L * 0.02); ctx.quadraticCurveTo(-L * 0.5, -L * 0.05, -L * 0.36, 0); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(-L * 0.78, -L * 0.16, L * 0.17, L * 0.08, 0.5, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-L * 0.66, -L * 0.08); ctx.quadraticCurveTo(-L * 0.68, L * 0.08, -L * 0.62, L * 0.1); ctx.lineTo(-L * 0.6, -L * 0.06); ctx.fill();
+      ctx.fillStyle = G(C.cream); ctx.beginPath(); ctx.arc(-L * 0.74, -L * 0.2, L * 0.018, 0, 6.283); ctx.fill();
+      // antlers that bloom
+      ctx.strokeStyle = G(C.sand); ctx.lineWidth = L * 0.035;
+      const tips = [];
+      for (const sd of [-1, 1]) { const ax = -L * 0.66 + sd * L * 0.04, ay = -L * 0.3; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.quadraticCurveTo(ax + sd * L * 0.08, ay - L * 0.2, ax + sd * L * 0.22, ay - L * 0.26); ctx.stroke(); for (let b = 0; b < 3; b++) { const bx = ax + sd * L * (0.06 + b * 0.06), by = ay - L * (0.14 + b * 0.04); ctx.beginPath(); ctx.moveTo(bx, by); ctx.lineTo(bx + sd * L * 0.02, by - L * 0.12); ctx.stroke(); tips.push([bx + sd * L * 0.02, by - L * 0.12]); } tips.push([ax + sd * L * 0.22, ay - L * 0.26]); }
+      if (N > 0.2) { ctx.globalCompositeOperation = 'lighter'; for (const tp of tips) { const gg = ctx.createRadialGradient(tp[0], tp[1], 0, tp[0], tp[1], L * 0.09); gg.addColorStop(0, css(C.pink, 0.5 * N)); gg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gg; ctx.fillRect(tp[0] - L * 0.09, tp[1] - L * 0.09, L * 0.18, L * 0.18); } ctx.globalCompositeOperation = 'source-over'; }
+      tips.forEach((tp, i) => { ctx.fillStyle = G([C.pink, C.yellow, C.lav, C.peach][i % 4]); for (let pe = 0; pe < 5; pe++) { const a = pe / 5 * 6.283 + t; ctx.beginPath(); ctx.arc(tp[0] + Math.cos(a) * L * 0.022, tp[1] + Math.sin(a) * L * 0.022, L * 0.018, 0, 6.283); ctx.fill(); } ctx.fillStyle = G(C.cream); ctx.beginPath(); ctx.arc(tp[0], tp[1], L * 0.012, 0, 6.283); ctx.fill(); });
+      ctx.restore();
+    }
+    function drawSnowZzzFireworks(t, dt) {
+      const W = S.W, H = S.H, s = S.s1, sn = sstep(0.6, 0.68, s) * (1 - S.dv), has = S.px > -999;
+      ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
+      if (sn > 0.01) {
+        ctx.fillStyle = css([255, 252, 245], 0.88 * sn); ctx.beginPath();
+        for (const f of W0.snow) {
+          f.vx += (Math.sin(t * 0.7 + f.ph) * 10 + S.wind * 30 - f.vx) * Math.min(1, dt);
+          if (has) { const dx = f.x * W - S.px, dy = f.y * H - S.py, dd = Math.hypot(dx, dy); if (dd < 140 && dd > 1) { const kk = 1 - dd / 140; f.vx += (dx / dd * 260 + clamp(S.pvx, -900, 900) * 0.6) * kk * dt * 4; } }
+          f.x += f.vx / W * dt; f.y += (14 + f.z * 42) / H * dt;
+          if (f.y > 1.02) { f.y = -0.02; f.x = R(); } if (f.x < -0.03) f.x = 1.03; else if (f.x > 1.03) f.x = -0.03;
+          const r = 0.8 + f.z * 2.2, x = f.x * W, y = f.y * H; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 6.283);
+        }
+        ctx.fill();
+      }
+      if (W0.zz.length) {
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (let i = W0.zz.length - 1; i >= 0; i--) { const z = W0.zz[i]; z.life -= dt * 0.33; z.y -= dt * 22; z.x += Math.sin(t * 2 + z.ph) * 14 * dt; if (z.life <= 0) { swapPop(W0.zz, i); continue; } ctx.font = 'italic 600 ' + (z.s * (1.4 - z.life * 0.5)).toFixed(1) + 'px Fraunces, Georgia, serif'; ctx.fillStyle = css(C.cream, Math.min(1, z.life * 1.6) * 0.9); ctx.fillText('z', z.x, z.y); }
+      }
+      if (W0.fw.length) {
+        ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+        for (let i = W0.fw.length - 1; i >= 0; i--) {
+          const f = W0.fw[i]; const ox = f.x, oy = f.y; f.vy += 70 * dt; f.vx *= Math.pow(0.35, dt); f.vy *= Math.pow(0.35, dt); f.x += f.vx * dt; f.y += f.vy * dt; f.life -= dt * 0.55;
+          if (f.life <= 0) { swapPop(W0.fw, i); continue; }
+          ctx.strokeStyle = css(f.c, f.life * (0.6 + 0.4 * Math.sin(t * 30 + i))); ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(ox - f.vx * 0.03, oy - f.vy * 0.03); ctx.lineTo(f.x, f.y); ctx.stroke();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+      }
+    }
+    // clicks in the North that are not orbs: balloon, troll, fireworks at night
+    function northClick(x, y) {
+      const pan = x / S.W * 2 - 1, b = W0.balloon.hit;
+      if (b) { const q = toPlane(b[3], x, y); if (Math.hypot(q[0] - b[0], q[1] - b[1]) < b[2] * 1.3) return popBalloon(); }
+      const tr = W0.troll.hit;
+      if (tr) { const q = toPlane(tr[3], x, y); if (Math.hypot(q[0] - tr[0], q[1] - tr[1]) < tr[2] * 1.1) { W0.troll.jump = 1; snd('giggle', pan); return true; } }
+      if (N > 0.4 && y < S.H * 0.55) {
+        const cols = pick([[C.pink, C.yellow, C.cream], [C.mint, C.lav, C.cream], [C.orange, C.yellow, C.pink]]);
+        for (let k = 0; k < 70; k++) { const a = k / 70 * 6.283 + R() * 0.1, v = rr(160, 330); W0.fw.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: rr(0.8, 1), c: pick(cols) }); }
+        snd('firework', pan); return true;
+      }
+      return false;
+    }
+
+    // ================= SOUND: a composed bed per chapter, crossfaded, plus synthesized reactive effects =================
+    const AU = { ctx: null, on: false, asked: false, beds: [], cur: -1, last: {} };
+    const BED_SRC = (i) => 'assets/audio/ch' + (i + 1) + '.mp3';
+    const sndBtn = root.querySelector('[data-snd]');
+    let soundPref = null; try { soundPref = localStorage.getItem('bb-sound'); } catch (e) {}
+    function auInit() {
+      if (AU.ctx) return true;
+      const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return false;
+      const c = new AC(); AU.ctx = c;
+      const comp = c.createDynamicsCompressor(); comp.threshold.value = -14; comp.knee.value = 12; comp.ratio.value = 4; comp.attack.value = 0.005; comp.release.value = 0.25;
+      AU.master = c.createGain(); AU.master.gain.value = 0; AU.master.connect(comp); comp.connect(c.destination);
+      AU.music = c.createGain(); AU.music.gain.value = 0.75; AU.music.connect(AU.master);
+      AU.sfx = c.createGain(); AU.sfx.gain.value = 0.9; AU.sfx.connect(AU.master);
+      const len = (c.sampleRate * 2.6) | 0, ir = c.createBuffer(2, len, c.sampleRate);
+      for (let ch = 0; ch < 2; ch++) { const dd = ir.getChannelData(ch); let lp = 0; for (let i = 0; i < len; i++) { lp += (Math.random() * 2 - 1 - lp) * 0.35; dd[i] = lp * Math.pow(1 - i / len, 2.4); } }
+      AU.rev = c.createConvolver(); AU.rev.buffer = ir; AU.revIn = c.createGain(); AU.revIn.gain.value = 0.5; AU.revIn.connect(AU.rev); AU.rev.connect(AU.master);
+      const nb = c.createBuffer(1, c.sampleRate * 2, c.sampleRate), nd = nb.getChannelData(0); for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1; AU.noise = nb;
+      AU.beds = CH.map(() => ({ buf: null, loading: false, src: null, g: null, on: 0, idle: 0 }));
+      document.addEventListener('visibilitychange', () => { if (!AU.ctx) return; if (document.hidden) AU.ctx.suspend(); else if (AU.on) AU.ctx.resume(); });
+      return true;
+    }
+    function bedLoad(i) {
+      const b = AU.beds[i]; if (!b || b.buf || b.loading || b.failed) return; b.loading = true;
+      fetch(BED_SRC(i)).then((r) => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+        .then((ab) => new Promise((res, rej) => AU.ctx.decodeAudioData(ab, res, rej)))
+        .then((buf) => { b.buf = buf; b.loading = false; }).catch(() => { b.loading = false; b.failed = true; });
+    }
+    function soundSet(on) {
+      if (on && !auInit()) return;
+      AU.on = on; try { localStorage.setItem('bb-sound', on ? '1' : '0'); } catch (e) {}
+      if (AU.ctx) {
+        const c = AU.ctx; if (on) c.resume();
+        AU.master.gain.cancelScheduledValues(c.currentTime); AU.master.gain.setTargetAtTime(on ? 0.9 : 0, c.currentTime, 0.35);
+        if (!on) setTimeout(() => { if (!AU.on) c.suspend(); }, 1600);
+      }
+      sndBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); sndBtn.querySelector('span').textContent = on ? 'SOUND ON' : 'SOUND OFF';
+    }
+    sndBtn.addEventListener('click', () => { AU.asked = true; soundSet(!AU.on); });
+    function audioStep(P, dt) {
+      if (!AU.ctx || !AU.on) return;
+      const c = AU.ctx, ci = chapterAt(P), now = c.currentTime;
+      bedLoad(ci); if (ci + 1 < CH.length) bedLoad(ci + 1);
+      AU.beds.forEach((b, i) => {
+        const want = i === ci ? 1 : 0;
+        if (want && b.buf && !b.src) { const s0 = c.createBufferSource(); s0.buffer = b.buf; s0.loop = true; const g = c.createGain(); g.gain.value = 0.0001; s0.connect(g); g.connect(AU.music); s0.start(); b.src = s0; b.g = g; b.on = 0; }
+        if (b.g && b.on !== want) { b.on = want; b.g.gain.cancelScheduledValues(now); b.g.gain.setTargetAtTime(want ? 1 : 0.0001, now, want ? 0.9 : 1.3); }
+        if (b.src && !want) { b.idle += dt; if (b.idle > 7) { try { b.src.stop(); } catch (e) {} b.src.disconnect(); b.g.disconnect(); b.src = b.g = null; b.idle = 0; } } else b.idle = 0;
+      });
+      if (ci !== AU.cur) { if (AU.cur >= 0) snd('whoosh'); AU.cur = ci; }
+      if (S.gl > 0.5 && R() < dt * 10) snd('glitch');
+    }
+    // --- synth helpers ---
+    function env(g, t0, a, peak, dec) { g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t0 + a); g.gain.exponentialRampToValueAtTime(0.0001, t0 + a + dec); }
+    function out(node, wet, pan) {
+      let n = node;
+      if (pan && AU.ctx.createStereoPanner) { const p = AU.ctx.createStereoPanner(); p.pan.value = clamp(pan, -1, 1); n.connect(p); n = p; }
+      n.connect(AU.sfx); if (wet) { const w = AU.ctx.createGain(); w.gain.value = wet; n.connect(w); w.connect(AU.revIn); }
+    }
+    function osc(type, f0, f1, t0, dur, vol, a, wet, pan) {
+      const c = AU.ctx, o = c.createOscillator(), g = c.createGain(); a = a || 0.005;
+      o.type = type; o.frequency.setValueAtTime(f0, t0); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t0 + a + dur);
+      env(g, t0, a, vol, dur); o.connect(g); out(g, wet, pan); o.start(t0); o.stop(t0 + a + dur + 0.05); return o;
+    }
+    function noiz(t0, dur, vol, type, f0, f1, Q, a, wet, pan) {
+      const c = AU.ctx, s0 = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain(); a = a || 0.005;
+      s0.buffer = AU.noise; s0.loop = true; f.type = type; f.frequency.setValueAtTime(f0, t0); if (f1) f.frequency.exponentialRampToValueAtTime(f1, t0 + a + dur); f.Q.value = Q || 0.7;
+      env(g, t0, a, vol, dur); s0.connect(f); f.connect(g); out(g, wet, pan); s0.start(t0, Math.random()); s0.stop(t0 + a + dur + 0.05); return { f, g };
+    }
+    const PENTA = [0, 2, 4, 7, 9];
+    const note = (base, k) => base * Math.pow(2, (PENTA[((k % 5) + 5) % 5] + 12 * Math.floor(k / 5)) / 12);
+    function voice(t0, d0, freqs, type, fq, fQ, vol, wet, vib, vibAmt, pan) {
+      // a pitched voice through a formant filter, with vibrato (whale, howl, caw)
+      const c = AU.ctx, o = c.createOscillator(), f = c.createBiquadFilter(), g = c.createGain(), l = c.createOscillator(), lg = c.createGain();
+      o.type = type; o.frequency.setValueAtTime(freqs[0][1], t0); for (const [tt, fr] of freqs.slice(1)) o.frequency.linearRampToValueAtTime(fr, t0 + tt);
+      l.frequency.value = vib; lg.gain.value = vibAmt; l.connect(lg); lg.connect(o.frequency);
+      f.type = 'bandpass'; f.Q.value = fQ; f.frequency.setValueAtTime(fq[0], t0); if (fq[1]) f.frequency.linearRampToValueAtTime(fq[1], t0 + d0 * 0.5); if (fq[2]) f.frequency.linearRampToValueAtTime(fq[2], t0 + d0);
+      env(g, t0, Math.min(0.35, d0 * 0.2), vol, d0); o.connect(f); f.connect(g); out(g, wet, pan);
+      o.start(t0); l.start(t0); o.stop(t0 + d0 + 0.5); l.stop(t0 + d0 + 0.5);
+    }
+    const SFX = {
+      bloop: (x) => { const t0 = AU.ctx.currentTime, f = note(523, (Math.random() * 8) | 0); osc('sine', f, f * 0.6, t0, 0.28, 0.35, 0.004, 0.3, x); osc('triangle', f * 2, f * 1.2, t0, 0.12, 0.08, 0.002, 0.2, x); },
+      sparkle: (x) => { const t0 = AU.ctx.currentTime, o = (Math.random() * 3) | 0; for (let i = 0; i < 6; i++) osc('triangle', note(1046, i + o), 0, t0 + i * 0.045, 0.35, 0.09, 0.002, 0.5, x); },
+      pop: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.09, 0.5, 'highpass', 1800, 0, 0.7, 0.001, 0.2, x); osc('sine', 700, 120, t0, 0.15, 0.35, 0.002, 0.2, x); },
+      giggle: (x) => { const t0 = AU.ctx.currentTime; for (let i = 0; i < 5; i++) { const f = 420 + Math.random() * 260; osc('sine', f, f * 1.5, t0 + i * 0.09, 0.08, 0.22, 0.01, 0.25, x); } },
+      firework: (x) => { const t0 = AU.ctx.currentTime; osc('sine', 140, 40, t0, 0.5, 0.5, 0.003, 0.3, x); for (let i = 0; i < 18; i++) noiz(t0 + 0.2 + Math.random() * 0.9, 0.03, 0.1 + Math.random() * 0.15, 'highpass', 2500, 0, 0.7, 0.001, 0.5, clamp((x || 0) + (Math.random() - 0.5) * 0.5, -1, 1)); },
+      splash: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.5, 0.35, 'lowpass', 2600, 300, 1, 0.01, 0.35, x); },
+      chime: () => { const t0 = AU.ctx.currentTime; [0, 2, 4, 5, 7].forEach((k, i) => osc('sine', note(392, k), 0, t0 + i * 0.12, 1.4, 0.08, 0.01, 0.7)); },
+      wake: () => { const t0 = AU.ctx.currentTime; [0, 2, 4].forEach((k, i) => osc('triangle', note(262, k), note(262, k) * 1.02, t0 + i * 0.07, 0.6, 0.1, 0.02, 0.5)); },
+      bell: (x) => { const c = AU.ctx, t0 = c.currentTime, f = note(659, (Math.random() * 7) | 0), m = c.createOscillator(), mg = c.createGain(); m.frequency.value = f * 3.5; mg.gain.setValueAtTime(f * 2.2, t0); mg.gain.exponentialRampToValueAtTime(1, t0 + 1.6); m.connect(mg); const o = osc('sine', f, 0, t0, 1.8, 0.16, 0.002, 0.7, x); mg.connect(o.frequency); m.start(t0); m.stop(t0 + 1.9); },
+      whale: (p) => { const t0 = AU.ctx.currentTime, d0 = 2.4 + (p || 1) * 0.5, b = 70 + Math.random() * 40; voice(t0, d0, [[0, b], [d0 * 0.45, b * 1.9], [d0, b * 1.3]], 'sawtooth', [380, 1100, 480], 6, 0.3 * Math.min(1.6, p || 1), 1.3, 5.5, 4); voice(t0 + 0.05, d0, [[0, b * 2], [d0 * 0.45, b * 3.8], [d0, b * 2.6]], 'sine', [600, 1500, 700], 3, 0.12, 1.3, 5.5, 6); },
+      flutter: (x) => { const t0 = AU.ctx.currentTime; for (let i = 0; i < 9; i++) noiz(t0 + i * 0.035, 0.03, 0.08, 'bandpass', 1400 + Math.random() * 800, 0, 3, 0.002, 0.2, x); },
+      wind: () => { const t0 = AU.ctx.currentTime, n = noiz(t0, 2.2, 0.3, 'bandpass', 260, 0, 1.2, 0.6, 0.4); n.f.frequency.linearRampToValueAtTime(1300, t0 + 1.2); n.f.frequency.linearRampToValueAtTime(300, t0 + 2.8); },
+      splat: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.16, 0.6, 'lowpass', 1600, 400, 1, 0.001, 0.2, x); osc('sine', 120, 50, t0, 0.18, 0.4, 0.002, 0.1, x); },
+      boom: (x) => { const t0 = AU.ctx.currentTime; osc('sine', 70, 24, t0, 1.6, 0.9, 0.003, 0.4, x); noiz(t0, 1.4, 0.5, 'lowpass', 900, 80, 0.8, 0.002, 0.6, x); },
+      caw: (x) => { const t0 = AU.ctx.currentTime; for (let r = 0; r < 2; r++) { voice(t0 + r * 0.42, 0.3, [[0, 720], [0.3, 430]], 'sawtooth', [1250, 1150, 1000], 5, 0.32, 0.6, 62, 40, x); voice(t0 + r * 0.42, 0.3, [[0, 720], [0.3, 430]], 'sawtooth', [2600, 2400], 6, 0.14, 0.6, 62, 40, x); } },
+      thunder: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.25, 0.6, 'highpass', 3000, 0, 0.7, 0.001, 0.4, x); noiz(t0 + 0.05, 3.2, 0.8, 'lowpass', 3500, 120, 0.9, 0.02, 0.9, x); osc('sine', 48, 30, t0 + 0.1, 3, 0.6, 0.2, 0.3, x); },
+      howl: () => { const t0 = AU.ctx.currentTime, d0 = 2.8; voice(t0, d0, [[0, 240], [0.9, 520], [2, 470], [d0, 260]], 'sawtooth', [800, 1000, 700], 3, 0.25, 1.5, 6, 9); voice(t0, d0, [[0, 482], [0.9, 1044], [2, 944], [d0, 522]], 'triangle', [1200, 1600], 2, 0.1, 1.5, 6, 14); },
+      glitch: () => { const t0 = AU.ctx.currentTime, n = 4 + ((Math.random() * 5) | 0); for (let i = 0; i < n; i++) osc('square', 150 + Math.random() * 2800, 0, t0 + i * 0.03, 0.025, 0.05, 0.001, 0); },
+      blink: () => { const t0 = AU.ctx.currentTime; osc('sine', 90, 50, t0, 0.25, 0.45, 0.004, 0.3); noiz(t0, 0.06, 0.12, 'bandpass', 900, 0, 2, 0.002, 0.2); },
+      whoosh: () => { const t0 = AU.ctx.currentTime, n = noiz(t0, 1.4, 0.3, 'bandpass', 200, 0, 1.4, 0.5, 0.6); n.f.frequency.exponentialRampToValueAtTime(2600, t0 + 0.8); n.f.frequency.exponentialRampToValueAtTime(300, t0 + 1.9); },
+    };
+    const SND_MIN = { glitch: 160, splat: 70, bloop: 40, whoosh: 900, whale: 600 };
+    function snd(name, a) {
+      if (!AU.on || !AU.ctx || AU.ctx.state !== 'running' || !SFX[name]) return;
+      const now = performance.now(); if (AU.last[name] && now - AU.last[name] < (SND_MIN[name] || 60)) return; AU.last[name] = now;
+      try { SFX[name](a); } catch (e) {}
+    }
+
     // ---------- loop ----------
     function surprise() {
       const k = (R() * 3) | 0;
-      if (k === 0) { const o = mkOrb(-0.08, 0.3, rr(0.05, 0.08)); o.free = true; o.vx = rr(0.22, 0.32); o.vy = 0; W0.spawned.push(o); }
-      else if (k === 1) { const f = pick(W0.flowers); f.burst = 1; f.wantBurst = true; }
-      else { W0.fish = { u: rr(0.35, 0.7), t: 0, dir: R() < 0.5 ? -1 : 1 }; }
+      if (k === 0) { const o = mkOrb(-0.08, 0.3, rr(0.05, 0.08)); o.free = true; o.vx = rr(0.22, 0.32); o.vy = 0; W0.spawned.push(o); snd('bloop', -0.9); }
+      else if (k === 1) { const f = pick(W0.flowers); f.burst = 1; f.wantBurst = true; snd('sparkle', f.x * 2 - 1); }
+      else { W0.fish = { u: rr(0.35, 0.7), t: 0, dir: R() < 0.5 ? -1 : 1 }; snd('splash'); }
     }
     function frame(now) {
       S.raf = requestAnimationFrame(frame);
@@ -1359,10 +1767,10 @@ class Component extends DCLogic {
       const dt = Math.min(0.05, Math.max(0.001, (now - (S.tp || now)) / 1000)); S.tp = now; S.t += dt;
       const t = S.t, E = energy(), W = S.W, H = S.H;
       const ps = S.s; S.s += (S.sT - S.s) * Math.min(1, dt * 3.2);
-      if (S.s > PMAX - 0.012) rebirth();
+      if (S.s > RMAX - 0.012) rebirth();
       S.sv = S.reborn ? 0 : S.sv * 0.8 + ((S.s - ps) / dt) * 0.2; S.reborn = false;
       S.wind *= Math.pow(0.4, dt); S.gust *= Math.pow(0.15, dt);
-      const P = S.s, s = Math.min(1, P);
+      const P = toStory(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt;
       S.s1 = s; S.dv = sstep(1, 1.42, P);
       D = sstep(0.15, 0.5, s) * (1 - sstep(0.62, 0.9, s)); N = sstep(0.55, 0.92, s);
       const idle = now - S.last > 4500;
@@ -1392,7 +1800,7 @@ class Component extends DCLogic {
       if (P > 3.36) {
         S.stf += dt; if (S.stf > 0.5) { S.stf = 0; stx.globalCompositeOperation = 'destination-out'; stx.fillStyle = 'rgba(0,0,0,0.05)'; stx.fillRect(0, 0, stain.width, stain.height); stx.globalCompositeOperation = 'source-over'; }
       }
-      if (S.gl > 0.04 && P > 5.2 && q7 < 0.7) glitchPass(S.gl);
+      if (S.gl > 0.04 && P > 5.2) glitchPass(S.gl);
       if (q7 > 0) drawInk(q7, t, dt);
       if (S.flash > 0) { ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = css(C.cream, S.flash); ctx.fillRect(0, 0, W, H); S.flash = Math.max(0, S.flash - dt * 0.8); }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
@@ -1401,10 +1809,13 @@ class Component extends DCLogic {
       S.dk = Math.round(dk * 40) / 40;
       typo(t, E);
       uiStep(P, dt);
+      audioStep(P, dt);
+      FPG.t += dt; FPG.n++; if (FPG.t > 3) { if (!FPG.lite && FPG.t / FPG.n > 0.04) { FPG.lite = true; root.classList.add('un-lite'); } FPG.t = 0; FPG.n = 0; }
       if (S.shake > 0.3) { cv.style.transform = 'translate(' + ((Math.random() - 0.5) * S.shake).toFixed(1) + 'px,' + ((Math.random() - 0.5) * S.shake).toFixed(1) + 'px) scale(1.02)'; S.shake *= Math.pow(0.02, dt); }
       else if (S.shake > 0) { S.shake = 0; cv.style.transform = ''; }
     }
 
+    const FPG = { t: 0, n: 0, lite: false };
     function drawNorth(t, dt, E, s) {
       const W = S.W, H = S.H, u = S.u, d = S.dpr;
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
@@ -1435,15 +1846,19 @@ class Component extends DCLogic {
         if (c.x > 1.3) c.x = -0.3; if (c.x < -0.3) c.x = 1.3;
         cloud(c.x * W, c.y * H + Math.sin(t * 0.4 + c.ph) * H * 0.01 - s * H * 0.12, c.s * W * (1 + 0.04 * Math.sin(t * 0.5 + c.ph)), c.a, c.b, t, c.ph);
       }
+      drawBifrost(t);
       // mountains
       const morph = clamp(s * 2.2, 0, 2);
       for (const m of W0.mountains) {
         p = plane(m.far ? 0.2 : 0.28); setPlane(p);
         const grow = 0.9 + 0.06 * Math.sin(t * 0.35 + m.ph) * E + sstep(0.3, 0.6, s) * 0.12;
-        mountain(m, m.x * W, H * (m.far ? 0.66 : 0.69), m.w * W * (1 + 0.15 * sstep(0.3, 0.6, s)), m.h * u * grow * (m.far ? 0.9 : 1), morph, t);
+        const mw0 = m.w * W * (1 + 0.15 * sstep(0.3, 0.6, s)), mh0 = m.h * u * grow * (m.far ? 0.9 : 1), mb0 = H * (m.far ? 0.66 : 0.69);
+        mountain(m, m.x * W, mb0, mw0, mh0, morph, t); mountainFace(m, m.x * W, mb0, mw0, mh0, p);
       }
+      drawBalloon(t, dt);
       p = plane(0.3); setPlane(p); hill(W0.hills[0], t);
-      p = plane(0.42); setPlane(p); hill(W0.hills[1], t); river(t);
+      drawTroll(t, dt);
+      p = plane(0.42); setPlane(p); hill(W0.hills[1], t); river(t); drawSerpent(t, dt); drawMoose(t); p = plane(0.42); setPlane(p);
       // fish jump
       if (W0.fish) {
         const f = W0.fish; f.t += dt / 1.4;
@@ -1501,6 +1916,7 @@ class Component extends DCLogic {
         ctx.globalCompositeOperation = 'lighter'; const gl = ctx.createRadialGradient(hx, hy, 0, hx, hy, f.size * u * 2.4); gl.addColorStop(0, css(f.a, 0.4 * N)); gl.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = gl; ctx.fillRect(hx - f.size * u * 2.4, hy - f.size * u * 2.4, f.size * u * 4.8, f.size * u * 4.8); ctx.globalCompositeOperation = 'source-over';
         flowerHead(f, hx, hy, f.size * u * (0.4 + 0.6 * gN), t * f.spin * 0.6 + f.ph, 0.5 + 0.5 * gN, 0.6, t);
       }
+      drawSnowZzzFireworks(t, dt);
       // pollen / fireflies
       ctx.setTransform(d, 0, 0, d, 0, 0);
       for (const q of W0.pollen) {
@@ -1557,16 +1973,18 @@ class Component extends DCLogic {
     const onDown = (e) => {
       if (e.target.closest && e.target.closest('a,button')) return;
       const q = pos(e); S.px = q[0]; S.py = q[1]; S.down = true; S.ty = q[1]; S.last = performance.now();
-      if (chapterAt(S.s) > 0) { chapterClick(q[0], q[1]); return; }
+      if (!AU.asked) { AU.asked = true; if (soundPref !== '0') soundSet(true); }
+      if (chapterAt(S.P) > 0) { chapterClick(q[0], q[1]); return; }
+      if (northClick(q[0], q[1])) return;
       const p = plane(0.5), b = toPlane(p, q[0], q[1]);
       const o = mkOrb(b[0] / S.W, b[1] / S.H, rr(0.02, 0.05)); o.free = true; o.vx = rr(-0.15, 0.15); o.vy = -0.4; W0.spawned.push(o);
       let best = null, bd = 1e9;
       for (const f of W0.flowers) { const dd = Math.abs(f.x * S.W - q[0]); if (dd < bd) { bd = dd; best = f; } }
-      if (best && bd < S.u * 0.12 && q[1] > S.H * 0.45) { best.burst = 1; best.wantBurst = true; }
+      if (best && bd < S.u * 0.12 && q[1] > S.H * 0.45) { best.burst = 1; best.wantBurst = true; snd('sparkle', q[0] / S.W * 2 - 1); } else snd('bloop', q[0] / S.W * 2 - 1);
     };
     const onMove = (e) => {
       const q = pos(e);
-      if (e.pointerType === 'touch' && S.down) { S.sT = clamp(S.sT + (S.ty - q[1]) * 0.0013, 0, PMAX); S.ty = q[1]; }
+      if (e.pointerType === 'touch' && S.down) { S.sT = clamp(S.sT + (S.ty - q[1]) * 0.0013, 0, RMAX); S.ty = q[1]; }
       S.px = q[0]; S.py = q[1]; S.last = performance.now();
     };
     const onUp = () => { S.down = false; };
@@ -1574,7 +1992,7 @@ class Component extends DCLogic {
     const onWheel = (e) => {
       e.preventDefault();
       const m = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? S.H : 1;
-      S.sT = clamp(S.sT + e.deltaY * m * 0.0004, 0, PMAX); S.wind = clamp(S.wind + e.deltaX * m * 0.01, -3, 3); S.last = performance.now();
+      S.sT = clamp(S.sT + e.deltaY * m * 0.0004, 0, RMAX); S.wind = clamp(S.wind + e.deltaX * m * 0.01, -3, 3); S.last = performance.now();
     };
     root.addEventListener('pointerdown', onDown); root.addEventListener('pointermove', onMove);
     root.addEventListener('pointerup', onUp); root.addEventListener('pointercancel', onUp); root.addEventListener('pointerleave', onLeave);
@@ -1584,8 +2002,8 @@ class Component extends DCLogic {
       if (tg && (/INPUT|TEXTAREA|SELECT/.test(tg.tagName) || (k === ' ' && tg.closest && tg.closest('button,a')))) return;
       let dv = 0;
       if (k === 'ArrowDown' || k === 'PageDown' || k === ' ') dv = 0.14; else if (k === 'ArrowUp' || k === 'PageUp') dv = -0.14;
-      else if (k === 'Home') dv = -PMAX; else if (k === 'End') { S.sT = PMAX - 0.03; e.preventDefault(); return; } else return;
-      e.preventDefault(); S.sT = clamp(S.sT + dv, 0, PMAX); S.last = performance.now();
+      else if (k === 'Home') dv = -RMAX; else if (k === 'End') { S.sT = RMAX - 0.03; e.preventDefault(); return; } else return;
+      e.preventDefault(); S.sT = clamp(S.sT + dv, 0, RMAX); S.last = performance.now();
     };
     window.addEventListener('keydown', onKey);
     setTimeout(loadRaven, 1500);
@@ -1594,7 +2012,8 @@ class Component extends DCLogic {
     let io = null;
     if (window.IntersectionObserver) { io = new IntersectionObserver((es) => { S.vis = es[0].isIntersecting; }); io.observe(root); }
     { const k = self.props.kapitel | 0, p0 = +self.props.p || 0, st = k > 1 && k <= CH.length ? CH[k - 1].a + 0.1 : p0;
-      if (st > 0) { S.s = S.sT = lastP = clamp(st, 0, PMAX - 0.05); if (st > 2) loadRaven(); } }
+      if (st > 0) { const sp = clamp(st, 0, PMAX - 0.05); lastP = S.P = sp; S.s = S.sT = toRaw(sp); if (sp > 2) loadRaven(); } }
+    if (self.props.film === 0) root.classList.add('un-off');
     S.raf = requestAnimationFrame(frame);
     this._stop = () => {
       cancelAnimationFrame(S.raf); ro.disconnect(); if (io) io.disconnect();
@@ -1608,7 +2027,7 @@ class Component extends DCLogic {
 (function () {
   const q = new URLSearchParams(location.search);
   const c = new Component();
-  c.props = { energi: parseFloat(q.get('energi')) || 1, seed: parseInt(q.get('seed'), 10) || 0, kapitel: parseInt(q.get('kapitel'), 10) || 0, p: parseFloat(q.get('p')) || 0 };
+  c.props = { film: q.get('film') === '0' ? 0 : 1, energi: parseFloat(q.get('energi')) || 1, seed: parseInt(q.get('seed'), 10) || 0, kapitel: parseInt(q.get('kapitel'), 10) || 0, p: parseFloat(q.get('p')) || 0 };
   c.root = document.querySelector('[data-k="unreal-a"]');
   c.componentDidMount();
 })();

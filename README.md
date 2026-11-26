@@ -4,13 +4,21 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 
 | | Kapitel | Hvad sker der | Klik / tryk |
 |---|---|---|---|
-| I | **The Unreal North** | Dag → solnedgang → nat med nordlys. Bjerge morfer, blomster vokser, floden følger scrollfarten. Til sidst dykker kameraet op i himlen. | Kaster kugler, får blomster til at eksplodere |
+| I | **The Unreal North** | Dobbelt så langt som de andre. Dag → solnedgang → nat med nordlys. Bjergene vågner med ansigter, der følger musen, og falder i søvn med zzz. En trold kigger frem bag bakken og gemmer sig, når du kommer for tæt på. En ballon med en viking driver forbi, regnbuebroen Bifrost tegner sig over himlen, en søslange svømmer i floden, det sner (musen hvirvler sneen), og en elg med blomstrende gevir går forbi i nordlyset. Til sidst dykker kameraet op i himlen. | Kugler og blomster. Klik på ballonen (viking i faldskærm), på trolden (den fniser) og om natten på himlen (fyrværkeri) |
 | II | **The Singing Sky** | Warp-stjerner (scroll = flyv frem), nordlys der bøjer mod musen, en hval af stjernebilleder der synger, vandmænd. | Ny vandmand; klik på hvalen får den til at synge |
 | III | **Lantern Woods** | Parallaks-skov med lysende svampe og lanterner, der svinger efter musens fart. Lanternerne slukker én efter én, og øjne åbner sig i mørket. | Slipper en sværm af møl løs, som følger musen |
 | IV | **Sunfall** | Solen styrter op, himlen brænder ravgul, det regner med blæk (musen er en paraply), og en ravn krydser solen. | Blæksprøjt |
 | V | **Bloody Brilliant** | En ravn af blæk dykker ned foran kæmpebogstaver, der drypper med blod. Vingen opløses i røg med en brændende kant, og musen river fjer løs. | Ravnen eksploderer til blæk og samler sig igen |
 | VI | **Ragnarök** | Kulsort, med støj og glitch. Yggdrasil vokser op af mørket, runer brænder i en roterende cirkel, Odin ser med ét rødt øje, Huginn og Muninn kredser, og Fenrir bryder løs og sluger verden. | Thors lyn slår ned, og runerne gløder |
-| VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
+| VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. Øjet er tegnet i samme beskidte blæk som guderne, med trævlet iris, tørpensel-rynker, knoglehvide vipper og blodtårer. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
+
+## Lyd
+
+Tryk **SOUND** i headeren, eller klik et sted i scenen. Lyden starter ved første klik og huskes til næste besøg. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–7.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
+
+## Filmlook
+
+Over alt ligger et animeret filmkorn, en papirstruktur, en svag vignet og en blødere, let afmættet canvas, så grafikken ligner tryk og ikke computergrafik. Hvis enheden ikke kan følge med, slår den selv de tunge dele fra. `?film=0` viser den rå version til sammenligning.
 
 Undervejs er der "beats", der udløses, når du scroller fremad forbi dem: hvalen synger, stjerneskud, et vindstød slukker lanterner, ravnen lander og eksploderer, lynet slår ned, og Fenrir hyler.
 
@@ -28,7 +36,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `?seed=1234` låser verdenen (0 eller ingen giver en ny ved hver reload)
 - `?energi=1.5` styrer bevægelsesintensiteten (0.3–2)
 - `?kapitel=6` starter i et bestemt kapitel (1–7)
-- `?p=6.0` starter på et præcist punkt i fortællingen (0–7.1)
+- `?p=6.0` starter på et præcist punkt i fortællingen (0–7.1, hvor kapitel I er 0–1)
+- `?film=0` slår filmlooket fra
 
 ### Styring
 
@@ -50,4 +59,5 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `index.html`: hele oplevelsen.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
+- `assets/audio/ch1.mp3` … `ch7.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.
