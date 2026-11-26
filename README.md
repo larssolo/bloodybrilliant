@@ -1,6 +1,6 @@
 # Bloody Brilliant — The Unreal of North
 
-By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fortælling i syv kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
+By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fortælling i otte kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
 
 | | Kapitel | Hvad sker der | Klik / tryk |
 |---|---|---|---|
@@ -11,6 +11,7 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 | V | **Bloody Brilliant** | En ravn af blæk dykker ned foran kæmpebogstaver, der drypper med blod. Vingen opløses i røg med en brændende kant, og musen river fjer løs. | Ravnen eksploderer til blæk og samler sig igen |
 | VI | **Ragnarök** | Kulsort, med støj og glitch. Yggdrasil vokser op af mørket, runer brænder i en roterende cirkel, Odin ser med ét rødt øje, Huginn og Muninn kredser, og Fenrir bryder løs og sluger verden. | Thors lyn slår ned, og runerne gløder |
 | VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. Øjet er tegnet i samme beskidte blæk som guderne, med trævlet iris, tørpensel-rynker, knoglehvide vipper og blodtårer. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
+| VIII | **Prism** | Efter øjet: mytiske blækfugle flyver ind over det, først én langsomt og til sidst en sværm, og deres vinger visker mørket væk til gult. Så bevæger fortællingen sig *sidelæns*: scroll (eller vandret swipe/trackpad) kører verden mod venstre. Verdenen starter i sort-hvid og får sine farver, når hestenes regnbuehaler og din mus maler dem frem. Dalí-agtige heste på stylteben med kæmpeøjne går på spejlblankt vand eller svæver. Svævende øer med regnbuevandfald, marmorbuer og en kæmperegnbue. Undervejs vokser en kæmpehests ben, til den skræver hen over dig, verden vender på hovedet, og et regnbue-stormløb farver alt. Vandfaldene løber opad, når du spoler tilbage. | Prisme-bombe med farve og konfetti; klik på en hest, så stejler den og vrinsker; bobler springer under musen |
 
 ## Lyd
 
@@ -37,8 +38,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 
 - `?seed=1234` låser verdenen (0 eller ingen giver en ny ved hver reload)
 - `?energi=1.5` styrer bevægelsesintensiteten (0.3–2)
-- `?kapitel=6` starter i et bestemt kapitel (1–7)
-- `?p=6.0` starter på et præcist punkt i fortællingen (0–7.1, hvor kapitel I er 0–1)
+- `?kapitel=8` starter i et bestemt kapitel (1–8)
+- `?p=8.5` starter på et præcist punkt i fortællingen (0–9.45, hvor kapitel I er 0–1)
 - `?film=0` slår filmlooket fra
 
 ### Styring
@@ -61,5 +62,5 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `index.html`: hele oplevelsen.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
-- `assets/audio/ch1.mp3` … `ch7.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
+- `assets/audio/ch1.mp3` … `ch8.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.

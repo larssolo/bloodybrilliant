@@ -125,7 +125,7 @@ class Component extends DCLogic {
     const grade = (c) => { const w = lc(c, [Math.min(255, c[0] * 1.05 + 22), c[1] * 0.86, c[2] * 0.78], D * 0.35); return lc(w, [w[0] * 0.28 + 12, w[1] * 0.32 + 14, w[2] * 0.55 + 42], N * 0.78); };
     const G = (c, a) => css(grade(c), a);
 
-    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, P: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
+    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, P: 0, rwd: 1, tx: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
     let W0 = null;
 
     function gen() {
@@ -411,7 +411,7 @@ class Component extends DCLogic {
     //  THE LONG TALE: chapters II-VI. Progress S.s runs 0..PMAX, then the
     //  world is reborn with a new seed, so the story never ends.
     // =====================================================================
-    const PMAX = 7.1, RMAX = PMAX + 1;
+    const PMAX = 9.45, RMAX = PMAX + 1;
     // raw scroll S.s runs 0..RMAX; story time P stretches chapter I over the first two raw units
     const toRaw = (x) => (x < 1 ? x * 2 : x + 1), toStory = (x) => (x < 2 ? x / 2 : x - 1);
     const CH = [
@@ -421,7 +421,8 @@ class Component extends DCLogic {
       { a: 3.45, n: 'IV', cap: 'IV — THE DAY THE SUN FELL DOWN', aria: 'Kapitel IV: solen styrter, himlen brænder ravgul og det regner med blæk' },
       { a: 4.45, n: 'V', cap: 'V — EVERY FAIRYTALE KEEPS A RAVEN', aria: 'Kapitel V: en sort ravn af blæk dykker ned og opløses i røg og blæksprøjt' },
       { a: 5.5, n: 'VI', cap: 'VI — WHEN THE WOLF SWALLOWS THE SUN', aria: 'Kapitel VI: Ragnarök. Yggdrasil vokser i mørket, runer brænder, Odin ser med ét øje, og Fenrir bryder løs' },
-      { a: 6.6, n: 'VII', cap: 'VII — AND THEN, THE INK', aria: 'Kapitel VII: blækket opsluger alt, Odins øje åbner sig, og fortællingen begynder forfra' },
+      { a: 6.6, n: 'VII', cap: 'VII — AND THEN, THE INK', aria: 'Kapitel VII: blækket opsluger alt, Odins øje åbner sig, og mytiske fugle flyver ind over det' },
+      { a: 7.85, n: 'VIII', cap: 'VIII — WHERE THE HORSES WALK ON AIR · SCROLL →', aria: 'Kapitel VIII: Prism. En sidelæns verden, der går fra sort-hvid til regnbue, med langbenede heste med regnbuehaler, svævende øer og vandfald' },
     ];
     const chapterAt = (P) => { let i = 0; for (let k = 1; k < CH.length; k++) if (P >= CH[k].a - 0.06) i = k; return i; };
     const hash2 = (x, y) => { const v = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return v - Math.floor(v); };
@@ -517,6 +518,7 @@ class Component extends DCLogic {
       w.eye = { bl: 0, next: 0 };
       genRagnarok(w);
       genNorth2(w);
+      genPrism(w);
     }
 
     // ---------- II · the singing sky ----------
@@ -1349,7 +1351,7 @@ class Component extends DCLogic {
       const ox = (Math.random() * 128) | 0, oy = (Math.random() * 128) | 0;
       ctx.globalAlpha = 0.32 * o; ctx.translate(ox, oy); ctx.fillStyle = grainPat; ctx.fillRect(-ox, -oy, W, H); ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
       ctx.globalAlpha = o * 0.7; ctx.fillStyle = scanPat; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
-      if (R() < dt * 0.5) S.gl = Math.max(S.gl, rr(0.2, 0.5));
+      if (S.P < 6.98 && R() < dt * 0.5) S.gl = Math.max(S.gl, rr(0.2, 0.5));
     }
     function drawInk(q, t, dt) {
       const W = S.W, H = S.H, d = S.dpr, rc = RVS.rect;
@@ -1367,7 +1369,7 @@ class Component extends DCLogic {
     function rebirth() {
       snd('chime'); snd('whoosh');
       W0 = gen(); S.s = S.sT = 0; S.flash = 1; S.next = S.t + 4; S.reborn = true; lastP = 0;
-      stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null; S.inkC = null; S.gl = 0;
+      stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null; S.inkC = null; S.gl = 0; wkx.clearRect(0, 0, wake.width, wake.height); mkx.clearRect(0, 0, mask.width, mask.height);
     }
 
     // ---------- beats: one-shot surprises as you scroll forward past them ----------
@@ -1382,6 +1384,14 @@ class Component extends DCLogic {
       { at: 5.97, fn: () => { S.gl = 1; shake(12); strike(S.W * rr(0.2, 0.8), S.H * rr(0.3, 0.7)); } },
       { at: 6.3, fn: () => { S.gl = 1; shake(20); S.gust = 1; snd('howl'); snd('boom'); } },
       { at: 6.95, fn: () => { W0.eye.bl = 1; shake(6); snd('blink'); } },
+      { at: 7.02, fn: () => snd('wings') },
+      { at: 7.5, fn: () => snd('whoosh') },
+      { at: 7.72, fn: () => { snd('boom'); shake(8); } },
+      { at: 7.93, fn: () => { snd('chime'); snd('sparkle'); } },
+      { at: 8.15, fn: () => snd('neigh') },
+      { at: 8.55, fn: () => { snd('whoosh'); snd('chime'); } },
+      { at: 8.76, fn: () => snd('whoosh') },
+      { at: 9.05, fn: () => { W0.run = S.t; snd('gallop'); snd('neigh'); } },
       { at: 0.08, fn: () => snd('wake') },
       { at: 0.17, fn: () => snd('giggle') },
       { at: 0.4, fn: () => snd('chime') },
@@ -1390,7 +1400,7 @@ class Component extends DCLogic {
       { at: 0.77, fn: () => snd('chime') },
     ];
     let lastP = 0;
-    const BEAT_REV = { 1.62: ['whale'], 2.02: ['whale', 'sparkle'], 2.95: ['wind'], 3.95: ['caw'], 4.62: ['boom'], 5.18: ['boom', 'caw'], 5.64: ['thunder'], 5.97: ['thunder'], 6.3: ['howl', 'boom'], 6.95: ['blink'], 0.08: ['wake'], 0.17: ['giggle'], 0.4: ['chime'], 0.52: ['splash'], 0.62: ['wind'], 0.77: ['chime'] };
+    const BEAT_REV = { 7.02: ['wings'], 7.72: ['boom'], 7.93: ['chime'], 8.15: ['neigh'], 9.05: ['neigh', 'gallop'], 1.62: ['whale'], 2.02: ['whale', 'sparkle'], 2.95: ['wind'], 3.95: ['caw'], 4.62: ['boom'], 5.18: ['boom', 'caw'], 5.64: ['thunder'], 5.97: ['thunder'], 6.3: ['howl', 'boom'], 6.95: ['blink'], 0.08: ['wake'], 0.17: ['giggle'], 0.4: ['chime'], 0.52: ['splash'], 0.62: ['wind'], 0.77: ['chime'] };
     function beats(P) {
       if (P > lastP) { for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); }
       else if (P < lastP && !S.reborn) { for (const b of BEATS) if (lastP >= b.at && P < b.at) (BEAT_REV[b.at] || []).forEach((n) => sndRev(n)); }
@@ -1418,7 +1428,9 @@ class Component extends DCLogic {
       } else if (ci === 3) { splatter(stx, x, y, rr(16, 34) * S.u / 900, 'rgba(12,7,7,0.92)'); splashAt(x, y, true); shake(5); snd('splat', x / S.W * 2 - 1); }
       else if (ci === 4) { if (boomT() < 2.8) { splatter(stx, x, y, rr(10, 24) * S.u / 900, 'rgba(12,7,7,0.9)'); snd('splat', x / S.W * 2 - 1); } else ravenBoom(x, y); }
       else if (ci === 5) strike(x, y);
+      else if (S.P > 6.98 && S.P < 7.85) { spawnBird(x, y, S.u * rr(0.1, 0.2), -S.W * rr(0.3, 0.6)); snd('wings', x / S.W * 2 - 1); }
       else if (ci === 6) { W0.eye.bl = 1; shake(3); snd('blink'); }
+      else if (ci === 7) prismClick(x, y);
     }
 
     // ---------- chapter UI: caption with rune-scramble, rail, scroll hint ----------
@@ -1763,7 +1775,7 @@ class Component extends DCLogic {
       const b = AU.revCache[name]; if (!b || b === 'pending') { prepRev(name); return; }
       const s0 = AU.ctx.createBufferSource(), g = AU.ctx.createGain(); s0.buffer = b; g.gain.value = 0.9; s0.connect(g); out(g, 0, pan); s0.start();
     }
-    const REV_PRE = ['whoosh', 'wake', 'giggle', 'chime', 'splash', 'wind', 'whale', 'sparkle', 'caw', 'boom', 'thunder', 'howl', 'blink'];
+    const REV_PRE = ['neigh', 'wings', 'gallop', 'whoosh', 'wake', 'giggle', 'chime', 'splash', 'wind', 'whale', 'sparkle', 'caw', 'boom', 'thunder', 'howl', 'blink'];
     // --- synth helpers ---
     function env(g, t0, a, peak, dec) { g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t0 + a); g.gain.exponentialRampToValueAtTime(0.0001, t0 + a + dec); }
     function out(node, wet, pan) {
@@ -1810,15 +1822,294 @@ class Component extends DCLogic {
       caw: (x) => { const t0 = AU.ctx.currentTime; for (let r = 0; r < 2; r++) { voice(t0 + r * 0.42, 0.3, [[0, 720], [0.3, 430]], 'sawtooth', [1250, 1150, 1000], 5, 0.32, 0.6, 62, 40, x); voice(t0 + r * 0.42, 0.3, [[0, 720], [0.3, 430]], 'sawtooth', [2600, 2400], 6, 0.14, 0.6, 62, 40, x); } },
       thunder: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.25, 0.6, 'highpass', 3000, 0, 0.7, 0.001, 0.4, x); noiz(t0 + 0.05, 3.2, 0.8, 'lowpass', 3500, 120, 0.9, 0.02, 0.9, x); osc('sine', 48, 30, t0 + 0.1, 3, 0.6, 0.2, 0.3, x); },
       howl: () => { const t0 = AU.ctx.currentTime, d0 = 2.8; voice(t0, d0, [[0, 240], [0.9, 520], [2, 470], [d0, 260]], 'sawtooth', [800, 1000, 700], 3, 0.25, 1.5, 6, 9); voice(t0, d0, [[0, 482], [0.9, 1044], [2, 944], [d0, 522]], 'triangle', [1200, 1600], 2, 0.1, 1.5, 6, 14); },
+      wings: (x) => { const t0 = AU.ctx.currentTime; noiz(t0, 0.16, 0.35, 'lowpass', 900, 200, 0.8, 0.02, 0.3, x); noiz(t0 + 0.05, 0.12, 0.2, 'bandpass', 500, 0, 1.5, 0.01, 0.2, x); },
+      neigh: (x) => { const t0 = AU.ctx.currentTime; voice(t0, 1.3, [[0, 700], [0.12, 1250], [0.45, 980], [0.9, 760], [1.3, 480]], 'sawtooth', [1600, 1300, 900], 3, 0.22, 0.7, 13, 70, x); voice(t0, 1.3, [[0, 350], [0.12, 625], [0.45, 490], [1.3, 240]], 'sawtooth', [800, 700], 4, 0.12, 0.7, 13, 35, x); noiz(t0 + 1.25, 0.35, 0.25, 'bandpass', 700, 300, 1.2, 0.02, 0.3, x); },
+      gallop: () => { const t0 = AU.ctx.currentTime; for (let i = 0; i < 18; i++) { const tt = t0 + Math.floor(i / 3) * 0.42 + (i % 3) * 0.1 + Math.random() * 0.02; osc('sine', 110, 45, tt, 0.09, 0.4, 0.002, 0.15); noiz(tt, 0.03, 0.15, 'bandpass', 1800, 0, 2, 0.001, 0.1); } },
       glitch: () => { const t0 = AU.ctx.currentTime, n = 4 + ((Math.random() * 5) | 0); for (let i = 0; i < n; i++) osc('square', 150 + Math.random() * 2800, 0, t0 + i * 0.03, 0.025, 0.05, 0.001, 0); },
       blink: () => { const t0 = AU.ctx.currentTime; osc('sine', 90, 50, t0, 0.25, 0.45, 0.004, 0.3); noiz(t0, 0.06, 0.12, 'bandpass', 900, 0, 2, 0.002, 0.2); },
       whoosh: () => { const t0 = AU.ctx.currentTime, n = noiz(t0, 1.4, 0.3, 'bandpass', 200, 0, 1.4, 0.5, 0.6); n.f.frequency.exponentialRampToValueAtTime(2600, t0 + 0.8); n.f.frequency.exponentialRampToValueAtTime(300, t0 + 1.9); },
     };
-    const SND_MIN = { glitch: 160, splat: 70, bloop: 40, whoosh: 900, whale: 600 };
+    const SND_MIN = { wings: 90, neigh: 400, gallop: 2500, glitch: 160, splat: 70, bloop: 40, whoosh: 900, whale: 600 };
     function snd(name, a) {
       if (!AU.on || !AU.ctx || AU.ctx.state !== 'running' || !SFX[name]) return;
       const now = performance.now(); if (AU.last[name] && now - AU.last[name] < (SND_MIN[name] || 60)) return; AU.last[name] = now;
       try { SFX[name](a); } catch (e) {}
+    }
+
+    // =====================================================================
+    //  VIII · THE WINGS, then PRISM: a sideways world that learns its colours
+    // =====================================================================
+    const YEL = hex('#f7d311'), R8 = ['#ff3b5c', '#ff8a2a', '#ffd21f', '#5fd35a', '#2ec7c9', '#3a7bff', '#8f5bff', '#ff5fd2'].map(hex);
+    const wake = document.createElement('canvas'), wkx = wake.getContext('2d');      // yellow wiped open by the birds (CSS px)
+    const mask = document.createElement('canvas'), mkx = mask.getContext('2d');      // where Prism has colour (1/4 res)
+    const grayL = document.createElement('canvas'), gyx = grayL.getContext('2d');
+    function prismResize(W, H) { wake.width = W; wake.height = H; mask.width = grayL.width = Math.ceil(W / 4); mask.height = grayL.height = Math.ceil(H / 4); }
+    function genPrism(w) {
+      w.birds = []; w.bAcc = 0; w.hero = null; w.conf = []; w.bursts = []; w.bubbles = []; w.trail = []; w.cam = 0; w.camP = null;
+      const bodies = [hex('#f6eedf'), hex('#f6eedf'), hex('#ffd9e6'), hex('#d7f3e8'), hex('#e3dcff'), hex('#d6ecff'), hex('#fff0c4')];
+      w.horses = Array.from({ length: 14 }, (_, i) => ({ wx: 0.4 + i * 0.43 + rr(-0.1, 0.1), depth: [0.78, 0.62, 0.95, 0.5][i % 4], fly: i % 4 === 3, s: rr(0.85, 1.2), ph: rr(0, 6.28), spd: rr(0.7, 1.2), body: pick(bodies), off: (R() * 8) | 0, rear: 0, legK: 1, cr: Array.from({ length: 3 }, () => [rr(-0.4, 0.3), rr(-0.1, 0.1), rr(0.08, 0.2), rr(-0.6, 0.6)]) }));
+      w.giant = { wx: 2.55, depth: 0.86, fly: false, s: 1.5, ph: 0, spd: 0.55, body: hex('#f6eedf'), off: 3, rear: 0, legK: 1, giant: true, cr: [[-0.2, 0, 0.2, 0.3], [0.1, -0.05, 0.15, -0.4]] };
+      w.isl8 = Array.from({ length: 7 }, (_, i) => ({ wx: i * 0.95 + rr(0, 0.5), y: rr(0.14, 0.42), w: rr(0.1, 0.2), d: rr(0.34, 0.52), ph: rr(0, 6.28), tree: R() < 0.75, fall: R() < 0.75, c: pick([C.pink, hex('#ff8fc0'), C.lav, hex('#ffb35c')]) }));
+      w.clo8 = Array.from({ length: 14 }, (_, i) => ({ wx: i * 0.43 + rr(0, 0.3), y: rr(0.12, 0.5), s: rr(0.07, 0.16), d: rr(0.14, 0.38), ph: rr(0, 6.28), ti: (R() * 4) | 0 }));
+      w.spire = Array.from({ length: 9 }, (_, i) => ({ wx: i * 0.42 + rr(0, 0.25), h: rr(0.2, 0.45), w: rr(0.012, 0.03), d: 0.1 }));
+      w.arch = Array.from({ length: 3 }, (_, i) => ({ wx: 0.15 + i * 1.7, d: 0.6, s: rr(0.9, 1.15) }));
+      w.stone = Array.from({ length: 22 }, (_, i) => ({ wx: i * 0.33 + rr(0, 0.2), s: rr(0.035, 0.09), c: pick(R8), y: rr(0.88, 1.02) }));
+      w.poppy = Array.from({ length: 12 }, (_, i) => ({ wx: i * 0.62 + rr(0, 0.3), h: rr(0.2, 0.45), c: pick([R8[0], R8[1], R8[7], R8[2]]), ph: rr(0, 6.28) }));
+      w.balloon8 = Array.from({ length: 6 }, (_, i) => ({ wx: i * 1.0 + rr(0, 0.6), y: rr(0.1, 0.5), s: rr(0.018, 0.032), d: rr(0.3, 0.7), ph: rr(0, 6.28) }));
+      w.herd = Array.from({ length: 14 }, (_, i) => ({ dx: i * 0.075 + rr(0, 0.05), dy: rr(0.0, 0.08), s: rr(0.5, 0.75), ph: rr(0, 6.28), body: pick(bodies), off: i % 8, tr: [] }));
+      w.run = -99; w.flipFX = 0;
+    }
+    const wrapW = (x, span) => ((x % span) + span) % span - 0.3;
+
+    // ---------- the mythic birds ----------
+    function drawBird(x, y, s, fl, t, a, dir) {
+      // ink phoenix in profile, facing its flight direction: feather-blade wings, streamer tail
+      ctx.save(); ctx.translate(x, y); ctx.scale(dir < 0 ? 1 : -1, 1);
+      const ink = (alpha) => css([11, 9, 6], alpha * a), up = -1.15 + fl * 0.75;
+      const blade = (bx, by, ang, L, wd, alpha) => { const ca = Math.cos(ang), sa = Math.sin(ang), tx = bx + ca * L, ty = by + sa * L, nx = -sa * wd, ny = ca * wd; const g = ctx.createLinearGradient(bx, by, tx, ty); g.addColorStop(0, ink(alpha)); g.addColorStop(0.75, ink(alpha * 0.9)); g.addColorStop(1, ink(alpha * 0.25)); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(bx + nx, by + ny); ctx.quadraticCurveTo(bx + ca * L * 0.55 + nx * 1.4, by + sa * L * 0.55 + ny * 1.4, tx, ty); ctx.quadraticCurveTo(bx + ca * L * 0.5 - nx * 0.6, by + sa * L * 0.5 - ny * 0.6, bx - nx * 0.3, by - ny * 0.3); ctx.closePath(); ctx.fill(); };
+      for (let i = 0; i < 6; i++) blade(s * 0.05, -s * 0.05, up + 0.32 + i * 0.16, s * (0.95 - i * 0.09), s * 0.07, 0.55);          // far wing
+      for (let k = 0; k < 6; k++) { const L = s * (1.05 + k * 0.14), pts = []; for (let i = 0; i <= 10; i++) { const tt = i / 10; pts.push([s * 0.35 + tt * L, s * 0.06 + tt * s * (0.05 + k * 0.07) + Math.sin(t * 3.2 - tt * 4 + k * 0.9) * s * 0.09 * tt]); } ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1] - s * 0.04); for (const p0 of pts) ctx.lineTo(p0[0], p0[1] - s * 0.04 * (1 - p0[0] / (s * 0.35 + L))); for (let i = 10; i >= 0; i--) ctx.lineTo(pts[i][0], pts[i][1] + s * 0.03 * (1 - i / 10)); ctx.closePath(); const g = ctx.createLinearGradient(s * 0.35, 0, s * 0.35 + L, 0); g.addColorStop(0, ink(0.95)); g.addColorStop(1, ink(0.15)); ctx.fillStyle = g; ctx.fill(); }
+      ctx.fillStyle = ink(1); ctx.beginPath(); ctx.moveTo(-s * 0.62, -s * 0.02); ctx.quadraticCurveTo(-s * 0.45, -s * 0.14, -s * 0.1, -s * 0.1); ctx.quadraticCurveTo(s * 0.25, -s * 0.06, s * 0.42, s * 0.04); ctx.quadraticCurveTo(s * 0.1, s * 0.16, -s * 0.3, s * 0.1); ctx.quadraticCurveTo(-s * 0.5, s * 0.06, -s * 0.62, -s * 0.02); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-s * 0.6, -s * 0.05); ctx.lineTo(-s * 0.82, s * 0.0); ctx.lineTo(-s * 0.6, s * 0.02); ctx.fill();
+      ctx.fillStyle = css(YEL, 0.9 * a); ctx.beginPath(); ctx.ellipse(-s * 0.5, -s * 0.06, s * 0.025, s * 0.01, -0.2, 0, 6.283); ctx.fill();
+      for (let i = 0; i < 7; i++) blade(-s * 0.05, -s * 0.06, up + i * 0.17, s * (1.1 - i * 0.1), s * 0.08, 1);               // near wing
+      ctx.restore();
+    }
+    function spawnBird(x, y, sz, vx) { W0.birds.push({ x, y, s: sz, vx, vy: rr(-0.02, 0.02), ph: rr(0, 6.28), f: rr(1.6, 3.2) * (Math.abs(vx) > 0.6 ? 1.6 : 1) }); }
+    function drawWings(P, t, dt, A8) {
+      const W = S.W, H = S.H, u = S.u, d = S.dpr, k = clamp((P - 6.98) / 0.85, 0, 1);
+      if (k <= 0 && !W0.birds.length && !W0.hero) return;
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+      const dir = S.rwd < 0 ? -1 : 1;
+      if (k > 0.01 && !W0.hero && P < 7.6) W0.hero = { x: W + u * 0.7, y: H * 0.4, s: u * 0.55, vx: -W * 0.1, ph: 0, f: 0.9 };
+      const rate = P > 7.86 ? 0 : sstep(0.22, 0.5, k) * 2.5 + sstep(0.5, 0.75, k) * 10 + sstep(0.75, 0.9, k) * 80;
+      W0.bAcc += rate * dt * (dir > 0 ? 1 : 0);
+      while (W0.bAcc > 1 && W0.birds.length < 260) { W0.bAcc -= 1; const fast = sstep(0.5, 0.95, k); spawnBird(W + u * 0.4, H * rr(0.02, 0.98), u * rr(0.07, 0.2) * (1.4 - fast * 0.5), -W * mix(0.22, 1.9, fast * fast) * rr(0.8, 1.25)); }
+      // the yellow behind them: every wingbeat wipes the dark
+      if (k < 0.97) {
+        wkx.fillStyle = css(YEL, 1);
+        const stamp = (b) => { wkx.globalAlpha = Math.min(0.35, 0.05 + Math.abs(b.vx) / W * 0.06); wkx.beginPath(); wkx.ellipse(b.x + b.s * 0.3, b.y - b.s * 0.25, b.s * 1.1, b.s * 0.75, 0, 0, 6.283); wkx.fill(); };
+        if (W0.hero) stamp(W0.hero); for (const b of W0.birds) stamp(b); wkx.globalAlpha = 1;
+      }
+      const wa = 1 - A8; if (wa > 0.01) { ctx.globalAlpha = wa; ctx.drawImage(wake, 0, 0, W, H); ctx.globalAlpha = 1; }
+      const cover = sstep(0.8, 0.93, k) * (1 - A8); if (cover > 0.01) { ctx.fillStyle = css([11, 9, 6], cover); ctx.fillRect(0, 0, W, H); }
+      return dir;
+    }
+    function drawBirdsTop(t, dt, dir) {
+      const W = S.W, H = S.H;
+      const step = (b) => { b.x += b.vx * dt * dir; b.y += b.vy * H * dt + Math.sin(t * 1.2 + b.ph) * 6 * dt; b.ph += dt * b.f * 6.283; };
+      if (W0.hero) { const h = W0.hero; step(h); const fl = Math.sin(h.ph); if (fl < -0.95 && !h.snd) { h.snd = 1; snd('wings'); } else if (fl > 0) h.snd = 0; drawBird(h.x, h.y, h.s, fl, t, 1, h.vx * dir); if (h.x < -h.s * 2.5 || h.x > W + h.s * 3) W0.hero = null; }
+      for (let i = W0.birds.length - 1; i >= 0; i--) { const b = W0.birds[i]; step(b); if (b.x < -b.s * 2.5 || b.x > W + b.s * 3) { swapPop(W0.birds, i); continue; } drawBird(b.x, b.y, b.s, Math.sin(b.ph), t, 1, b.vx * dir); }
+      if (W0.birds.length > 3 && R() < dt * Math.min(8, W0.birds.length * 0.1)) snd('wings');
+    }
+
+    // ---------- the horses of Prism ----------
+    function drawHorse(h, x, gy, s, t, mirror) {
+      // Dalí-ish horse on stilts, facing right; s = body length (px); gy = where the hooves meet the water (or hang, for flyers)
+      const legH = s * 1.7 * h.legK, bh = s * 0.42, by = gy - legH - bh * 0.35, ph = t * 2.2 * h.spd + h.ph, rear = h.rear || 0;
+      const body = h.body, hi = lc(body, [255, 255, 255], 0.5), shade = lc(body, hex('#7d7394'), 0.32), far = lc(body, hex('#5e5672'), 0.5), tips = [];
+      ctx.save(); ctx.translate(x, by); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const footY = legH + bh * 0.35;
+      const leg = (hx, hy, i, col, lift0, front) => {
+        const f = ph + [0, Math.PI, Math.PI * 0.5, Math.PI * 1.5][i];
+        let fx, fy;
+        if (h.fly) { fx = hx + Math.sin(f * 0.5) * s * 0.2 - s * 0.05; fy = hy + legH * 0.92 - Math.max(0, Math.cos(f * 0.5)) * s * 0.22; }
+        else { fx = hx + Math.sin(f) * s * 0.26; fy = footY - Math.max(0, Math.cos(f)) * s * 0.12 - lift0; }
+        const kx = mix(hx, fx, 0.4) + (front ? s * 0.05 : -s * 0.08), ky = mix(hy, fy, 0.36);
+        ctx.strokeStyle = css(col); ctx.lineWidth = s * 0.09; ctx.beginPath(); ctx.moveTo(hx, hy - s * 0.04); ctx.lineTo(kx, ky); ctx.stroke();
+        ctx.lineWidth = s * 0.034; ctx.beginPath(); ctx.moveTo(kx, ky); ctx.lineTo(fx, fy - s * 0.035); ctx.stroke();
+        ctx.fillStyle = css(lc(col, [70, 50, 80], 0.55)); ctx.beginPath(); ctx.moveTo(fx - s * 0.028, fy - s * 0.04); ctx.lineTo(fx + s * 0.03, fy - s * 0.04); ctx.lineTo(fx + s * 0.045, fy); ctx.lineTo(fx - s * 0.032, fy); ctx.closePath(); ctx.fill();
+      };
+      // tail: a waterfall of rainbow strands
+      const tx = -s * 0.52, ty = -bh * 0.2;
+      for (let i = 0; i < 16; i++) {
+        const L = s * (1.0 + (i % 5) * 0.11), n = 11; ctx.strokeStyle = css(R8[(i + h.off) % 8], 0.95); ctx.lineWidth = Math.max(1.2, s * (0.036 - i * 0.0014));
+        ctx.beginPath(); let px0 = tx, py0 = ty + i * s * 0.004; ctx.moveTo(px0, py0);
+        for (let j = 1; j <= n; j++) { const tt = j / n; px0 = tx - tt * L * 0.7 - tt * tt * L * 0.15; py0 = ty + tt * L * (0.2 + i * 0.016) + tt * tt * L * 0.25 + Math.sin(t * 2.4 - tt * 5 + i * 0.45) * s * 0.06 * tt; ctx.lineTo(px0, py0); }
+        ctx.stroke(); if (i % 5 === 0) tips.push([x + px0, by + py0]);
+      }
+      leg(-s * 0.3, bh * 0.15, 1, far, 0, false); leg(s * 0.3, bh * 0.15, 3, far, rear * legH * 0.45, true);
+      ctx.save(); ctx.translate(-s * 0.3, bh * 0.3); ctx.rotate(-0.42 * rear); ctx.translate(s * 0.3, -bh * 0.3);
+      // mane falls behind the neck, blown back
+      for (let i = 0; i < 12; i++) {
+        const tt = i / 11, mx0 = mix(s * 0.56, s * 0.2, tt) - s * 0.02, my0 = mix(-s * 0.88, -s * 0.3, tt);
+        ctx.strokeStyle = css(R8[(i + h.off + 2) % 8], 0.97); ctx.lineWidth = Math.max(1.4, s * 0.045);
+        ctx.beginPath(); ctx.moveTo(mx0, my0); for (let j = 1; j <= 6; j++) ctx.lineTo(mx0 - j * s * 0.055, my0 + j * s * 0.025 + Math.sin(t * 3 + j * 0.7 + i) * s * 0.02 * j); ctx.stroke();
+      }
+      const g = ctx.createLinearGradient(0, -s * 0.95, 0, bh * 0.6); g.addColorStop(0, css(hi)); g.addColorStop(0.55, css(body)); g.addColorStop(1, css(shade));
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.ellipse(-s * 0.28, -s * 0.01, s * 0.27, bh * 0.5, 0.1, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, s * 0.02, s * 0.45, bh * 0.46, 0, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(s * 0.3, -s * 0.02, s * 0.22, bh * 0.52, -0.2, 0, 6.283); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(s * 0.16, -s * 0.14); ctx.quadraticCurveTo(s * 0.32, -s * 0.62, s * 0.5, -s * 0.9); ctx.lineTo(s * 0.66, -s * 0.8); ctx.quadraticCurveTo(s * 0.52, -s * 0.45, s * 0.48, s * 0.06); ctx.closePath(); ctx.fill();
+      // head
+      ctx.beginPath(); ctx.moveTo(s * 0.49, -s * 0.92); ctx.quadraticCurveTo(s * 0.7, -s * 0.98, s * 0.86, -s * 0.74); ctx.quadraticCurveTo(s * 0.97, -s * 0.56, s * 0.9, -s * 0.5); ctx.quadraticCurveTo(s * 0.82, -s * 0.45, s * 0.74, -s * 0.54); ctx.quadraticCurveTo(s * 0.62, -s * 0.62, s * 0.53, -s * 0.72); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = css(shade); ctx.beginPath(); ctx.ellipse(s * 0.87, -s * 0.54, s * 0.075, s * 0.05, 0.6, 0, 6.283); ctx.fill();
+      ctx.fillStyle = css(hex('#4a3a52')); ctx.beginPath(); ctx.ellipse(s * 0.905, -s * 0.585, s * 0.012, s * 0.02, 0.5, 0, 6.283); ctx.fill();
+      ctx.strokeStyle = css(lc(shade, [60, 40, 70], 0.3)); ctx.lineWidth = Math.max(1, s * 0.01); ctx.beginPath(); ctx.moveTo(s * 0.84, -s * 0.49); ctx.quadraticCurveTo(s * 0.8, -s * 0.5, s * 0.77, -s * 0.53); ctx.stroke();
+      ctx.fillStyle = css(body); for (const ox of [0, -s * 0.06]) { ctx.beginPath(); ctx.moveTo(s * 0.55 + ox, -s * 0.9); ctx.lineTo(s * 0.5 + ox, -s * 1.07); ctx.lineTo(s * 0.61 + ox, -s * 0.93); ctx.closePath(); ctx.fill(); }
+      for (let i = 0; i < 4; i++) { ctx.strokeStyle = css(R8[(i + h.off + 5) % 8]); ctx.lineWidth = Math.max(1.2, s * 0.03); ctx.beginPath(); ctx.moveTo(s * 0.55, -s * 0.92); ctx.quadraticCurveTo(s * (0.62 + i * 0.02), -s * 0.88, s * (0.64 + i * 0.03), -s * (0.8 - i * 0.02) + Math.sin(t * 3 + i) * s * 0.01); ctx.stroke(); }
+      const ex = s * 0.66, ey = -s * 0.78, er = s * 0.072;
+      ctx.fillStyle = '#fbfbff'; ctx.beginPath(); ctx.arc(ex, ey, er, 0, 6.283); ctx.fill(); ctx.strokeStyle = css(shade); ctx.lineWidth = Math.max(1, s * 0.01); ctx.stroke();
+      const has = S.px > -999 && !mirror, ldx = has ? clamp((S.px - (x + ex)) / 300, -1, 1) : Math.sin(t * 0.7 + h.ph), ldy = has ? clamp((S.py - (by + ey)) / 300, -1, 1) : 0;
+      ctx.fillStyle = css(hex('#2f8fe0')); ctx.beginPath(); ctx.arc(ex + ldx * er * 0.28, ey + ldy * er * 0.28, er * 0.62, 0, 6.283); ctx.fill();
+      ctx.fillStyle = '#0c1020'; ctx.beginPath(); ctx.arc(ex + ldx * er * 0.36, ey + ldy * er * 0.36, er * 0.3, 0, 6.283); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.95)'; ctx.beginPath(); ctx.arc(ex + ldx * er * 0.28 - er * 0.22, ey + ldy * er * 0.28 - er * 0.25, er * 0.17, 0, 6.283); ctx.fill();
+      ctx.strokeStyle = css(shade); ctx.lineWidth = Math.max(1, s * 0.012); ctx.beginPath(); ctx.arc(ex, ey, er * 1.08, Math.PI * 1.1, Math.PI * 1.9); ctx.stroke();
+      ctx.strokeStyle = css(hex('#9b8f86'), 0.55); ctx.lineWidth = 1; ctx.beginPath(); for (const c of h.cr) { ctx.moveTo(c[0] * s, c[1] * s); ctx.lineTo(c[0] * s + Math.cos(c[3]) * c[2] * s, c[1] * s + Math.sin(c[3]) * c[2] * s * 0.5); } ctx.stroke();
+      ctx.restore();
+      leg(-s * 0.34, bh * 0.2, 0, body, 0, false); leg(s * 0.34, bh * 0.2, 2, body, rear * legH * 0.5, true);
+      ctx.restore();
+      if (!mirror) h.hit = [x + s * 0.3, by - s * 0.3, s * 0.9];
+      return tips;
+    }
+    // ---------- the world title, standing on the water ----------
+    const PT = { ok: false, L: [], fs: 0 };
+    function layoutPrismTitle() {
+      const W = S.W, H = S.H, txt = 'PRISM MARES'; PT.fs = Math.min(H * 0.27, W * 0.17);
+      ctx.font = '900 ' + PT.fs.toFixed(1) + 'px Fraunces, Georgia, serif'; PT.L = []; let x = 0;
+      for (const ch of txt) { const w = ctx.measureText(ch).width; PT.L.push({ ch, x: x + w / 2, w, ph: rr(0, 6.28) }); x += w; }
+      PT.width = x; PT.ok = true;
+    }
+    function drawPrismTitle(x0, y0, t, mirror) {
+      if (!PT.ok) layoutPrismTitle();
+      ctx.font = '900 ' + PT.fs.toFixed(1) + 'px Fraunces, Georgia, serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      PT.L.forEach((L, i) => {
+        if (L.ch === ' ') return; const x = x0 + L.x, y = y0 + Math.sin(t * 1.1 + L.ph) * PT.fs * 0.02, ext = PT.fs * 0.06;
+        if (x < -PT.fs || x > S.W + PT.fs) return;
+        for (let k = 6; k > 0; k--) { ctx.fillStyle = css(lc(R8[i % 8], [40, 20, 70], 0.55 + k * 0.04)); ctx.fillText(L.ch, x + ext * k / 6, y + ext * k / 6); }
+        const g = ctx.createLinearGradient(0, y - PT.fs * 0.75, 0, y); g.addColorStop(0, css(R8[(i + 7) % 8])); g.addColorStop(0.5, css(R8[i % 8])); g.addColorStop(1, css(R8[(i + 1) % 8]));
+        ctx.fillStyle = g; ctx.fillText(L.ch, x, y);
+        ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.fillText(L.ch, x - PT.fs * 0.012, y - PT.fs * 0.012); ctx.fillStyle = g; ctx.fillText(L.ch, x + PT.fs * 0.004, y + PT.fs * 0.004);
+      });
+    }
+    const CLOUD_P = Array.from({ length: 15 }, (_, i) => { const dx = (i / 14 - 0.5) * 2.3, top = 1 - Math.pow(Math.abs(dx) / 1.2, 1.6); return [dx + (Math.random() - 0.5) * 0.15, -top * 0.55 * (0.6 + Math.random() * 0.5), 0.24 + top * 0.34 * (0.7 + Math.random() * 0.5)]; });
+    const CLOUD_T = [[hex('#ffd6ec'), hex('#f39fd0')], [hex('#ffe2c2'), hex('#f5ae78')], [hex('#e9ddff'), hex('#b4a0f2')], [hex('#dcf2ff'), hex('#9cc7f2')]];
+    function cloud8(x, y, r, t, ph, ti) {
+      // cumulus: lumpy sunlit top, flat tinted base
+      const tint = CLOUD_T[(ti || 0) % 4];
+      // one silhouette path of all puffs, flattened at the base, so nothing shows as boxes or scales
+      const pth = new Path2D();
+      for (const b of CLOUD_P) { const bx = x + b[0] * r, byy = y + b[1] * r, br = b[2] * r * (1 + 0.03 * Math.sin(t * 0.6 + ph + b[0])); pth.moveTo(bx + br, byy); pth.arc(bx, byy, br, 0, 6.283); }
+      pth.rect(x - r * 1.25, y - r * 0.25, r * 2.5, r * 0.33);
+      ctx.save(); ctx.beginPath(); ctx.rect(x - r * 2.2, y - r * 2.2, r * 4.4, r * 2.28); ctx.clip();
+      const g = ctx.createLinearGradient(0, y - r * 0.95, 0, y + r * 0.08); g.addColorStop(0, '#ffffff'); g.addColorStop(0.45, css(tint[0])); g.addColorStop(1, css(tint[1]));
+      ctx.fillStyle = g; ctx.fill(pth);
+      ctx.globalCompositeOperation = 'source-atop';
+      for (const b of CLOUD_P) { const bx = x + b[0] * r - r * 0.12, byy = y + b[1] * r - r * 0.14, br = b[2] * r * 0.8; const hg = ctx.createRadialGradient(bx, byy, 0, bx, byy, br); hg.addColorStop(0, 'rgba(255,255,255,0.55)'); hg.addColorStop(1, 'rgba(255,255,255,0)'); ctx.fillStyle = hg; ctx.fillRect(bx - br, byy - br, br * 2, br * 2); }
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.restore();
+    }
+    function fall(x, y, w, L, t, a) {
+      // a waterfall: streaks that run down (or up, while you rewind) and dissolve into mist
+      const dirW = S.rwd < 0 ? -1 : 1, g = ctx.createLinearGradient(x - w / 2, 0, x + w / 2, 0); R8.forEach((c, i) => g.addColorStop(i / 7, css(c, 0.62)));
+      ctx.globalAlpha *= a; ctx.fillStyle = g; ctx.fillRect(x - w / 2, y, w, L * 0.8);
+      const fo = ctx.createLinearGradient(0, y + L * 0.5, 0, y + L); fo.addColorStop(0, 'rgba(255,255,255,0)'); fo.addColorStop(1, 'rgba(255,255,255,0.6)'); ctx.fillStyle = fo; ctx.fillRect(x - w / 2, y + L * 0.5, w, L * 0.5);
+      ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = 1.2; ctx.beginPath();
+      for (let k = 0; k < 7; k++) { const xx = x - w / 2 + (k + 0.5) / 7 * w, off = (((t * 160 * dirW + k * 37) % 60) + 60) % 60; for (let yy = y + off - 60; yy < y + L * 0.85; yy += 60) { ctx.moveTo(xx, Math.max(y, yy)); ctx.lineTo(xx, Math.min(y + L, yy + 26)); } }
+      ctx.stroke(); ctx.globalAlpha /= a;
+      for (let k = 0; k < 4; k++) { ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.beginPath(); ctx.arc(x + Math.sin(t * 1.5 + k) * w * 0.6, y + L * 0.9, w * (0.5 + k * 0.15), 0, 6.283); ctx.fill(); }
+    }
+    function paint(x, y, r, a) { const g = mkx.createRadialGradient(x / 4, y / 4, 0, x / 4, y / 4, r / 4); g.addColorStop(0, 'rgba(255,255,255,' + a + ')'); g.addColorStop(1, 'rgba(255,255,255,0)'); mkx.fillStyle = g; mkx.fillRect(x / 4 - r / 4, y / 4 - r / 4, r / 2, r / 2); }
+    function prismBurst(x, y, big) {
+      W0.bursts.push({ x, y, t0: S.t, r: S.u * (big ? 0.5 : 0.32), rot: rr(0, 6.28) });
+      for (let k = 0; k < (big ? 70 : 40); k++) { const a = R() * 6.283, v = rr(120, 520); W0.conf.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 140, a: R() * 6.28, va: rr(-9, 9), c: pick(R8), s: rr(3, 7), life: 1 }); }
+    }
+    function drawPrism(A, q, t, dt, E) {
+      const W = S.W, H = S.H, u = S.u, d = S.dpr, cam = q * 5.4, y0 = H * 0.8;
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A;
+      // shift the colour mask with the world so painted colour stays where it was painted
+      if (W0.camP == null) W0.camP = cam;
+      const dxs = (cam - W0.camP) * 0.82 * W / 4; W0.camP = cam;
+      if (Math.abs(dxs) > 0.01) { mkx.globalCompositeOperation = 'copy'; mkx.drawImage(mask, -dxs, 0); mkx.globalCompositeOperation = 'source-over'; }
+      // the looking-glass flip: for a while the reflection is the world
+      const fk = sstep(0.47, 0.5, q) - sstep(0.58, 0.61, q), fy = Math.cos(fk * Math.PI);
+      ctx.save(); if (fk > 0) { ctx.translate(0, H / 2); ctx.scale(1, fy); ctx.translate(0, -H / 2); }
+      // sky, sun
+      const sky = ctx.createLinearGradient(0, 0, 0, y0); sky.addColorStop(0, '#2f7fe8'); sky.addColorStop(0.35, '#7cc4ff'); sky.addColorStop(0.7, '#ff9fd6'); sky.addColorStop(1, '#ffd27a'); ctx.fillStyle = sky; ctx.fillRect(0, -H * 0.2, W, y0 + H * 0.2);
+      const sx = (0.32 - cam * 0.04) * W, sy = H * 0.3, sr = u * 0.22;
+      let g = ctx.createRadialGradient(sx, sy, sr * 0.6, sx, sy, sr * 3); g.addColorStop(0, 'rgba(255,248,190,0.85)'); g.addColorStop(1, 'rgba(255,240,200,0)'); ctx.fillStyle = g; ctx.fillRect(sx - sr * 3, sy - sr * 3, sr * 6, sr * 6);
+      g = ctx.createRadialGradient(sx - sr * 0.2, sy - sr * 0.2, sr * 0.1, sx, sy, sr); g.addColorStop(0, '#fffbe0'); g.addColorStop(1, '#ffe27a'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, 6.283); ctx.fill();
+      { const rcx = (0.7 - cam * 0.03) * W, rr0 = Math.max(W, H) * 0.62, bw = u * 0.032; ctx.lineCap = 'butt'; R8.slice(0, 7).forEach((c, i) => { ctx.strokeStyle = css(c, 0.55); ctx.lineWidth = bw + 0.5; ctx.beginPath(); ctx.arc(rcx, y0 + H * 0.1, rr0 - i * bw, Math.PI, 0); ctx.stroke(); }); }
+      // spires far away
+      for (const sp of W0.spire) { const x = wrapW(sp.wx - cam * sp.d, 3.8) * W; if (x < -40 || x > W + 40) continue; const hh = sp.h * H, ww = sp.w * W; ctx.fillStyle = 'rgba(255,250,245,0.75)'; ctx.fillRect(x - ww / 2, y0 - hh, ww, hh); ctx.beginPath(); ctx.arc(x, y0 - hh, ww * 0.9, Math.PI, 0); ctx.fill(); ctx.fillStyle = 'rgba(255,210,120,0.9)'; ctx.fillRect(x - 1, y0 - hh - ww * 2.6, 2, ww * 1.8); }
+      for (const c of W0.clo8) if (c.d < 0.26) { const x = wrapW(c.wx - cam * c.d, 6) * W; if (x > -u * 0.6 && x < W + u * 0.6) cloud8(x, c.y * H, c.s * u, t, c.ph, c.ti); }
+      // floating islands with waterfalls; yellow balloons
+      for (const is of W0.isl8) {
+        const x = wrapW(is.wx - cam * is.d, 6.6) * W, y = is.y * H + Math.sin(t * 0.6 + is.ph) * u * 0.02, w = is.w * W; if (x < -w || x > W + w) continue;
+        if (is.fall) fall(x + w * 0.3, y + w * 0.06, w * 0.12, H * 0.45, t, 0.85);
+        ctx.fillStyle = css(hex('#7a4f8f')); ctx.beginPath(); ctx.moveTo(x - w * 0.5, y); ctx.lineTo(x + w * 0.5, y); ctx.lineTo(x + w * 0.38, y + w * 0.14); ctx.lineTo(x + w * 0.2, y + w * 0.36); ctx.lineTo(x + w * 0.08, y + w * 0.5); ctx.lineTo(x + w * 0.02, y + w * 0.66); ctx.lineTo(x - w * 0.1, y + w * 0.44); ctx.lineTo(x - w * 0.3, y + w * 0.26); ctx.lineTo(x - w * 0.46, y + w * 0.1); ctx.closePath(); ctx.fill(); ctx.strokeStyle = 'rgba(255,200,230,0.35)'; ctx.lineWidth = 1; ctx.beginPath(); for (let k = 1; k < 4; k++) { ctx.moveTo(x - w * (0.48 - k * 0.07), y + w * k * 0.1); ctx.lineTo(x + w * (0.45 - k * 0.09), y + w * k * 0.1); } ctx.stroke();
+        ctx.fillStyle = css(hex('#c49aa8')); ctx.beginPath(); ctx.moveTo(x - w * 0.5, y); ctx.lineTo(x, y); ctx.lineTo(x + w * 0.02, y + w * 0.62); ctx.lineTo(x - w * 0.18, y + w * 0.32); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = css(hex('#7cc96a')); ctx.beginPath(); ctx.ellipse(x, y, w * 0.52, w * 0.07, 0, 0, 6.283); ctx.fill();
+        if (is.tree) { ctx.strokeStyle = css(hex('#7a5246')); ctx.lineWidth = w * 0.03; ctx.beginPath(); ctx.moveTo(x - w * 0.15, y); ctx.quadraticCurveTo(x - w * 0.1, y - w * 0.2, x - w * 0.18, y - w * 0.32); ctx.stroke(); ctx.fillStyle = css(is.c); for (const b of [[-0.3, -0.36, 0.16], [-0.1, -0.4, 0.14], [-0.2, -0.48, 0.13], [-0.04, -0.34, 0.1]]) { ctx.beginPath(); ctx.arc(x + b[0] * w, y + b[1] * w, b[2] * w, 0, 6.283); ctx.fill(); } }
+      }
+      for (const b of W0.balloon8) { const x = wrapW(b.wx - cam * b.d, 6) * W, y = (((b.y - t * 0.012 + b.ph) % 1.3) + 1.3) % 1.3 * H - H * 0.15, r = b.s * u * 2; if (x < -30 || x > W + 30) continue; ctx.strokeStyle = 'rgba(120,100,90,0.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, y + r); ctx.quadraticCurveTo(x + Math.sin(t + b.ph) * 8, y + r * 2.5, x, y + r * 4); ctx.stroke(); g = ctx.createRadialGradient(x - r * 0.35, y - r * 0.35, r * 0.1, x, y, r); g.addColorStop(0, '#fff6b0'); g.addColorStop(1, '#f5c400'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, y, r * 0.85, r, 0, 0, 6.283); ctx.fill(); }
+      for (const c of W0.clo8) if (c.d >= 0.26) { const x = wrapW(c.wx - cam * c.d, 6) * W; if (x > -u * 0.6 && x < W + u * 0.6) cloud8(x, c.y * H, c.s * u, t, c.ph, c.ti); }
+      // horses that float through the air
+      const tips = [];
+      for (const h of W0.horses) if (h.fly) { const x = (h.wx - cam * h.depth) * W + Math.sin(t * 0.3 + h.ph) * u * 0.05, s = Math.min(u * 0.13, H * 0.15) * h.s; if (x < -s * 2 || x > W + s * 2) { h.hit = null; continue; } const gy = H * (0.42 + 0.06 * Math.sin(t * 0.5 + h.ph)); tips.push(...drawHorse(h, x, gy, s, t, false)); h.rear *= Math.pow(0.12, dt); }
+      // marble arches with a waterfall through them
+      for (const ar of W0.arch) { const x = wrapW(ar.wx - cam * ar.d, 5.1) * W, R0 = H * 0.36 * ar.s; if (x < -R0 * 1.5 || x > W + R0 * 1.5) continue; fall(x - R0 * 0.55, y0 - R0 * 1.05, R0 * 0.28, R0 * 1.05, t, 0.9); g = ctx.createLinearGradient(x - R0, 0, x + R0, 0); g.addColorStop(0, '#fff7f2'); g.addColorStop(0.6, '#ffd8ea'); g.addColorStop(1, '#e6b8e0'); ctx.strokeStyle = g; ctx.lineWidth = R0 * 0.32; ctx.lineCap = 'butt'; ctx.beginPath(); ctx.arc(x, y0, R0, Math.PI, 0); ctx.stroke(); }
+      // water: a mirror of the sky
+      g = ctx.createLinearGradient(0, y0, 0, H * 1.2); g.addColorStop(0, '#ffc98a'); g.addColorStop(0.35, '#ff92cf'); g.addColorStop(1, '#4f9cf5'); ctx.fillStyle = g; ctx.fillRect(0, y0, W, H * 1.3 - y0);
+      ctx.save(); ctx.beginPath(); ctx.rect(0, y0, W, H * 1.3); ctx.clip(); ctx.translate(0, y0 * 2); ctx.scale(1, -1); ctx.globalAlpha = A * 0.3;
+      ctx.fillStyle = '#ffe27a'; ctx.beginPath(); ctx.arc(sx, sy, sr, 0, 6.283); ctx.fill();
+      const ground = W0.horses.filter((h) => !h.fly).concat([W0.giant]).sort((a, b) => a.depth - b.depth);
+      ctx.restore(); ctx.save(); ctx.beginPath(); ctx.rect(0, y0, W, H * 1.3); ctx.clip(); ctx.globalAlpha = A * 0.3;
+      for (const h of ground) { const x = (h.wx - cam * h.depth) * W, s = Math.min(u * 0.16, H * 0.19) * h.s * (0.6 + h.depth * 0.5), gy = y0 + (h.depth - 0.6) * H * 0.18; if (x > -s * 2 && x < W + s * 2) { ctx.save(); ctx.translate(0, gy * 2); ctx.scale(1, -1); drawHorse(h, x, gy, s, t, true); ctx.restore(); } }
+      ctx.restore(); ctx.globalAlpha = A;
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 1.2; ctx.beginPath(); for (let k = 0; k < 40; k++) { const yy = y0 + (k / 40) ** 1.6 * (H - y0), xx = ((k * 97.3 + t * 30 * (k % 3 + 1)) % (W + 200)) - 100, ww = 20 + (k / 40) * 90; ctx.moveTo(xx, yy); ctx.lineTo(xx + ww, yy); } ctx.stroke();
+      // the title stands on the water
+      const tx0 = (0.55 - cam * 0.8) * W; if (tx0 < W + 50 && tx0 + (PT.width || W) > -50) drawPrismTitle(tx0, y0 + H * 0.02, t, false);
+      // the giant whose legs keep growing, then steps over you
+      const gi = W0.giant; gi.legK = 1 + 5.5 * sstep(0.22, 0.42, q);
+      for (const h of ground) { const x = (h.wx - cam * h.depth) * W + (h.giant ? 0 : Math.sin(t * 0.12 + h.ph) * u * 0.04), s = Math.min(u * 0.16, H * 0.19) * h.s * (0.6 + h.depth * 0.5); if (x < -s * 2.5 || x > W + s * 2.5) { h.hit = null; continue; } tips.push(...drawHorse(h, x, y0 + (h.depth - 0.6) * H * 0.18, s, t, false)); h.rear *= Math.pow(0.12, dt); }
+      // the stampede: a herd that leaves rainbows
+      const rt = t - W0.run;
+      if (rt >= 0 && rt < 3.4) {
+        for (const h of W0.herd) {
+          const x = W * (1.3 - rt / 3.4 * 1.9) + h.dx * W, gy = H * (0.86 + h.dy), s = u * 0.1 * h.s;
+          h.tr.push([x - s * 0.5, gy - s * 1.9]); if (h.tr.length > 22) h.tr.shift();
+          for (let c = 0; c < 8; c++) { ctx.strokeStyle = css(R8[c], 0.75); ctx.lineWidth = s * 0.05; ctx.beginPath(); h.tr.forEach((p0, i) => (i ? ctx.lineTo(p0[0] + (h.tr.length - i) * s * 0.12, p0[1] + (c - 4) * s * 0.05) : ctx.moveTo(p0[0] + h.tr.length * s * 0.12, p0[1] + (c - 4) * s * 0.05))); ctx.stroke(); }
+          const hh = { body: h.body, off: h.off, ph: h.ph, spd: 4.5, legK: 0.8, s: 1, cr: [], fly: false, rear: 0 };
+          ctx.save(); ctx.translate(x, 0); ctx.scale(-1, 1); drawHorse(hh, 0, gy, s, t, true); ctx.restore();
+          paint(x, gy - s, u * 0.22, 0.5);
+        }
+        if (rt < 0.1) shake(6);
+      } else for (const h of W0.herd) h.tr.length = 0;
+      // foreground: glossy stones and huge poppies
+      for (const st of W0.stone) { const x = wrapW(st.wx - cam * 1.15, 7.26) * W, r = st.s * u, y = st.y * H; if (x < -r * 2 || x > W + r * 2) continue; g = ctx.createRadialGradient(x - r * 0.4, y - r * 0.5, r * 0.1, x, y, r * 1.2); g.addColorStop(0, css(lc(st.c, [255, 255, 255], 0.6))); g.addColorStop(0.6, css(st.c)); g.addColorStop(1, css(lc(st.c, [40, 20, 60], 0.4))); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, y, r * 1.3, r * 0.8, 0, 0, 6.283); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.beginPath(); ctx.ellipse(x - r * 0.5, y - r * 0.35, r * 0.3, r * 0.12, -0.3, 0, 6.283); ctx.fill(); }
+      for (const pp of W0.poppy) { const x = wrapW(pp.wx - cam * 1.3, 7.44) * W, hh = pp.h * H, sway = Math.sin(t * 0.9 + pp.ph) * u * 0.02, hx = x + sway, hy = H * 1.02 - hh; if (x < -u * 0.2 || x > W + u * 0.2) continue; ctx.strokeStyle = css(hex('#5aa84a')); ctx.lineWidth = Math.max(2, u * 0.006); ctx.beginPath(); ctx.moveTo(x, H * 1.02); ctx.quadraticCurveTo(x + sway * 0.3, H - hh * 0.5, hx, hy); ctx.stroke(); const pr = u * 0.055; for (let k = 0; k < 5; k++) { const a = k / 5 * 6.283 + t * 0.2 + pp.ph; ctx.fillStyle = css(lc(pp.c, [255, 255, 255], k % 2 ? 0.12 : 0)); ctx.beginPath(); ctx.ellipse(hx + Math.cos(a) * pr * 0.55, hy + Math.sin(a) * pr * 0.3, pr * 0.62, pr * 0.42, a, 0, 6.283); ctx.fill(); } ctx.fillStyle = '#2a1a30'; ctx.beginPath(); ctx.arc(hx, hy, pr * 0.22, 0, 6.283); ctx.fill(); }
+      ctx.restore(); // end flip
+      // bubbles (pop them), prism bursts, confetti
+      if (W0.bubbles.length < 28 && R() < dt * 3) W0.bubbles.push({ x: rr(0, W), y: H + 30, r: rr(10, 34), vy: rr(18, 46), ph: rr(0, 6.28) });
+      for (let i = W0.bubbles.length - 1; i >= 0; i--) {
+        const b = W0.bubbles[i]; b.y -= b.vy * dt; b.x += Math.sin(t + b.ph) * 12 * dt - (dxs * 4) * 0.5;
+        if (S.px > -999 && Math.hypot(S.px - b.x, S.py - b.y) < b.r) { prismBurst(b.x, b.y, false); paint(b.x, b.y, u * 0.2, 0.9); snd('pop', b.x / W * 2 - 1); swapPop(W0.bubbles, i); continue; }
+        if (b.y < -40) { swapPop(W0.bubbles, i); continue; }
+        g = ctx.createLinearGradient(b.x - b.r, b.y - b.r, b.x + b.r, b.y + b.r); g.addColorStop(0, 'rgba(255,120,200,0.6)'); g.addColorStop(0.5, 'rgba(120,230,255,0.6)'); g.addColorStop(1, 'rgba(255,240,120,0.6)');
+        ctx.strokeStyle = g; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.283); ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,0.75)'; ctx.beginPath(); ctx.ellipse(b.x - b.r * 0.4, b.y - b.r * 0.45, b.r * 0.22, b.r * 0.1, -0.6, 0, 6.283); ctx.fill();
+      }
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = W0.bursts.length - 1; i >= 0; i--) { const b = W0.bursts[i], k = (t - b.t0) / 0.9; if (k >= 1) { W0.bursts.splice(i, 1); continue; } paint(b.x, b.y, b.r * (0.4 + k * 1.2), 0.35); for (let r0 = 0; r0 < 12; r0++) { const a = b.rot + r0 / 12 * 6.283 + k * 0.6, L = b.r * (0.5 + k * 1.6); ctx.fillStyle = css(R8[r0 % 8], 0.4 * (1 - k)); ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x + Math.cos(a - 0.08) * L, b.y + Math.sin(a - 0.08) * L); ctx.lineTo(b.x + Math.cos(a + 0.08) * L, b.y + Math.sin(a + 0.08) * L); ctx.closePath(); ctx.fill(); } }
+      ctx.globalCompositeOperation = 'source-over';
+      for (let i = W0.conf.length - 1; i >= 0; i--) { const p0 = W0.conf[i]; p0.vy += 320 * dt; p0.vx *= Math.pow(0.5, dt); p0.x += p0.vx * dt; p0.y += p0.vy * dt; p0.a += p0.va * dt; p0.life -= dt * 0.5; if (p0.life <= 0 || p0.y > H + 20) { swapPop(W0.conf, i); continue; } ctx.save(); ctx.translate(p0.x, p0.y); ctx.rotate(p0.a); ctx.fillStyle = css(p0.c, Math.min(1, p0.life * 2)); ctx.fillRect(-p0.s / 2, -p0.s / 4, p0.s, p0.s / 2); ctx.restore(); }
+      // colour: tails, your cursor and every burst paint the world; the rest stays black and white
+      if (fk <= 0) for (const tp of tips) paint(tp[0], tp[1], u * 0.07, 0.07);
+      if (S.px > -999 && performance.now() - S.last < 1500) paint(S.px, S.py, u * 0.11, 0.22);
+      const g0 = sstep(0.06, 0.95, q);
+      if (g0 < 0.999) {
+        gyx.globalCompositeOperation = 'copy'; gyx.fillStyle = '#808080'; gyx.fillRect(0, 0, grayL.width, grayL.height);
+        gyx.globalCompositeOperation = 'destination-out'; gyx.drawImage(mask, 0, 0); gyx.globalCompositeOperation = 'source-over';
+        ctx.globalCompositeOperation = 'saturation'; ctx.globalAlpha = A * (1 - g0); ctx.drawImage(grayL, 0, 0, W, H); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A;
+      }
+      if (fk > 0) { const fl = 1 - Math.abs(fy); if (fl > 0.02) { ctx.fillStyle = 'rgba(255,255,255,' + (fl * 0.7).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); } }
+      ctx.globalAlpha = 1;
+    }
+    function prismClick(x, y) {
+      const pan = x / S.W * 2 - 1;
+      for (const h of W0.horses.concat([W0.giant])) if (h.hit && Math.hypot(x - h.hit[0], y - h.hit[1]) < h.hit[2]) { h.rear = 1; snd('neigh', pan); prismBurst(h.hit[0], h.hit[1], true); return; }
+      prismBurst(x, y, true); snd('sparkle', pan); snd('chime');
     }
 
     // ---------- loop ----------
@@ -1867,12 +2158,18 @@ class Component extends DCLogic {
       if (P > 3.36) {
         S.stf += dt; if (S.stf > 0.5) { S.stf = 0; stx.globalCompositeOperation = 'destination-out'; stx.fillStyle = 'rgba(0,0,0,0.05)'; stx.fillRect(0, 0, stain.width, stain.height); stx.globalCompositeOperation = 'source-over'; }
       }
-      if (S.gl > 0.04 && P > 5.2) glitchPass(S.gl);
-      if (q7 > 0) drawInk(q7, t, dt);
+      if (S.gl > 0.04 && P > 5.2 && P < 7.3) glitchPass(S.gl);
+      const a8 = sstep(7.8, 7.95, P), q8 = clamp((P - 7.8) / 1.6, 0, 1);
+      S.rwd += ((S.sv < -0.04 ? -1 : 1) - S.rwd) * Math.min(1, dt * 6);
+      if (P < 6.95 && W0.wakeDirty) { wkx.clearRect(0, 0, wake.width, wake.height); W0.wakeDirty = false; }
+      if (q7 > 0 && a8 < 1) drawInk(q7, t, dt);
+      let bdir = 1; if (P > 6.9 && P < 8.3) { W0.wakeDirty = true; bdir = drawWings(P, t, dt, a8) || 1; }
+      if (a8 > 0) { if (q8 > 0.8 && q8 < 0.97 && t - W0.run > 7) { W0.run = t; snd('gallop'); } drawPrism(a8, q8, t, dt, E); }
+      if (P > 6.9 && P < 8.3) drawBirdsTop(t, dt, bdir);
       if (S.flash > 0) { ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = css(C.cream, S.flash); ctx.fillRect(0, 0, W, H); S.flash = Math.max(0, S.flash - dt * 0.8); }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
 
-      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, a6);
+      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, a6); dk = mix(dk, 0, sstep(7.25, 7.55, P)); dk = mix(dk, 1, sstep(7.68, 7.8, P) * (1 - a8)); dk = mix(dk, 0, a8);
       S.dk = Math.round(dk * 40) / 40;
       typo(t, E);
       uiStep(P, dt);
@@ -2032,14 +2329,14 @@ class Component extends DCLogic {
       if (W === S.W && H === S.H) return;
       S.W = W; S.H = H; S.u = Math.min(W, H * 1.25); S.dpr = Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(W * S.dpr); cv.height = Math.round(H * S.dpr);
-      stain.width = W; stain.height = H; BL.ok = false; grainPat = null;
+      stain.width = W; stain.height = H; BL.ok = false; grainPat = null; prismResize(W, H); PT.ok = false;
       if (!W0) W0 = gen();
       requestAnimationFrame(cacheLetters);
     };
     const pos = (e) => { const r = root.getBoundingClientRect(); return [(e.clientX - r.left) * (S.W / (r.width || 1)), (e.clientY - r.top) * (S.H / (r.height || 1))]; };
     const onDown = (e) => {
       if (e.target.closest && e.target.closest('a,button')) return;
-      const q = pos(e); S.px = q[0]; S.py = q[1]; S.down = true; S.ty = q[1]; S.last = performance.now();
+      const q = pos(e); S.px = q[0]; S.py = q[1]; S.down = true; S.ty = q[1]; S.tx = q[0]; S.last = performance.now();
       if (!AU.asked) { AU.asked = true; if (soundPref !== '0') soundSet(true); }
       if (chapterAt(S.P) > 0) { chapterClick(q[0], q[1]); return; }
       if (northClick(q[0], q[1])) return;
@@ -2051,7 +2348,7 @@ class Component extends DCLogic {
     };
     const onMove = (e) => {
       const q = pos(e);
-      if (e.pointerType === 'touch' && S.down) { S.sT = clamp(S.sT + (S.ty - q[1]) * 0.0013, 0, RMAX); S.ty = q[1]; }
+      if (e.pointerType === 'touch' && S.down) { S.sT = clamp(S.sT + (S.ty - q[1]) * 0.0013 + (chapterAt(S.P) === 7 ? (S.tx - q[0]) * 0.0013 : 0), 0, RMAX); S.ty = q[1]; S.tx = q[0]; }
       S.px = q[0]; S.py = q[1]; S.last = performance.now();
     };
     const onUp = () => { S.down = false; };
@@ -2059,7 +2356,7 @@ class Component extends DCLogic {
     const onWheel = (e) => {
       e.preventDefault();
       const m = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? S.H : 1;
-      S.sT = clamp(S.sT + e.deltaY * m * 0.0004, 0, RMAX); S.wind = clamp(S.wind + e.deltaX * m * 0.01, -3, 3); S.last = performance.now();
+      const hz = chapterAt(S.P) === 7; S.sT = clamp(S.sT + (e.deltaY + (hz ? e.deltaX : 0)) * m * 0.0004, 0, RMAX); if (!hz) S.wind = clamp(S.wind + e.deltaX * m * 0.01, -3, 3); S.last = performance.now();
     };
     root.addEventListener('pointerdown', onDown); root.addEventListener('pointermove', onMove);
     root.addEventListener('pointerup', onUp); root.addEventListener('pointercancel', onUp); root.addEventListener('pointerleave', onLeave);
