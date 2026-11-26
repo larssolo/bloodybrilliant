@@ -20,6 +20,8 @@ body{margin:0;background:#f4eedd;overflow:hidden}
 a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-hr{display:flex;align-items:center;gap:20px}
 .un-snd{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.16em;transition:color .2s}
+.un-rw{font-size:11px;font-weight:500;letter-spacing:.16em;color:#ee5a2c;opacity:0;transition:opacity .15s;animation:unRw .7s steps(2) infinite}
+@keyframes unRw{50%{visibility:hidden}}
 .un-snd:hover{color:#ee5a2c}.un-snd:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:3px}
 .un-snd i{display:inline-flex;align-items:flex-end;gap:2px;height:11px}
 .un-snd b{display:block;width:2px;height:3px;background:currentColor;border-radius:1px}
@@ -57,7 +59,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <a href="#" class="un-logo" aria-label="Bloody Brilliant, forside"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></a>
-<div class="un-hr"><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a></div>
+<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -1388,7 +1390,12 @@ class Component extends DCLogic {
       { at: 0.77, fn: () => snd('chime') },
     ];
     let lastP = 0;
-    function beats(P) { if (P > lastP) for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); lastP = P; }
+    const BEAT_REV = { 1.62: ['whale'], 2.02: ['whale', 'sparkle'], 2.95: ['wind'], 3.95: ['caw'], 4.62: ['boom'], 5.18: ['boom', 'caw'], 5.64: ['thunder'], 5.97: ['thunder'], 6.3: ['howl', 'boom'], 6.95: ['blink'], 0.08: ['wake'], 0.17: ['giggle'], 0.4: ['chime'], 0.52: ['splash'], 0.62: ['wind'], 0.77: ['chime'] };
+    function beats(P) {
+      if (P > lastP) { for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); }
+      else if (P < lastP && !S.reborn) { for (const b of BEATS) if (lastP >= b.at && P < b.at) (BEAT_REV[b.at] || []).forEach((n) => sndRev(n)); }
+      lastP = P;
+    }
     function chapterSurprise(P) {
       const ci = chapterAt(P);
       if (ci === 0) { if (P < 1) surprise(); }
@@ -1678,25 +1685,85 @@ class Component extends DCLogic {
       AU.on = on; try { localStorage.setItem('bb-sound', on ? '1' : '0'); } catch (e) {}
       if (AU.ctx) {
         const c = AU.ctx; if (on) c.resume();
+        if (on && !AU.whirr) { const ws = c.createBufferSource(), wf = c.createBiquadFilter(), wg = c.createGain(); ws.buffer = AU.noise; ws.loop = true; wf.type = 'bandpass'; wf.Q.value = 4; wf.frequency.value = 900; wg.gain.value = 0; ws.connect(wf); wf.connect(wg); wg.connect(AU.music); ws.start(); AU.whirr = { f: wf, g: wg }; REV_PRE.forEach((n, i) => setTimeout(() => prepRev(n), 300 + i * 140)); }
+        if (!on) rwEl.style.opacity = '0';
         AU.master.gain.cancelScheduledValues(c.currentTime); AU.master.gain.setTargetAtTime(on ? 0.9 : 0, c.currentTime, 0.35);
         if (!on) setTimeout(() => { if (!AU.on) c.suspend(); }, 1600);
       }
       sndBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); sndBtn.querySelector('span').textContent = on ? 'SOUND ON' : 'SOUND OFF';
     }
     sndBtn.addEventListener('click', () => { AU.asked = true; soundSet(!AU.on); });
+    // the tape: the current bed plays forward, or while scrolling back, a reversed copy from the mirrored spot,
+    // faster and higher the harder you scroll. Beats you pass backwards play their sounds reversed.
+    const TAPE = { dir: 1, rate: 1, hold: 0 };
+    const rwEl = root.querySelector('[data-rw]');
+    function reverseBuf(buf, trim) {
+      const nc = buf.numberOfChannels; let n = buf.length;
+      if (trim) { let last = 0; for (let ch = 0; ch < nc; ch++) { const a = buf.getChannelData(ch); for (let i = a.length - 1; i > last; i--) if (Math.abs(a[i]) > 0.0008) { last = i; break; } } n = Math.max(1, last + 1); }
+      const r = AU.ctx.createBuffer(nc, n, buf.sampleRate);
+      for (let ch = 0; ch < nc; ch++) { const a = buf.getChannelData(ch), o = r.getChannelData(ch); for (let i = 0; i < n; i++) o[i] = a[n - 1 - i]; }
+      return r;
+    }
+    function bedSource(b, dir) {
+      const c = AU.ctx, buf = dir > 0 ? b.buf : b.rev; if (!buf) return;
+      const now = c.currentTime, d = buf.duration, s0 = c.createBufferSource(), sg = c.createGain(), pos = ((b.pos % d) + d) % d;
+      s0.buffer = buf; s0.loop = true; s0.playbackRate.value = b.rate || 1;
+      sg.gain.setValueAtTime(0.0001, now); sg.gain.exponentialRampToValueAtTime(1, now + 0.08);
+      s0.connect(sg); sg.connect(b.g); s0.start(now, dir > 0 ? pos : (d - pos) % d);
+      if (b.src) { const o = b.src, og = b.sg; og.gain.cancelScheduledValues(now); og.gain.setTargetAtTime(0.0001, now, 0.03); setTimeout(() => { try { o.stop(); } catch (e) {} o.disconnect(); og.disconnect(); }, 350); }
+      b.src = s0; b.sg = sg; b.dir = dir;
+    }
+    function bedStop(b) {
+      if (b.src) { try { b.src.stop(); } catch (e) {} b.src.disconnect(); b.sg.disconnect(); }
+      if (b.g) b.g.disconnect(); b.src = b.sg = b.g = null; b.rev = null; b.idle = 0; b.dir = 0;
+    }
     function audioStep(P, dt) {
       if (!AU.ctx || !AU.on) return;
-      const c = AU.ctx, ci = chapterAt(P), now = c.currentTime;
-      bedLoad(ci); if (ci + 1 < CH.length) bedLoad(ci + 1);
+      const c = AU.ctx, ci = chapterAt(P), now = c.currentTime, v = S.sv;
+      if (TAPE.dir > 0) { TAPE.hold = v < -0.05 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.06) { TAPE.dir = -1; TAPE.hold = 0; } }
+      else { TAPE.hold = v > -0.012 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.12) { TAPE.dir = 1; TAPE.hold = 0; } }
+      TAPE.rate += ((TAPE.dir < 0 ? clamp(0.75 - v * 1.4, 0.75, 2.4) : 1) - TAPE.rate) * Math.min(1, dt * 6);
+      bedLoad(ci); if (ci + 1 < CH.length) bedLoad(ci + 1); if (ci > 0) bedLoad(ci - 1);
       AU.beds.forEach((b, i) => {
         const want = i === ci ? 1 : 0;
-        if (want && b.buf && !b.src) { const s0 = c.createBufferSource(); s0.buffer = b.buf; s0.loop = true; const g = c.createGain(); g.gain.value = 0.0001; s0.connect(g); g.connect(AU.music); s0.start(); b.src = s0; b.g = g; b.on = 0; }
-        if (b.g && b.on !== want) { b.on = want; b.g.gain.cancelScheduledValues(now); b.g.gain.setTargetAtTime(want ? 1 : 0.0001, now, want ? 0.9 : 1.3); }
-        if (b.src && !want) { b.idle += dt; if (b.idle > 7) { try { b.src.stop(); } catch (e) {} b.src.disconnect(); b.g.disconnect(); b.src = b.g = null; b.idle = 0; } } else b.idle = 0;
+        if (Math.abs(i - ci) > 1 && !b.g && b.buf) b.buf = null; // free decoded audio far from the reader
+        if (want && b.buf && !b.g) { b.g = c.createGain(); b.g.gain.value = 0.0001; b.g.connect(AU.music); b.on = 0; b.rate = 1; b.pos = b.pos || 0; bedSource(b, TAPE.dir > 0 || !b.rev ? 1 : -1); }
+        if (!b.g) return;
+        if (b.on !== want) { b.on = want; b.g.gain.cancelScheduledValues(now); b.g.gain.setTargetAtTime(want ? 1 : 0.0001, now, want ? 0.9 : 1.3); }
+        if (want) {
+          if (TAPE.dir < 0 && !b.rev && b.buf) b.rev = reverseBuf(b.buf, false);
+          if (TAPE.dir !== b.dir && (TAPE.dir > 0 || b.rev)) bedSource(b, TAPE.dir);
+          b.rate = TAPE.rate; if (b.src) b.src.playbackRate.setTargetAtTime(b.rate, now, 0.04);
+          b.idle = 0;
+        } else { b.idle += dt; if (b.idle > 7) { bedStop(b); return; } }
+        if (b.src) b.pos += dt * (b.rate || 1) * (b.dir || 1);
       });
-      if (ci !== AU.cur) { if (AU.cur >= 0) snd('whoosh'); AU.cur = ci; }
+      if (AU.whirr) { AU.whirr.g.gain.setTargetAtTime(TAPE.dir < 0 ? 0.06 * Math.min(1, 0.35 - v * 0.8) : 0, now, 0.06); AU.whirr.f.frequency.setTargetAtTime(500 + TAPE.rate * 900, now, 0.08); }
+      const ro = TAPE.dir < 0 ? '1' : '0'; if (rwEl.style.opacity !== ro) rwEl.style.opacity = ro;
+      if (ci !== AU.cur) { if (AU.cur >= 0) { if (ci < AU.cur) sndRev('whoosh'); else snd('whoosh'); } AU.cur = ci; }
       if (S.gl > 0.5 && R() < dt * 10) snd('glitch');
     }
+    // reversed one-shots: render a synth effect offline with the same code, flip it, cache it
+    AU.revCache = {};
+    function renderSfx(name) {
+      const OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext; if (!OAC) return Promise.reject(new Error('no offline'));
+      const sr = AU.ctx.sampleRate, oc = new OAC(2, Math.ceil(sr * 4.5), sr), bus = oc.createGain(), cvl = oc.createConvolver(), ri = oc.createGain();
+      bus.connect(oc.destination); cvl.buffer = AU.rev.buffer; ri.gain.value = 0.5; ri.connect(cvl); cvl.connect(oc.destination);
+      const keep = [AU.ctx, AU.sfx, AU.revIn]; AU.ctx = oc; AU.sfx = bus; AU.revIn = ri;
+      try { SFX[name](); } finally { AU.ctx = keep[0]; AU.sfx = keep[1]; AU.revIn = keep[2]; }
+      return oc.startRendering();
+    }
+    function prepRev(name) {
+      if (AU.revCache[name]) return; AU.revCache[name] = 'pending';
+      renderSfx(name).then((b) => { AU.revCache[name] = reverseBuf(b, true); }).catch(() => { delete AU.revCache[name]; });
+    }
+    function sndRev(name, pan) {
+      if (!AU.on || !AU.ctx || AU.ctx.state !== 'running' || !SFX[name]) return;
+      const now = performance.now(), key = 'rev:' + name; if (AU.last[key] && now - AU.last[key] < 250) return; AU.last[key] = now;
+      const b = AU.revCache[name]; if (!b || b === 'pending') { prepRev(name); return; }
+      const s0 = AU.ctx.createBufferSource(), g = AU.ctx.createGain(); s0.buffer = b; g.gain.value = 0.9; s0.connect(g); out(g, 0, pan); s0.start();
+    }
+    const REV_PRE = ['whoosh', 'wake', 'giggle', 'chime', 'splash', 'wind', 'whale', 'sparkle', 'caw', 'boom', 'thunder', 'howl', 'blink'];
     // --- synth helpers ---
     function env(g, t0, a, peak, dec) { g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t0 + a); g.gain.exponentialRampToValueAtTime(0.0001, t0 + a + dec); }
     function out(node, wet, pan) {

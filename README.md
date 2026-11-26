@@ -16,6 +16,8 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 
 Tryk **SOUND** i headeren, eller klik et sted i scenen. Lyden starter ved første klik og huskes til næste besøg. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–7.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
 
+**Baglæns:** når du scroller tilbage, spoler lyden også tilbage som et bånd. Musikken skifter til en omvendt kopi af sporet fra præcis samme sted og spiller hurtigere og højere i tonen, jo hurtigere du scroller. Der kommer et spolelyd-sus, og headeren viser ◀◀ REWIND. Beats, du passerer baglæns (hvalsang, ravnekrage, torden, Fenrirs hyl og andre), afspilles omvendt. De omvendte effekter renderes offline i baggrunden med de samme synth-funktioner og vendes. Når du slipper, fortsætter musikken forlæns derfra.
+
 ## Filmlook
 
 Over alt ligger et animeret filmkorn, en papirstruktur, en svag vignet og en blødere, let afmættet canvas, så grafikken ligner tryk og ikke computergrafik. Hvis enheden ikke kan følge med, slår den selv de tunge dele fra. `?film=0` viser den rå version til sammenligning.
