@@ -21,7 +21,7 @@ Tryk **SOUND** i headeren, eller klik et sted i scenen. Lyden starter ved først
 
 ## Filmlook
 
-Over alt ligger et animeret filmkorn, en papirstruktur, en svag vignet og en blødere, let afmættet canvas, så grafikken ligner tryk og ikke computergrafik. Hvis enheden ikke kan følge med, slår den selv de tunge dele fra. `?film=0` viser den rå version til sammenligning.
+Over alt ligger et fint, animeret filmkorn (tilfældig støj pr. pixel, genereret i browseren), en svag vignet og en blødere, let afmættet canvas, så grafikken ligner tryk og ikke computergrafik. Hvis enheden ikke kan følge med, slår den selv de tunge dele fra. `?film=0` viser den rå version til sammenligning.
 
 Undervejs er der "beats", der udløses, når du scroller fremad forbi dem: hvalen synger, stjerneskud, et vindstød slukker lanterner, ravnen lander og eksploderer, lynet slår ned, og Fenrir hyler.
 
