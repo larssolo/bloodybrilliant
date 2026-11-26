@@ -3,15 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Unreal North — Levende diorama</title>
+<title>Bloody Brilliant by www.kodekid.app · The Unreal of North</title>
+<meta name="description" content="Bloody Brilliant: en endeløs, interaktiv fortælling fra et pastel-eventyr i nord gennem Ragnarök til blæk, og så forfra. By www.kodekid.app.">
+<meta property="og:title" content="Bloody Brilliant by www.kodekid.app · The Unreal of North">
+<meta property="og:description" content="En endeløs, interaktiv fortælling: pastel-eventyr, en ravn af blæk, nordiske guder og Ragnarök.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://bloodybrilliant.vercel.app/">
+<meta property="og:image" content="https://bloodybrilliant.vercel.app/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0707">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#f4eedd;overflow:hidden}
 a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
-.un-nav a{display:inline-block;transition:transform .35s cubic-bezier(.3,1.6,.5,1),color .2s}
-.un-nav a:hover{transform:translateY(-3px) rotate(-3deg) scale(1.06)}
+.un-credit{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.16em;transition:transform .35s cubic-bezier(.3,1.6,.5,1),color .2s}
+.un-credit:hover{transform:translateY(-2px) rotate(-2deg)}
 .un-logo{display:inline-block;transition:transform .6s cubic-bezier(.3,1.8,.4,1)}
 .un-logo:hover{transform:rotate(180deg) scale(1.2)}
 @keyframes unDrip{0%{transform:translateY(-4px) scaleY(.8);opacity:0}30%{opacity:1}70%{transform:translateY(10px) scaleY(1.15);opacity:1}100%{transform:translateY(18px) scaleY(.6);opacity:0}}
@@ -31,10 +39,8 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <div data-k="unreal-a" style="position: relative; width: 100%; height: 100vh; min-height: 520px; overflow: hidden; background: #f4eedd; font-family: Inter, system-ui, sans-serif; touch-action: none; cursor: crosshair">
 <canvas role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 3; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
-<a href="#" class="un-logo" aria-label="The Unreal North, forside"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></a>
-<nav class="un-nav" aria-label="Hovedmenu" style="display: flex; gap: 12px; align-items: center; font-size: 12px; font-weight: 500; letter-spacing: 0.1em">
-<a href="#">EXPERIENCE</a><span aria-hidden="true" style="opacity: 0.5">/</span><a href="#">EXPLORE</a><span aria-hidden="true" style="opacity: 0.5">/</span><a href="#">ABOUT</a>
-</nav>
+<a href="#" class="un-logo" aria-label="Bloody Brilliant, forside"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></a>
+<a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -99,7 +105,7 @@ class Component extends DCLogic {
     const grade = (c) => { const w = lc(c, [Math.min(255, c[0] * 1.05 + 22), c[1] * 0.86, c[2] * 0.78], D * 0.35); return lc(w, [w[0] * 0.28 + 12, w[1] * 0.32 + 14, w[2] * 0.55 + 42], N * 0.78); };
     const G = (c, a) => css(grade(c), a);
 
-    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null };
+    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
     let W0 = null;
 
     function gen() {
@@ -332,7 +338,8 @@ class Component extends DCLogic {
       { win: [1.22, 2.4], wt: 680, pos: 'left:clamp(18px,4vw,56px);top:clamp(70px,11vh,118px)', fs: 'clamp(46px,9.4vw,146px)', lines: [[['THE ', '#f4eedd'], ['SINGING', '#8fdcc0']], [['SKY', '#f2a6b8'], ['.', '#f6c333']]] },
       { win: [2.38, 3.5], wt: 480, it: 1, pos: 'left:clamp(18px,4vw,56px);bottom:clamp(64px,13vh,140px)', fs: 'clamp(50px,9.6vw,150px)', lines: [[['Lantern', '#f6c333']], [['woods', '#8fdcc0'], ['.', '#f2a6b8']]] },
       { win: [3.42, 4.4], wt: 860, pos: 'left:clamp(18px,4vw,56px);top:clamp(70px,11vh,118px)', fs: 'clamp(66px,15vw,240px)', lines: [[['SUN', '#1a0506']], [['FALL', '#fff1c9'], ['.', '#1a0506']]] },
-      { win: [5.45, 6.3], wt: 600, it: 1, pos: 'left:50%;bottom:clamp(56px,12vh,130px);transform:translateX(-50%)', fs: 'clamp(54px,10vw,164px)', lines: [[['Again', '#f0a830'], ['?', '#f4eedd']]] },
+      { win: [5.52, 6.52], wt: 900, gl: 1, pos: 'left:clamp(18px,4vw,56px);top:clamp(70px,11vh,118px)', fs: 'clamp(60px,12.5vw,210px)', lines: [[['RAGNA', '#e9dfcf']], [['R\u00d6K', '#c3121c'], ['.', '#e9dfcf']]] },
+      { win: [6.62, 7.5], wt: 600, it: 1, pos: 'left:50%;bottom:clamp(56px,12vh,130px);transform:translateX(-50%)', fs: 'clamp(54px,10vw,164px)', lines: [[['Again', '#f0a830'], ['?', '#f4eedd']]] },
     ];
     XH.forEach((cfg, i) => {
       const h = 3 + i, el = document.createElement('p');
@@ -348,7 +355,7 @@ class Component extends DCLogic {
     const heads = Array.from({ length: 3 + XH.length }, (_, h) => Array.from(root.querySelectorAll('[data-h="' + h + '"]')).map((el) => ({ el, rx: R() * 2 - 1, ry: R() * 2 - 1, rr: R() * 2 - 1, ph: R() * 6.28, cx: 0, cy: 0 })));
     const tag = root.querySelector('[data-tag]'), nav = root.querySelector('[data-nav]');
     const WIN = [[-0.25, 0.36], [0.3, 0.68], [0.62, 1.25]].concat(XH.map((c) => c.win));
-    const WB = [600, 420, 600].concat(XH.map((c) => c.wt)), IT = [0, 1, 0].concat(XH.map((c) => c.it || 0));
+    const WB = [600, 420, 600].concat(XH.map((c) => c.wt)), IT = [0, 1, 0].concat(XH.map((c) => c.it || 0)), IGL = [0, 0, 0].concat(XH.map((c) => c.gl || 0));
     function cacheLetters() {
       const rb = root.getBoundingClientRect();
       for (const H of heads) for (const L of H) { const tr = L.el.style.transform; L.el.style.transform = 'none'; const r = L.el.getBoundingClientRect(); L.cx = r.left - rb.left + r.width / 2; L.cy = r.top - rb.top + r.height / 2; L.el.style.transform = tr; }
@@ -368,6 +375,7 @@ class Component extends DCLogic {
           let sy = 1 + outA * 1.6 + clamp(Math.abs(S.sv) * 0.6, 0, 0.6), sx = 1 - outA * 0.45, sc = 0.3 + 0.7 * inA;
           const qx = L.cx - S.px, qy = L.cy - S.py, d2 = qx * qx + qy * qy;
           if (d2 < 32000) { const f = 1 - Math.sqrt(d2) / 179; dx += qx / 179 * f * 40; dy += qy / 179 * f * 40; rot += f * L.rr * 25; sc *= 1 + f * 0.25; }
+          if (IGL[h]) { const gj = S.gl > 0.05 && Math.random() < S.gl * 0.8; if (gj) { dx += (Math.random() - 0.5) * 70 * S.gl; dy += (Math.random() - 0.5) * 12 * S.gl; } const ts = gj ? (S.gl * 9).toFixed(1) + 'px 0 rgba(255,20,50,.85),' + (-S.gl * 9).toFixed(1) + 'px 0 rgba(20,230,255,.75)' : ''; if (L.ts !== ts) { L.ts = ts; el.style.textShadow = ts; } }
           el.style.opacity = vis.toFixed(3);
           el.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) rotate(' + rot.toFixed(1) + 'deg) scale(' + (sc * sx).toFixed(3) + ',' + (sc * sy).toFixed(3) + ')';
           el.style.fontVariationSettings = '"SOFT" ' + (50 + 50 * Math.sin(t * 0.7 + L.ph)).toFixed(0) + ', "WONK" ' + (Math.sin(t * 0.5 + L.ph) > 0.6 ? 1 : 0) + ', "wght" ' + (IT[h] ? WB[h] : clamp(WB[h] + 200 * Math.sin(t * 0.6 + L.ph) * E * 0.5 + outA * 250, 100, 900)).toFixed(0);
@@ -383,14 +391,15 @@ class Component extends DCLogic {
     //  THE LONG TALE: chapters II-VI. Progress S.s runs 0..PMAX, then the
     //  world is reborn with a new seed, so the story never ends.
     // =====================================================================
-    const PMAX = 6;
+    const PMAX = 7.1;
     const CH = [
       { a: 0, n: 'I', cap: 'I — THE UNREAL NORTH · SCROLL, CLICK, PLAY', aria: 'Kapitel I: levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod' },
       { a: 1.25, n: 'II', cap: 'II — WHERE THE WHALES LEARNED TO SING', aria: 'Kapitel II: stjernehav med en syngende hval af stjernebilleder og svævende vandmænd' },
       { a: 2.4, n: 'III', cap: "III — DON'T FOLLOW THE LANTERNS", aria: 'Kapitel III: mørk skov med lysende svampe, svingende lanterner og øjne i mørket' },
       { a: 3.45, n: 'IV', cap: 'IV — THE DAY THE SUN FELL DOWN', aria: 'Kapitel IV: solen styrter, himlen brænder ravgul og det regner med blæk' },
       { a: 4.45, n: 'V', cap: 'V — EVERY FAIRYTALE KEEPS A RAVEN', aria: 'Kapitel V: en sort ravn af blæk dykker ned og opløses i røg og blæksprøjt' },
-      { a: 5.45, n: 'VI', cap: 'VI — AND THEN, THE INK', aria: 'Kapitel VI: blækket opsluger alt, et øje åbner sig, og fortællingen begynder forfra' },
+      { a: 5.5, n: 'VI', cap: 'VI — WHEN THE WOLF SWALLOWS THE SUN', aria: 'Kapitel VI: Ragnarök. Yggdrasil vokser i mørket, runer brænder, Odin ser med ét øje, og Fenrir bryder løs' },
+      { a: 6.6, n: 'VII', cap: 'VII — AND THEN, THE INK', aria: 'Kapitel VII: blækket opsluger alt, Odins øje åbner sig, og fortællingen begynder forfra' },
     ];
     const chapterAt = (P) => { let i = 0; for (let k = 1; k < CH.length; k++) if (P >= CH[k].a - 0.06) i = k; return i; };
     const hash2 = (x, y) => { const v = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return v - Math.floor(v); };
@@ -412,7 +421,7 @@ class Component extends DCLogic {
     const RV = { img: new Image(), ok: false, W: 1280, H: 1256, eye: [0.729, 0.629], pts: [], wing: [] };
     { const a = RAVEN_PTS.split(','); for (let i = 0; i + 2 < a.length; i += 3) { const p = [+a[i] / 999, +a[i + 1] / 999, +a[i + 2] / 9]; RV.pts.push(p); if (p[0] < 0.5 && p[1] < 0.48) RV.wing.push(p); } }
     RV.img.decoding = 'async';
-    RV.img.onload = () => { RV.ok = true; glInit(); };
+    RV.img.onload = () => { RV.ok = true; RV.bone = tintCanvas(RV.img, '#e9dfcf', 420); glInit(); };
     const loadRaven = () => { if (!RV.img.src) RV.img.src = RAVEN_SRC; };
     const RVS = { rect: null };
     const GLR = { ok: false, pad: 0.07 };
@@ -484,6 +493,7 @@ class Component extends DCLogic {
       w.ink = []; w.boom = null;
       w.blobs = [{ a: 0, d: 0, k: 1.3, ph: 1 }].concat(Array.from({ length: 30 }, () => ({ a: rr(0, 6.28), d: rr(0.05, 0.6), k: rr(0.4, 1.1), ph: rr(0, 6.28) })));
       w.eye = { bl: 0, next: 0 };
+      genRagnarok(w);
     }
 
     // ---------- II · the singing sky ----------
@@ -991,7 +1001,235 @@ class Component extends DCLogic {
       ctx.globalAlpha = 1;
     }
 
-    // ---------- VI · the ink, the eye, the rebirth ----------
+    // ---------- VI · Ragnarök: the tree, the runes, the gods, the wolf ----------
+    // Elder Futhark runes as line segments in a unit box, so they never depend on a font
+    const RUNE = [
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.1, 0.25, -0.45], [-0.2, 0.15, 0.25, -0.2]],
+      [[-0.2, 0.5, -0.2, -0.5], [-0.2, -0.5, 0.25, -0.2], [0.25, -0.2, 0.25, 0.5]],
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.25, 0.2, 0], [0.2, 0, -0.2, 0.25]],
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.5, 0.2, -0.2], [-0.2, -0.2, 0.2, 0.1]],
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.5, 0.2, -0.25], [0.2, -0.25, -0.2, 0], [-0.2, 0, 0.2, 0.5]],
+      [[0.2, -0.4, -0.2, 0], [-0.2, 0, 0.2, 0.4]],
+      [[-0.25, -0.5, 0.25, 0.5], [0.25, -0.5, -0.25, 0.5]],
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.5, 0.2, -0.25], [0.2, -0.25, -0.2, 0]],
+      [[-0.2, -0.5, -0.2, 0.5], [0.2, -0.5, 0.2, 0.5], [-0.2, -0.15, 0.2, 0.15]],
+      [[0, -0.5, 0, 0.5], [-0.2, -0.15, 0.2, 0.15]],
+      [[0, -0.5, 0, 0.5]],
+      [[-0.05, -0.4, -0.25, -0.15], [-0.25, -0.15, -0.05, 0.1], [0.05, -0.1, 0.25, 0.15], [0.25, 0.15, 0.05, 0.4]],
+      [[0, -0.5, 0, 0.5], [0, -0.5, 0.2, -0.3], [0, 0.5, -0.2, 0.3]],
+      [[0, -0.5, 0, 0.5], [0, -0.1, -0.25, -0.45], [0, -0.1, 0.25, -0.45]],
+      [[0.2, -0.5, -0.2, -0.1], [-0.2, -0.1, 0.2, 0.1], [0.2, 0.1, -0.2, 0.5]],
+      [[0, -0.5, 0, 0.5], [0, -0.5, -0.25, -0.2], [0, -0.5, 0.25, -0.2]],
+      [[-0.2, -0.5, -0.2, 0.5], [-0.2, -0.5, 0.2, -0.25], [0.2, -0.25, -0.2, 0], [-0.2, 0, 0.2, 0.25], [0.2, 0.25, -0.2, 0.5]],
+      [[-0.2, -0.5, -0.2, 0.5], [0.2, -0.5, 0.2, 0.5], [-0.2, -0.5, 0.2, -0.1], [0.2, -0.5, -0.2, -0.1]],
+      [[0, -0.5, 0.25, -0.2], [0.25, -0.2, -0.25, 0.5], [0, -0.5, -0.25, -0.2], [-0.25, -0.2, 0.25, 0.5]],
+      [[-0.25, -0.5, -0.25, 0.5], [0.25, -0.5, 0.25, 0.5], [-0.25, -0.5, 0.25, 0.5], [0.25, -0.5, -0.25, 0.5]],
+    ];
+    const BONE = [233, 223, 207], BLOOD = [195, 18, 28];
+    function tintCanvas(img, col, maxW) {
+      const sc = Math.min(1, maxW / img.width), c = document.createElement('canvas'); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+      const g = c.getContext('2d'); g.drawImage(img, 0, 0, c.width, c.height); g.globalCompositeOperation = 'source-in'; g.fillStyle = col; g.fillRect(0, 0, c.width, c.height); return c;
+    }
+    // ghostly gods: bone-white ink negatives (dark paper becomes the void, the eyes become holes)
+    const GODS = {
+      odin: { src: 'assets/odin.webp', img: new Image(), ok: false, eye: [0.587, 0.387] },
+      fenrir: { src: 'assets/fenrir.webp', img: new Image(), ok: false, eyes: [[0.399, 0.386], [0.616, 0.383]], mouth: [0.506, 0.66] },
+    };
+    for (const k in GODS) { const g0 = GODS[k]; g0.img.decoding = 'async'; g0.img.onload = () => { g0.red = tintCanvas(g0.img, '#ff1a2e', 760); g0.cyan = tintCanvas(g0.img, '#19e6ff', 760); g0.ok = true; }; }
+    const loadGods = () => { for (const k in GODS) if (!GODS[k].img.src) GODS[k].img.src = GODS[k].src; };
+    const scan = document.createElement('canvas'); scan.width = 4; scan.height = 4;
+    { const g = scan.getContext('2d'); g.fillStyle = 'rgba(0,0,0,0.32)'; g.fillRect(0, 0, 4, 1); }
+    let scanPat = null;
+
+    function genRagnarok(w) {
+      w.tree = [];
+      const grow = (list, p, a, l, wd, dp, max) => {
+        const i = list.length; list.push({ p, a, l, w: wd, d: dp, ph: rr(0, 6.28) });
+        if (dp >= max) return;
+        const n = dp < 2 ? 2 : R() < 0.3 ? 3 : 2;
+        for (let k = 0; k < n; k++) grow(list, i, (k / (n - 1) - 0.5) * rr(0.6, 1.1) + rr(-0.15, 0.15), l * rr(0.66, 0.8), wd * 0.68, dp + 1, max);
+      };
+      grow(w.tree, -1, 0, 0.2, 0.034, 0, 7);
+      w.roots = [];
+      for (let k = 0; k < 5; k++) grow(w.roots, -1, (k / 4 - 0.5) * 2.6 + rr(-0.1, 0.1), rr(0.07, 0.11), 0.022, 0, 4);
+      w.rune1 = Array.from({ length: 24 }, () => (R() * RUNE.length) | 0); w.rune2 = Array.from({ length: 16 }, () => (R() * RUNE.length) | 0);
+      w.hot = new Float32Array(40);
+      w.bolts = []; w.sap = []; w.tips = [];
+    }
+    // lays out the tree, then inks it: curved limbs batched per depth, dry-brush bristles, knots and specks
+    function treeNodes(list, bx, by, base, gr, t, H, u, X, Y, AN, alpha) {
+      const n = list.length, X0 = new Float32Array(n), Y0 = new Float32Array(n), F = new Float32Array(n);
+      let maxD = 0;
+      for (let i = 0; i < n; i++) {
+        const nd = list[i], pa = nd.p < 0 ? base : AN[nd.p];
+        X0[i] = nd.p < 0 ? bx : X[nd.p]; Y0[i] = nd.p < 0 ? by : Y[nd.p];
+        AN[i] = pa + nd.a + Math.sin(t * 0.7 + nd.ph) * 0.02 * nd.d + S.wind * 0.01 * nd.d + S.gust * Math.sin(t * 9 + nd.ph) * 0.05;
+        F[i] = clamp(gr - nd.d, 0, 1); const L = nd.l * H * F[i]; X[i] = X0[i] + Math.cos(AN[i]) * L; Y[i] = Y0[i] + Math.sin(AN[i]) * L;
+        if (nd.d > maxD) maxD = nd.d;
+      }
+      const bend = (i, o) => { const nd = list[i], dx = X[i] - X0[i], dy = Y[i] - Y0[i], k = Math.sin(nd.ph * 3) * 0.14; return [(X0[i] + X[i]) / 2 - dy * k + o * -Math.sin(AN[i]), (Y0[i] + Y[i]) / 2 + dx * k + o * Math.cos(AN[i])]; };
+      ctx.lineCap = 'round';
+      for (let dp = 0; dp <= maxD; dp++) {
+        const main = new Path2D(), dry = new Path2D(); let wd = 0, any = false;
+        for (let i = 0; i < n; i++) {
+          const nd = list[i]; if (nd.d !== dp || F[i] <= 0) continue; any = true; wd = nd.w * u * (0.55 + 0.45 * F[i]);
+          const c = bend(i, 0); main.moveTo(X0[i], Y0[i]); main.quadraticCurveTo(c[0], c[1], X[i], Y[i]);
+          if (dp < 4) for (const o of [-0.42, 0.38]) { const c2 = bend(i, o * wd); dry.moveTo(X0[i] - Math.sin(AN[i]) * o * wd, Y0[i] + Math.cos(AN[i]) * o * wd); dry.quadraticCurveTo(c2[0], c2[1], X[i] - Math.sin(AN[i]) * o * wd * 0.6, Y[i] + Math.cos(AN[i]) * o * wd * 0.6); }
+        }
+        if (!any) continue;
+        const a = alpha * (0.95 - dp * 0.06);
+        ctx.strokeStyle = css(BONE, a); ctx.lineWidth = Math.max(0.8, wd); ctx.stroke(main);
+        if (dp < 4) { ctx.strokeStyle = css([120, 108, 100], a * 0.8); ctx.lineWidth = Math.max(0.6, wd * 0.12); ctx.stroke(dry); }
+      }
+      ctx.fillStyle = css(BONE, alpha * 0.9);
+      const knots = new Path2D();
+      for (let i = 0; i < n; i++) {
+        const nd = list[i]; if (F[i] <= 0) continue;
+        if (nd.d <= 3) { const r = nd.w * u * 0.62; knots.moveTo(X0[i] + r, Y0[i]); knots.arc(X0[i], Y0[i], r, 0, 6.283); }
+        if (F[i] >= 1 && (nd.ph * 7) % 1 < 0.22) { const r = 0.8 + (nd.ph % 1) * 2.2, ox = Math.cos(nd.ph * 5) * nd.w * u * 3, oy = Math.sin(nd.ph * 5) * nd.w * u * 3; knots.moveTo(X[i] + ox + r, Y[i] + oy); knots.arc(X[i] + ox, Y[i] + oy, r, 0, 6.283); }
+      }
+      ctx.fill(knots);
+    }
+    function drawYggdrasil(q, t, dt) {
+      const W = S.W, H = S.H, u = S.u, T = W0.tree, Rt = W0.roots, bx = W * 0.5 - S.mx * 10, by = H * 0.86;
+      const gr = sstep(0.02, 0.5, q) * 8.2, X = new Float32Array(T.length), Y = new Float32Array(T.length), AN = new Float32Array(T.length);
+      treeNodes(T, bx, by, -Math.PI / 2, gr, t, H, u, X, Y, AN, 0.92);
+      const RX = new Float32Array(Rt.length), RY = new Float32Array(Rt.length), RA = new Float32Array(Rt.length);
+      treeNodes(Rt, bx, by, Math.PI / 2, sstep(0, 0.3, q) * 5.2, t, H, u, RX, RY, RA, 0.62);
+      // blood sap drips from the twig tips once the tree is grown
+      if (gr > 7.5 && W0.sap.length < 120 && R() < dt * 6) { const i = T.length - 1 - ((R() * 60) | 0); if (i > 0) W0.sap.push({ x: X[i], y: Y[i], vy: 0, life: 1 }); }
+      ctx.fillStyle = css(BLOOD, 0.9);
+      for (let i = W0.sap.length - 1; i >= 0; i--) { const p = W0.sap[i]; p.vy += 500 * dt; p.y += p.vy * dt; if (p.y > H + 10) { swapPop(W0.sap, i); continue; } ctx.beginPath(); ctx.ellipse(p.x, p.y, 1.6, 3.2, 0, 0, 6.283); ctx.fill(); }
+      return [bx, by - H * 0.55];
+    }
+    function runeRing(cx, cy, R0, ids, rot, s, off, t, A) {
+      const n = ids.length, has = S.px > -999, hot = W0.hot;
+      ctx.strokeStyle = css(BONE, 0.22); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, R0 - s * 0.85, 0, 6.283); ctx.stroke(); ctx.beginPath(); ctx.arc(cx, cy, R0 + s * 0.85, 0, 6.283); ctx.stroke();
+      const cold = new Path2D(), warm = new Path2D();
+      for (let k = 0; k < n; k++) {
+        const a = rot + k / n * 6.283, x = cx + Math.cos(a) * R0, y = cy + Math.sin(a) * R0, ca = Math.cos(a + Math.PI / 2), sa = Math.sin(a + Math.PI / 2);
+        if (has) { const dd = Math.hypot(x - S.px, y - S.py); if (dd < s * 2.2) hot[off + k] = 1; }
+        hot[off + k] *= Math.pow(0.4, S.dtt);
+        const pth = hot[off + k] > 0.15 ? warm : cold;
+        for (const g of RUNE[ids[k]]) { pth.moveTo(x + (g[0] * ca - g[1] * sa) * s, y + (g[0] * sa + g[1] * ca) * s); pth.lineTo(x + (g[2] * ca - g[3] * sa) * s, y + (g[2] * sa + g[3] * ca) * s); }
+      }
+      ctx.lineCap = 'square';
+      ctx.strokeStyle = css(BONE, (0.5 + 0.2 * Math.sin(t * 7.3 + off)) * (Math.random() < 0.03 ? 0.2 : 1)); ctx.lineWidth = Math.max(1.4, s * 0.09); ctx.stroke(cold);
+      ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = css([255, 40, 50], 0.35); ctx.lineWidth = s * 0.3; ctx.stroke(warm);
+      ctx.strokeStyle = css([255, 120, 110], 0.95); ctx.lineWidth = Math.max(1.6, s * 0.1); ctx.stroke(warm); ctx.globalCompositeOperation = 'source-over';
+    }
+    function glitchImg(g0, x, y, w, h, a, g, t, A) {
+      if (a <= 0.005 || !g0.ok) return;
+      const img = g0.img, iw = img.width, ih = img.height;
+      if (g > 0.04) { ctx.globalCompositeOperation = 'lighter'; const o = g * S.u * 0.025; ctx.globalAlpha = A * a * 0.6 * Math.min(1, g * 1.5); ctx.drawImage(g0.red, x - o, y, w, h); ctx.drawImage(g0.cyan, x + o, y, w, h); ctx.globalCompositeOperation = 'source-over'; }
+      ctx.globalAlpha = A * a;
+      if (g < 0.08) ctx.drawImage(img, x, y, w, h);
+      else { const n = 16, fr = Math.floor(t * 18); for (let i = 0; i < n; i++) { const j = hash2(i, fr), dx = j > 0.6 ? (hash2(i + 7, fr) - 0.5) * g * w * 0.2 : 0; ctx.drawImage(img, 0, i / n * ih, iw, ih / n + 1, x + dx, y + i / n * h, w, h / n + 1); } }
+      ctx.globalAlpha = A;
+    }
+    function eyeGlow(x, y, r, a) {
+      if (a <= 0.01) return;
+      ctx.globalCompositeOperation = 'lighter';
+      const g = ctx.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, css([255, 230, 200], a)); g.addColorStop(0.18, css([255, 40, 30], a * 0.9)); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.fillRect(x - r, y - r, r * 2, r * 2); ctx.globalCompositeOperation = 'source-over';
+    }
+    // Thor answers a click: a jagged bolt from the sky
+    function strike(x, y) {
+      let segs = [[[x + rr(-0.25, 0.25) * S.W, -30], [x, y]]];
+      for (let it = 0; it < 6; it++) { const ns = []; for (const [a, b] of segs) { const L = Math.hypot(b[0] - a[0], b[1] - a[1]), m = [(a[0] + b[0]) / 2 + rr(-1, 1) * L * 0.2, (a[1] + b[1]) / 2 + rr(-1, 1) * L * 0.04]; ns.push([a, m], [m, b]); } segs = ns; }
+      const forks = [];
+      for (let k = 0; k < 3; k++) { const s0 = segs[(segs.length * rr(0.2, 0.7)) | 0][1]; let fs = [[s0, [s0[0] + rr(-160, 160), s0[1] + rr(60, 200)]]]; for (let it = 0; it < 4; it++) { const ns = []; for (const [a, b] of fs) { const L = Math.hypot(b[0] - a[0], b[1] - a[1]), m = [(a[0] + b[0]) / 2 + rr(-1, 1) * L * 0.25, (a[1] + b[1]) / 2]; ns.push([a, m], [m, b]); } fs = ns; } forks.push(fs); }
+      W0.bolts.push({ segs, forks, life: 1, x, y });
+      S.gl = Math.max(S.gl, 0.9); S.bflash = 1; shake(10);
+      splatter(stx, x, y, rr(14, 30) * S.u / 900, 'rgba(150,10,16,0.9)');
+      for (let k = 0; k < 3; k++) splatter(stx, x + rr(-90, 90), y + rr(-60, 60), rr(4, 12) * S.u / 900, 'rgba(0,0,0,0.9)');
+      for (let k = 0; k < W0.hot.length; k++) if (R() < 0.35) W0.hot[k] = 1;
+    }
+    function drawBolts(dt) {
+      ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (let i = W0.bolts.length - 1; i >= 0; i--) {
+        const b = W0.bolts[i]; b.life -= dt * 2.6; if (b.life <= 0) { W0.bolts.splice(i, 1); continue; }
+        const fl = b.life * (Math.random() < 0.3 ? 0.35 : 1);
+        const path = new Path2D(); path.moveTo(b.segs[0][0][0], b.segs[0][0][1]); for (const s0 of b.segs) path.lineTo(s0[1][0], s0[1][1]);
+        for (const f of b.forks) { path.moveTo(f[0][0][0], f[0][0][1]); for (const s0 of f) path.lineTo(s0[1][0], s0[1][1]); }
+        ctx.strokeStyle = css([110, 150, 255], 0.3 * fl); ctx.lineWidth = 14; ctx.stroke(path);
+        ctx.strokeStyle = css([200, 215, 255], 0.7 * fl); ctx.lineWidth = 4; ctx.stroke(path);
+        ctx.strokeStyle = css([255, 255, 255], fl); ctx.lineWidth = 1.6; ctx.stroke(path);
+        eyeGlow(b.x, b.y, S.u * 0.12, 0.6 * fl);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    // post pass: slice displacement, colour blocks, noise bars, inversion
+    function glitchPass(g) {
+      const d = S.dpr, cw = cv.width, ch = cv.height;
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+      const n = 2 + ((g * 9) | 0);
+      for (let i = 0; i < n; i++) { const sh = Math.max(2, Math.random() * Math.random() * ch * 0.14), sy = Math.random() * (ch - sh), dx = (Math.random() - 0.5) * g * cw * 0.12; ctx.drawImage(cv, 0, sy, cw, sh, dx, sy, cw, sh); }
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < g * 6; i++) { ctx.fillStyle = Math.random() < 0.5 ? 'rgba(255,20,50,0.28)' : 'rgba(20,230,255,0.24)'; ctx.fillRect(Math.random() * cw, Math.random() * ch, Math.random() * cw * 0.3, Math.random() * 14 * d + 2); }
+      ctx.fillStyle = 'rgba(255,255,255,0.12)'; for (let i = 0; i < g * 10; i++) ctx.fillRect(0, Math.random() * ch, cw, d);
+      if (g > 0.55 && Math.random() < 0.14) { ctx.globalCompositeOperation = 'difference'; ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, cw, ch); }
+      ctx.globalCompositeOperation = 'source-over'; ctx.setTransform(d, 0, 0, d, 0, 0);
+    }
+    function drawRagnarok(A, q, t, dt, E) {
+      const W = S.W, H = S.H, u = S.u, d = S.dpr;
+      loadGods(); S.dtt = dt;
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A;
+      const bg = ctx.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#120b0c'); bg.addColorStop(0.55, '#090606'); bg.addColorStop(1, '#1d0909'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter';
+      let g = ctx.createRadialGradient(W * 0.5, H * 1.05, 0, W * 0.5, H * 1.05, u * 0.9); g.addColorStop(0, css([150, 12, 18], 0.35 + 0.1 * Math.sin(t * 1.3))); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(stain, 0, 0, W, H);
+      if (R() < dt * (0.45 + q * 0.8)) S.gl = Math.max(S.gl, rr(0.2, 0.65));
+      const cx = W * 0.5 - S.mx * 14, cy = H * 0.38 - S.my * 8, ring = sstep(0.04, 0.3, q);
+      if (ring > 0) {
+        ctx.globalAlpha = A * ring;
+        runeRing(cx, cy, Math.min(W, H) * 0.44, W0.rune1, t * 0.05, Math.max(14, u * 0.034), 0, t, A);
+        runeRing(cx, cy, Math.min(W, H) * 0.3, W0.rune2, -t * 0.08, Math.max(11, u * 0.025), 24, t, A);
+        ctx.globalAlpha = A;
+      }
+      // the Allfather, a ghost behind the tree; one eye burns
+      const od = GODS.odin;
+      if (od.ok) {
+        const oa = sstep(0.22, 0.48, q) * (1 - 0.45 * sstep(0.7, 0.95, q)), ow = Math.min(W * 0.82, H * 0.95) * (1 + 0.1 * q), oh = ow * od.img.height / od.img.width, ox = cx - ow / 2, oy = H * 0.36 - oh * 0.42 - S.my * 6;
+        glitchImg(od, ox, oy, ow, oh, oa * 0.6, S.gl, t, A);
+        const ex = ox + od.eye[0] * ow, ey = oy + od.eye[1] * oh, open = sstep(0.42, 0.52, q);
+        eyeGlow(ex, ey, ow * 0.05 * (1 + 0.25 * Math.sin(t * 3) + S.bflash), A * open * (0.75 + 0.25 * Math.sin(t * 2.2)));
+        S.inkC = [ex, ey];
+      }
+      const top = drawYggdrasil(q, t, dt);
+      // Huginn & Muninn circle the crown
+      if (RV.bone) {
+        const va = sstep(0.2, 0.35, q);
+        for (let k = 0; k < 2; k++) {
+          const a = t * 0.55 + k * Math.PI, x = top[0] + Math.cos(a) * u * 0.42, y = top[1] + Math.sin(a) * u * 0.1 - u * 0.05, z = 0.75 + 0.25 * Math.sin(a), sw = u * 0.16 * z, sh = sw * RV.H / RV.W;
+          ctx.save(); ctx.translate(x, y); ctx.scale(-Math.sin(a) < 0 ? -1 : 1, 1 + 0.12 * Math.sin(t * 7 + k)); ctx.globalAlpha = A * va * (0.55 + 0.45 * z); ctx.drawImage(RV.bone, -sw / 2, -sh / 2, sw, sh); ctx.restore();
+        }
+        ctx.globalAlpha = A;
+      }
+      // Fenrir breaks free and swallows the world
+      const fe = GODS.fenrir, fk = sstep(0.6, 0.99, q);
+      if (fe.ok && fk > 0) {
+        const fw = Math.min(W, H) * mix(0.5, 2.6, fk * fk), fh = fw * fe.img.height / fe.img.width, mxp = mix(W * 1.05, W * 0.5, sstep(0, 0.6, fk)), myp = mix(H * 1.1, H * 0.5, sstep(0, 0.6, fk));
+        const fx = mxp - fe.mouth[0] * fw + Math.sin(t * 13) * u * 0.004 * fk, fy = myp - fe.mouth[1] * fh;
+        glitchImg(fe, fx, fy, fw, fh, sstep(0, 0.15, fk) * 0.95, Math.max(S.gl, 0.15 * fk), t, A);
+        for (const e of fe.eyes) eyeGlow(fx + e[0] * fw, fy + e[1] * fh, fw * 0.045, A * sstep(0.05, 0.25, fk));
+        S.inkC = [mxp, myp];
+      }
+      drawBolts(dt);
+      // grain, scanlines, vignette
+      if (!grainPat) grainPat = ctx.createPattern(grain, 'repeat');
+      if (!scanPat) scanPat = ctx.createPattern(scan, 'repeat');
+      const ox = (Math.random() * 128) | 0, oy = (Math.random() * 128) | 0;
+      ctx.globalAlpha = A * 0.9; ctx.translate(ox, oy); ctx.fillStyle = grainPat; ctx.fillRect(-ox, -oy, W, H); ctx.setTransform(d, 0, 0, d, 0, 0);
+      ctx.globalAlpha = A; ctx.fillStyle = scanPat; ctx.fillRect(0, 0, W, H);
+      g = ctx.createRadialGradient(W * 0.5, H * 0.45, u * 0.3, W * 0.5, H * 0.5, Math.hypot(W, H) * 0.6); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.7)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      if (S.bflash > 0) { ctx.globalAlpha = A * S.bflash * S.bflash * 0.35; ctx.fillStyle = '#eef2ff'; ctx.fillRect(0, 0, W, H); S.bflash = Math.max(0, S.bflash - dt * 4); }
+      ctx.globalAlpha = 1;
+    }
+
+    // ---------- VII · the ink, the eye, the rebirth ----------
     function blob(x, y, r, ph, t) {
       ctx.beginPath();
       const nseg = clamp(Math.round(r / 10), 26, 110);
@@ -1028,7 +1266,7 @@ class Component extends DCLogic {
     function drawInk(q, t, dt) {
       const W = S.W, H = S.H, d = S.dpr, rc = RVS.rect;
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
-      const cx = rc ? rc.x + RV.eye[0] * rc.w : W / 2, cy = rc ? rc.y + RV.eye[1] * rc.h : H / 2, f = sstep(0, 0.55, q), maxR = Math.hypot(W, H);
+      const cx = S.inkC ? S.inkC[0] : rc ? rc.x + RV.eye[0] * rc.w : W / 2, cy = S.inkC ? S.inkC[1] : rc ? rc.y + RV.eye[1] * rc.h : H / 2, f = sstep(0, 0.55, q), maxR = Math.hypot(W, H);
       ctx.fillStyle = '#060304';
       if (f > 0.995) ctx.fillRect(0, 0, W, H);
       else if (f > 0) {
@@ -1040,7 +1278,7 @@ class Component extends DCLogic {
     }
     function rebirth() {
       W0 = gen(); S.s = S.sT = 0; S.flash = 1; S.next = S.t + 4; S.reborn = true; lastP = 0;
-      stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null;
+      stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null; S.inkC = null; S.gl = 0;
     }
 
     // ---------- beats: one-shot surprises as you scroll forward past them ----------
@@ -1051,7 +1289,10 @@ class Component extends DCLogic {
       { at: 3.95, fn: () => shake(9) },
       { at: 4.62, fn: () => { shake(16); const W = S.W, H = S.H; for (let k = 0; k < 6; k++) splatter(stx, rr(0.05, 0.95) * W, rr(0.55, 0.98) * H, rr(12, 34) * S.u / 900, 'rgba(10,6,6,0.88)'); for (const f of W0.feathers) { f.vx += rr(-1.2, 1.2); f.va += rr(-6, 6); } } },
       { at: 5.18, fn: () => ravenBoom(null, null) },
-      { at: 5.85, fn: () => { W0.eye.bl = 1; shake(6); } },
+      { at: 5.64, fn: () => strike(S.W * 0.5, S.H * 0.6) },
+      { at: 5.97, fn: () => { S.gl = 1; shake(12); strike(S.W * rr(0.2, 0.8), S.H * rr(0.3, 0.7)); } },
+      { at: 6.3, fn: () => { S.gl = 1; shake(20); S.gust = 1; } },
+      { at: 6.95, fn: () => { W0.eye.bl = 1; shake(6); } },
     ];
     let lastP = 0;
     function beats(P) { if (P > lastP) for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); lastP = P; }
@@ -1061,6 +1302,7 @@ class Component extends DCLogic {
       else if (ci === 1) { for (let i = 0; i < 3; i++) W0.shoot.push(mkShoot()); }
       else if (ci === 2) { pick(W0.lanterns).va += rr(-2, 2); for (const e of W0.eyes) e.bl = 1; }
       else if (ci === 3) splatter(stx, rr(0.1, 0.9) * S.W, rr(0.6, 0.95) * S.H, rr(8, 20), 'rgba(12,7,7,0.8)');
+      else if (ci === 5) { if (R() < 0.5) strike(rr(0.1, 0.9) * S.W, rr(0.3, 0.85) * S.H); else { S.gl = 1; for (let k = 0; k < W0.hot.length; k++) if (R() < 0.3) W0.hot[k] = 1; } }
       else if (ci === 4 && boomT() > 4 && RVS.rect) { shake(4); const rc = RVS.rect; for (let i = 0; i < 40; i++) { const p = pick(RV.pts); W0.ink.push({ k: 1, x: rc.x + p[0] * rc.w, y: rc.y + p[1] * rc.h, vx: rr(-200, 200), vy: rr(-260, -40), r: rr(1, 3.5), life: 1, dl: rr(0.5, 0.9) }); } }
     }
     function chapterClick(x, y) {
@@ -1074,7 +1316,8 @@ class Component extends DCLogic {
         for (let i = 0; i < 24; i++) W0.spores.push({ x, y, vx: rr(-120, 120), vy: rr(-160, 40), life: 1, c: pick([C.mint, C.lav, C.pink]) });
       } else if (ci === 3) { splatter(stx, x, y, rr(16, 34) * S.u / 900, 'rgba(12,7,7,0.92)'); splashAt(x, y, true); shake(5); }
       else if (ci === 4) { if (boomT() < 2.8) splatter(stx, x, y, rr(10, 24) * S.u / 900, 'rgba(12,7,7,0.9)'); else ravenBoom(x, y); }
-      else if (ci === 5) { W0.eye.bl = 1; shake(3); }
+      else if (ci === 5) strike(x, y);
+      else if (ci === 6) { W0.eye.bl = 1; shake(3); }
     }
 
     // ---------- chapter UI: caption with rune-scramble, rail, scroll hint ----------
@@ -1132,23 +1375,29 @@ class Component extends DCLogic {
       if (t > S.next) { S.next = t + rr(4.5, 9) / E; chapterSurprise(P); }
 
       const a2 = sstep(1.06, 1.34, P), a3 = sstep(2.3, 2.6, P), a4 = sstep(3.36, 3.66, P), a5 = sstep(4.28, 4.58, P);
-      const q2 = clamp((P - 1.15) / 1.35, 0, 1), q3 = clamp((P - 2.3) / 1.25, 0, 1), q4 = clamp((P - 3.36) / 1.1, 0, 1), q5 = clamp((P - 4.28) / 1.1, 0, 1), q6 = clamp((P - 5.3) / 0.68, 0, 1);
+      const q2 = clamp((P - 1.15) / 1.35, 0, 1), q3 = clamp((P - 2.3) / 1.25, 0, 1), q4 = clamp((P - 3.36) / 1.1, 0, 1), q5 = clamp((P - 4.28) / 1.1, 0, 1), q6 = clamp((P - 5.4) / 1.15, 0, 1), q7 = clamp((P - 6.42) / 0.66, 0, 1);
+      const a6 = sstep(5.36, 5.62, P);
+      S.gl *= Math.pow(0.02, dt); if (P > 5.28 && P < 5.66) S.gl = Math.max(S.gl, 0.9 * sstep(5.28, 5.42, P) * (1 - sstep(5.56, 5.66, P)));
       if (a2 < 1) drawNorth(t, dt, E, s);
       if (a2 > 0 && a3 < 1) drawSky(a2, q2, t, dt, E);
       if (a3 > 0 && a4 < 1) drawWoods(a3, q3, t, dt, E);
       if (a4 > 0 && a5 < 1) drawSunfall(a4, q4, t, dt, E);
-      if (a5 > 0 && q6 < 0.6) drawRaven(a5, q5, t, dt, E);
+      if (a5 > 0 && a6 < 1) drawRaven(a5, q5, t, dt, E);
       if (P > 3.36 && P < 5.6) {
         ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
         rainStep(sstep(0.3, 0.72, q4) * (1 - a5) + a5 * 0.3 * (1 - sstep(0.15, 0.45, q5)), dt, E);
         feathersStep(sstep(0.35, 0.65, q4) * (1 - sstep(0.75, 1, q5)), t, dt, E);
+      }
+      if (a6 > 0 && q7 < 0.6) drawRagnarok(a6 < 1 && Math.random() > a6 ? a6 * 0.35 : a6, q6, t, dt, E);
+      if (P > 3.36) {
         S.stf += dt; if (S.stf > 0.5) { S.stf = 0; stx.globalCompositeOperation = 'destination-out'; stx.fillStyle = 'rgba(0,0,0,0.05)'; stx.fillRect(0, 0, stain.width, stain.height); stx.globalCompositeOperation = 'source-over'; }
       }
-      if (q6 > 0) drawInk(q6, t, dt);
+      if (S.gl > 0.04 && P > 5.2 && q7 < 0.7) glitchPass(S.gl);
+      if (q7 > 0) drawInk(q7, t, dt);
       if (S.flash > 0) { ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = css(C.cream, S.flash); ctx.fillRect(0, 0, W, H); S.flash = Math.max(0, S.flash - dt * 0.8); }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
 
-      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, sstep(0.05, 0.4, q6));
+      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, a6);
       S.dk = Math.round(dk * 40) / 40;
       typo(t, E);
       uiStep(P, dt);
