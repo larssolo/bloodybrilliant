@@ -20,6 +20,12 @@ Som standard er siden til **børn**: fortællingen går I → II → III, og i s
 
 Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
 
+## Børn eller voksne
+
+Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism (som i børneversionen hedder kapitel IV). De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
+
+Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
+
 ## Lyd
 
 Ved første besøg popper trolden fra kapitel I op og spørger, om musikken skal vækkes (✦ WAKE THE MUSIC / WANDER IN SILENCE). Ellers tryk **SOUND** i headeren, eller tryk et sted i scenen. Lyden starter ved første tryk (også på mobiler, der tillader det; den låses op, når fingeren slippes), og et fravalg huskes til næste besøg. På iPhone skal lydløs-knappen være slået fra. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–9.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
