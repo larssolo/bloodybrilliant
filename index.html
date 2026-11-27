@@ -41,28 +41,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-credit:hover{transform:translateY(-2px) rotate(-2deg)}
 .un-logo{all:unset;cursor:pointer;display:inline-block;padding:4px;margin:-4px;border-radius:50%;transition:transform .6s cubic-bezier(.3,1.8,.4,1)}
 .un-logo:focus-visible{outline:2px solid currentColor;outline-offset:3px}
-.un-map{position:absolute;inset:0;z-index:7;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:22px;padding:72px clamp(16px,4vw,56px) 28px;background:rgba(10,8,12,.72);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;color:#f4eedd;font-family:Inter,system-ui,sans-serif;overflow-y:auto}
-.un-map.open{opacity:1;visibility:visible}
-.un-map h2{margin:0;font:italic 600 clamp(28px,4vw,52px)/1 Fraunces,Georgia,serif;letter-spacing:-.01em}
-.un-map-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.4vw,18px);width:min(1180px,100%)}
-@media (max-width:760px){.un-map-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.un-tile{all:unset;cursor:pointer;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:7/4;background:#222;box-shadow:0 10px 30px rgba(0,0,0,.35);transform:translateY(12px) scale(.96);opacity:0;transition:transform .5s cubic-bezier(.2,1.4,.4,1),opacity .4s,box-shadow .3s}
-.un-map.open .un-tile{transform:none;opacity:1}
-.un-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:unKen 14s ease-in-out infinite alternate}
-.un-tile:nth-child(2n) img{animation-direction:alternate-reverse}
-@keyframes unKen{from{transform:scale(1.04) translate(-2%,1%)}to{transform:scale(1.16) translate(2%,-2%)}}
-.un-tile span{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-size:10px;font-weight:500;letter-spacing:.16em;line-height:1.4}
-.un-tile b{display:block;font:italic 600 18px/1 Fraunces,Georgia,serif;letter-spacing:0;margin-bottom:4px}
-.un-tile:hover,.un-tile:focus-visible{box-shadow:0 0 0 2px #f4eedd,0 16px 40px rgba(0,0,0,.5)}
-.un-tile:hover img{animation-duration:4s}
-.un-tile.on::after{content:"YOU ARE HERE";position:absolute;top:10px;left:10px;padding:4px 8px;border-radius:99px;background:#ee5a2c;font-size:9px;font-weight:600;letter-spacing:.14em}
-.un-map-foot{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.un-btn{all:unset;cursor:pointer;padding:12px 20px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.18em;border:1.5px solid #f4eedd;transition:background .2s,color .2s}
-.un-btn:hover,.un-btn:focus-visible{background:#f4eedd;color:#1c2333}
-.un-btn.hot{background:#ee5a2c;border-color:#ee5a2c}.un-btn.hot:hover{background:#f4eedd;border-color:#f4eedd}
-.un-chaos .un-cv{scale:-1 1;animation:unChaos 6s linear infinite}
-@keyframes unChaos{0%{filter:hue-rotate(0) saturate(1.6) contrast(1.15)}100%{filter:hue-rotate(360deg) saturate(1.6) contrast(1.15)}}
-.un-toast{position:absolute;left:50%;top:50%;z-index:8;transform:translate(-50%,-50%) scale(.8);font:900 clamp(40px,9vw,130px)/1 Fraunces,Georgia,serif;color:#ee5a2c;text-shadow:6px 0 #19e6ff,-6px 0 #ff1a2e;opacity:0;pointer-events:none;transition:opacity .25s,transform .5s cubic-bezier(.2,1.6,.4,1);white-space:nowrap}
+.un-toast{position:absolute;left:50%;top:50%;z-index:8;width:min(92vw,1100px);text-align:center;transform:translate(-50%,-50%) scale(.8);font:900 clamp(30px,6.5vw,96px)/1 Fraunces,Georgia,serif;color:#ee5a2c;text-shadow:5px 0 #19e6ff,-5px 0 #ff1a2e;opacity:0;pointer-events:none;transition:opacity .25s,transform .5s cubic-bezier(.2,1.6,.4,1)}
 .un-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .un-logo:hover{transform:rotate(180deg) scale(1.2)}
 @keyframes unDrip{0%{transform:translateY(-4px) scaleY(.8);opacity:0}30%{opacity:1}70%{transform:translateY(10px) scaleY(1.15);opacity:1}100%{transform:translateY(18px) scaleY(.6);opacity:0}}
@@ -82,7 +61,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <div data-k="unreal-a" style="position: relative; width: 100%; height: 100vh; min-height: 520px; overflow: hidden; background: #f4eedd; font-family: Inter, system-ui, sans-serif; touch-action: none; cursor: crosshair">
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
-<button type="button" class="un-logo" data-logo="" aria-haspopup="dialog" aria-label="Kapitelkort"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
+<button type="button" class="un-logo" data-logo="" aria-label="Kaos: klik for tilfældige effekter, langt tryk eller Esc for orden"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
 <div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
@@ -102,7 +81,6 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </p>
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
-<div class="un-map" data-map="" role="dialog" aria-modal="true" aria-label="Kapitelkort" aria-hidden="true"><h2>Choose your chapter</h2><div class="un-map-grid" data-grid=""></div><div class="un-map-foot"><button type="button" class="un-btn hot" data-newworld="">&#10022; NEW WORLD</button><button type="button" class="un-btn" data-close="">CLOSE &middot; ESC</button></div></div>
 <div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
 <nav data-rail="" class="un-rail" aria-label="Kapitler"></nav>
@@ -142,7 +120,7 @@ class Component extends DCLogic {
     const R = rng(seedP > 0 ? seedP : (Math.random() * 1e9) | 0);
     const rr = (a, b) => a + R() * (b - a), pick = (arr) => arr[(R() * arr.length) | 0];
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const energy = () => clamp(+(self.props.energi ?? 1) || 1, 0.2, 3) * (reduce ? 0.35 : 1) * (S.chaos ? 2.2 : 1);
+    const energy = () => clamp(+(self.props.energi ?? 1) || 1, 0.2, 3) * (reduce ? 0.35 : 1) * (S.cx && S.cx.turbo ? 2.4 : 1) * (S.cx && S.cx.slowmo ? 0.3 : 1);
 
     const C = { blue: hex('#2f4db8'), orange: hex('#ee5a2c'), yellow: hex('#f6c333'), teal: hex('#47c2b1'), mint: hex('#8fdcc0'), lav: hex('#a99be0'), pink: hex('#f2a6b8'), lime: hex('#cfe05a'), navy: hex('#232a6b'), sand: hex('#e8c88c'), brown: hex('#8a5a3c'), moss: hex('#6e8f3e'), cream: hex('#f4eedd'), peach: hex('#f6a47a') };
     const SKY = [[hex('#f6efe0'), hex('#f2ead8')], [hex('#eef4e6'), hex('#f4ecd8')], [hex('#f1ecf6'), hex('#f6eedc')]][(R() * 3) | 0];
@@ -151,7 +129,7 @@ class Component extends DCLogic {
     const grade = (c) => { const w = lc(c, [Math.min(255, c[0] * 1.05 + 22), c[1] * 0.86, c[2] * 0.78], D * 0.35); return lc(w, [w[0] * 0.28 + 12, w[1] * 0.32 + 14, w[2] * 0.55 + 42], N * 0.78); };
     const G = (c, a) => css(grade(c), a);
 
-    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, chaos: false, mapOpen: false, P: 0, rwd: 1, tx: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
+    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, chaos: false, chaosT: 0, P: 0, rwd: 1, tx: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
     let W0 = null;
 
     function gen() {
@@ -1465,34 +1443,49 @@ class Component extends DCLogic {
       for (let i = 0; i < id.data.length; i += 4) { const v = 128 + ((Math.random() + Math.random() + Math.random() - 1.5) * 70) | 0; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
       gx.putImageData(id, 0, 0); root.style.setProperty('--grain', 'url(' + gc.toDataURL('image/png') + ')'); }
     // ---------- the triangle: one click opens the chapter map, three quick clicks unleash chaos ----------
-    const mapEl = root.querySelector('[data-map]'), gridEl = root.querySelector('[data-grid]'), logoEl = root.querySelector('[data-logo]'), toastEl = root.querySelector('[data-toast]');
-    const TITLES = ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnarök', 'The Ink', 'Prism'];
-    function toast(txt) { toastEl.textContent = txt; toastEl.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('show'), 1400); }
-    function mapOpen(open) {
-      S.mapOpen = open; mapEl.classList.toggle('open', open); mapEl.setAttribute('aria-hidden', open ? 'false' : 'true');
-      if (open) {
-        const ci = chapterAt(S.P);
-        gridEl.innerHTML = '';
-        CH.forEach((c, i) => {
-          const b = document.createElement('button'); b.type = 'button'; b.className = 'un-tile' + (i === ci ? ' on' : ''); b.style.transitionDelay = (i * 0.045) + 's';
-          b.innerHTML = '<img src="assets/thumbs/ch' + (i + 1) + '.webp" alt="" loading="lazy"><span><b>' + c.n + ' \u00b7 ' + TITLES[i] + '</b>' + (i ? c.cap.replace(/^[IVX]+ \u2014 /, '').split(' \u00b7 ')[0] : 'A LITTLE BIT NORDIC. A LOT UNREAL.') + '</span>';
-          b.setAttribute('aria-label', 'Gå til kapitel ' + c.n + ': ' + TITLES[i]);
-          b.addEventListener('click', () => { S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); snd('whoosh'); mapOpen(false); });
-          gridEl.appendChild(b);
-        });
-        snd('chime'); setTimeout(() => { const f = gridEl.querySelector('.on') || gridEl.firstChild; if (f) f.focus(); }, 60);
-      } else logoEl.focus({ preventScroll: true });
+    // ---------- the triangle: CHAOS. Every click rolls a new random mix of effects; long-press or Esc restores order ----------
+    const logoEl = root.querySelector('[data-logo]'), toastEl = root.querySelector('[data-toast]');
+    function toast(txt) { toastEl.textContent = txt; toastEl.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('show'), 1600); }
+    const FX8 = {
+      mirror: 'MIRROR', upside: 'UPSIDE DOWN', hue: 'RAINBOW BRAIN', invert: 'NEGATIVE', noir: 'NOIR', turbo: 'TURBO', slowmo: 'SLOW MOTION',
+      glitch: 'GLITCH STORM', quake: 'EARTHQUAKE', wobble: 'SEASICK', strobe: 'STROBE', warp: 'WARP PULSE', pixel: '8-BIT', melt: 'MELT',
+    };
+    const CLASH = [['invert', 'noir'], ['turbo', 'slowmo'], ['hue', 'noir']];
+    S.cx = {};
+    function rollChaos() {
+      const keys = Object.keys(FX8), n = 2 + ((Math.random() * 3) | 0), pick0 = {};
+      let guard = 0;
+      while (Object.keys(pick0).length < n && guard++ < 50) { const k = keys[(Math.random() * keys.length) | 0]; if (CLASH.some((c) => c.includes(k) && c.some((o) => o !== k && pick0[o]))) continue; pick0[k] = 1; }
+      const wasPix = !!S.cx.pixel; S.cx = pick0; S.chaos = true; S.chaosT = S.t;
+      if (wasPix !== !!pick0.pixel) { S.W = 0; resize(); }
+      toast(Object.keys(pick0).map((k) => FX8[k]).join(' + ')); shake(14); S.gl = 1; snd('glitch'); snd(pick0.slowmo ? 'whale' : 'boom');
     }
-    let logoClicks = 0, logoTimer = 0;
-    logoEl.addEventListener('click', () => {
-      logoClicks++; clearTimeout(logoTimer);
-      if (logoClicks >= 3) { logoClicks = 0; S.chaos = !S.chaos; root.classList.toggle('un-chaos', S.chaos); toast(S.chaos ? 'CHAOS MODE' : 'ORDER RESTORED'); shake(16); S.gl = 1; snd('glitch'); snd(S.chaos ? 'boom' : 'chime'); return; }
-      logoTimer = setTimeout(() => { if (logoClicks === 1) mapOpen(!S.mapOpen); logoClicks = 0; }, 320);
-    });
-    root.querySelector('[data-close]').addEventListener('click', () => mapOpen(false));
-    root.querySelector('[data-newworld]').addEventListener('click', () => { mapOpen(false); rebirth(); S.sv = 0; toast('NEW WORLD'); });
-    mapEl.addEventListener('pointerdown', (e) => { e.stopPropagation(); if (e.target === mapEl) mapOpen(false); });
-    mapEl.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
+    function orderChaos() {
+      if (!S.chaos) return; const wasPix = !!S.cx.pixel; S.cx = {}; S.chaos = false;
+      cv.style.filter = ''; cv.style.scale = ''; cv.style.rotate = ''; cv.style.imageRendering = '';
+      if (wasPix) { S.W = 0; resize(); }
+      toast('ORDER RESTORED'); snd('chime');
+    }
+    // applied every frame: composable CSS filters and transforms on the canvas
+    function chaosStep(t, dt) {
+      if (!S.chaos) return; const c = S.cx, k = t - S.chaosT, f = [];
+      if (c.hue) f.push('hue-rotate(' + ((k * 90) % 360).toFixed(0) + 'deg) saturate(1.6)');
+      if (c.invert) f.push('invert(1) hue-rotate(180deg)');
+      if (c.noir) f.push('grayscale(1) contrast(1.6)');
+      if (c.strobe) f.push('brightness(' + (Math.sin(k * 18) > 0.6 ? 1.9 : 1).toFixed(2) + ')');
+      if (c.melt) f.push('blur(' + (1.5 + Math.sin(k * 1.3) * 1.5).toFixed(2) + 'px) saturate(1.4)');
+      cv.style.filter = f.join(' ');
+      const sx = (c.mirror ? -1 : 1) * (c.warp ? 1 + Math.sin(k * 3.2) * 0.06 : 1), sy = (c.upside ? -1 : 1) * (c.warp ? 1 + Math.sin(k * 3.2 + 1) * 0.06 : 1);
+      cv.style.scale = sx.toFixed(3) + ' ' + sy.toFixed(3);
+      cv.style.rotate = c.wobble ? (Math.sin(k * 1.1) * 5).toFixed(2) + 'deg' : '';
+      cv.style.imageRendering = c.pixel ? 'pixelated' : '';
+      if (c.quake) S.shake = Math.max(S.shake, 9);
+      if (c.glitch && R() < dt * 3) S.gl = Math.max(S.gl, rr(0.4, 0.9));
+    }
+    let pressT = 0, pressTimer = 0, longDone = false;
+    logoEl.addEventListener('pointerdown', () => { longDone = false; clearTimeout(pressTimer); pressTimer = setTimeout(() => { longDone = true; orderChaos(); }, 650); });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => logoEl.addEventListener(ev, () => clearTimeout(pressTimer)));
+    logoEl.addEventListener('click', () => { if (longDone) { longDone = false; return; } rollChaos(); });
     const capEl = root.querySelector('[data-cap]'), rail = root.querySelector('[data-rail]'), hint = root.querySelector('[data-hint]');
     const RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
     const railBtns = CH.map((c, i) => {
@@ -2217,8 +2210,8 @@ class Component extends DCLogic {
       if (P > 3.36) {
         S.stf += dt; if (S.stf > 0.5) { S.stf = 0; stx.globalCompositeOperation = 'destination-out'; stx.fillStyle = 'rgba(0,0,0,0.05)'; stx.fillRect(0, 0, stain.width, stain.height); stx.globalCompositeOperation = 'source-over'; }
       }
-      if (S.chaos && R() < dt * 1.6) S.gl = Math.max(S.gl, rr(0.3, 0.8));
-      if (S.gl > 0.04 && ((P > 5.2 && P < 7.3) || S.chaos)) glitchPass(S.gl);
+      chaosStep(t, dt);
+      if (S.gl > 0.04 && ((P > 5.2 && P < 7.3) || (S.chaos && S.cx.glitch))) glitchPass(S.gl);
       const a8 = sstep(7.8, 7.95, P), q8 = clamp((P - 7.8) / 1.6, 0, 1);
       S.rwd += ((S.sv < -0.04 ? -1 : 1) - S.rwd) * Math.min(1, dt * 6);
       if (P < 6.95 && W0.wakeDirty) { wkx.clearRect(0, 0, wake.width, wake.height); W0.wakeDirty = false; }
@@ -2387,7 +2380,7 @@ class Component extends DCLogic {
     const resize = () => {
       const W = Math.max(50, root.clientWidth), H = Math.max(50, root.clientHeight);
       if (W === S.W && H === S.H) return;
-      S.W = W; S.H = H; S.u = Math.min(W, H * 1.25); S.dpr = Math.min(2, window.devicePixelRatio || 1);
+      S.W = W; S.H = H; S.u = Math.min(W, H * 1.25); S.dpr = S.cx && S.cx.pixel ? 0.16 : Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(W * S.dpr); cv.height = Math.round(H * S.dpr);
       stain.width = W; stain.height = H; BL.ok = false; grainPat = null; prismResize(W, H); PT.ok = false;
       if (!W0) W0 = gen();
@@ -2422,7 +2415,7 @@ class Component extends DCLogic {
     root.addEventListener('pointerup', onUp); root.addEventListener('pointercancel', onUp); root.addEventListener('pointerleave', onLeave);
     root.addEventListener('wheel', onWheel, { passive: false });
     const onKey = (e) => {
-      if (S.mapOpen) { if (e.key === 'Escape') { e.preventDefault(); mapOpen(false); } return; }
+      if (e.key === 'Escape' && S.chaos) { e.preventDefault(); orderChaos(); return; }
       const k = e.key, tg = e.target;
       if (tg && (/INPUT|TEXTAREA|SELECT/.test(tg.tagName) || (k === ' ' && tg.closest && tg.closest('button,a')))) return;
       let dv = 0;
