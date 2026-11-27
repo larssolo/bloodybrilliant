@@ -83,6 +83,29 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-lite .un-cv{filter:none}.un-lite .un-paper{display:none}
 .un-off .un-cv{filter:none}.un-off .un-grain,.un-off .un-paper{display:none}
 @media (prefers-reduced-motion:reduce){.un-grain::before{animation:none}}
+.un-mode{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:0;font-size:10px;font-weight:600;letter-spacing:.16em;border:1.5px solid currentColor;border-radius:99px;padding:2px}
+.un-mode span{padding:5px 10px;border-radius:99px;transition:background .3s,color .3s}
+.un-mode[data-kid="1"] .mk,.un-mode[data-kid="0"] .ma{background:#ee5a2c;color:#fff}
+.un-mode[data-kid="0"] .ma{background:#b3122a}
+.un-mode span:hover{color:#ee5a2c}.un-mode[data-kid="1"] .mk:hover,.un-mode[data-kid="0"] .ma:hover{color:#fff}
+.un-mode b{font-weight:600}
+.un-mode:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.un-gate{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(10,8,14,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font-family:Inter,system-ui,sans-serif;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.un-gate.show{opacity:1;visibility:visible}
+.un-gate .card{position:relative;width:min(420px,100%);padding:22px 22px 18px;border-radius:24px;background:#14101a;color:#f4eedd;border:2px solid #f4eedd;box-shadow:7px 7px 0 #b3122a,0 30px 70px rgba(0,0,0,.5);transform:scale(.6) rotate(4deg);transition:transform .6s cubic-bezier(.2,1.7,.4,1)}
+.un-gate.show .card{transform:none}
+.un-gate.no .card{animation:unNo .45s}
+@keyframes unNo{20%{transform:translateX(-12px) rotate(-2deg)}40%{transform:translateX(10px) rotate(2deg)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.un-gate .moon{position:absolute;right:18px;top:-26px;width:54px;height:54px;border-radius:50%;background:#f4eedd;box-shadow:inset -14px -6px 0 #c9c1a8,0 0 30px rgba(244,238,221,.45)}
+.un-gate h3{margin:0 0 8px;font:italic 700 26px/1 Fraunces,Georgia,serif;color:#ff5a6e}
+.un-gate p{margin:0 0 12px;font-size:14px;line-height:1.45;opacity:.9}
+.un-gate .qq{font:700 22px/1.2 Fraunces,Georgia,serif;margin:4px 0 12px;opacity:1}
+.un-gate .ans{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.un-gate button{all:unset;cursor:pointer;text-align:center;padding:11px 8px;border-radius:99px;font-size:12px;font-weight:600;letter-spacing:.12em;border:1.5px solid #f4eedd;transition:transform .2s cubic-bezier(.3,1.8,.4,1),background .2s,color .2s}
+.un-gate button:hover,.un-gate button:focus-visible{transform:translateY(-2px);background:#f4eedd;color:#14101a}
+.un-gate .ans button{font:700 18px/1 Fraunces,Georgia,serif;letter-spacing:0}
+.un-gate .stay{display:block;width:calc(100% - 20px);border-color:rgba(244,238,221,.35)}
+.un-gate small{display:block;min-height:16px;margin-top:10px;font-size:11px;letter-spacing:.06em;color:#ff8a98}
 .un-credit{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.16em;transition:transform .35s cubic-bezier(.3,1.6,.5,1),color .2s}
 .un-credit:hover{transform:translateY(-2px) rotate(-2deg)}
 .un-logo{all:unset;cursor:pointer;display:inline-block;padding:4px;margin:-4px;border-radius:50%;transition:transform .6s cubic-bezier(.3,1.8,.4,1)}
@@ -101,7 +124,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-rail button.on i{background:currentColor;transform:scale(1.4)}
 .un-rail button:hover span,.un-rail button.on span,.un-rail button:focus-visible span{opacity:1;transform:none}
 .un-rail button:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
-@media (max-width:640px){.un-hr .un-snd,.un-hr .un-credit,.un-rail{display:none}.un-burger{display:flex}}
+@media (max-width:640px){.un-hr .un-snd,.un-hr .un-credit,.un-hr .un-mode,.un-rail{display:none}.un-burger{display:flex}}
 </style>
 </head>
 <body>
@@ -109,7 +132,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <button type="button" class="un-logo" data-logo="" aria-label="Kaos: klik for tilfældige effekter, langt tryk eller Esc for orden"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
-<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a><button type="button" class="un-burger" data-burger="" aria-expanded="false" aria-controls="un-menu" aria-label="Menu"><i></i><i></i><i></i></button></div>
+<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-mode" data-mode="" data-kid="1" aria-label="Who is reading: kids or grown-ups"><span class="mk"><b>&#10022; KIDS</b></span><span class="ma"><b>&#9790; GROWN-UPS</b></span></button><button type="button" class="un-snd" data-snd="""" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a><button type="button" class="un-burger" data-burger="" aria-expanded="false" aria-controls="un-menu" aria-label="Menu"><i></i><i></i><i></i></button></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -119,7 +142,8 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <p data-tag="" style="margin: 18px 0 0; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; color: #1c2333">A LITTLE BIT NORDIC. A LOT UNREAL.</p>
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
-<div class="un-pop" data-pop="" role="dialog" aria-label="Sound" aria-hidden="true"><div class="troll"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 58)"><path d="M-8 -36 Q-16 -54 -10 -60 M0 -38 Q2 -58 8 -62 M8 -36 Q18 -52 14 -58" stroke="#ee5a2c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="-40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><ellipse cx="40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><circle r="38" fill="#7f9c55"/><ellipse cy="8" rx="27" ry="21" fill="#b4cc83"/><ellipse cx="-12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><ellipse cx="12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><circle cx="-10" cy="-7" r="3.4" fill="#1c2333"/><circle cx="14" cy="-7" r="3.4" fill="#1c2333"/><g class="lid" style="transform-origin:0 -15px"><rect x="-20" y="-17" width="40" height="18" fill="#7f9c55"/></g><ellipse cy="4" rx="10" ry="8.5" fill="#f6a47a"/><ellipse cx="-3" cy="1" rx="3" ry="2" fill="#fff" opacity=".6"/><path d="M-9 16 Q0 24 9 16" stroke="#1c2333" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="1" y="18" width="4" height="4" fill="#fffaf0"/><ellipse cx="-22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/><ellipse cx="22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/></g></svg></div><div class="bub"><i class="spark" style="left:110px;top:40px;--dx:-40px;--dy:-50px;animation-delay:0.40s"></i><i class="spark" style="left:200px;top:20px;--dx:10px;--dy:-60px;animation-delay:0.50s"></i><i class="spark" style="left:320px;top:30px;--dx:50px;--dy:-40px;animation-delay:0.45s"></i><i class="spark" style="left:380px;top:90px;--dx:60px;--dy:10px;animation-delay:0.55s"></i><i class="spark" style="left:90px;top:110px;--dx:-50px;--dy:20px;animation-delay:0.50s"></i><i class="spark" style="left:250px;top:0px;--dx:-10px;--dy:-70px;animation-delay:0.60s"></i><h3>Psst&hellip; lend me your ears.</h3><p>I&rsquo;m the troll who keeps the bridge of this tale, and I&rsquo;ll let you in on a secret: half of it is <em>sung</em>. Whales hum, ravens cry, gods thunder and the ink whispers.</p><div class="acts"><button type="button" class="yes" data-popyes="">&#10022; WAKE THE MUSIC</button><button type="button" class="no" data-popno="">WANDER IN SILENCE</button></div><small data-pophint="">Change your mind anytime with SOUND.</small></div></div>
+<div class="un-pop" data-pop="" role="dialog" aria-label="Sound" aria-hidden="true"><div class="troll"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 58)"><path d="M-8 -36 Q-16 -54 -10 -60 M0 -38 Q2 -58 8 -62 M8 -36 Q18 -52 14 -58" stroke="#ee5a2c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="-40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><ellipse cx="40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><circle r="38" fill="#7f9c55"/><ellipse cy="8" rx="27" ry="21" fill="#b4cc83"/><ellipse cx="-12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><ellipse cx="12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><circle cx="-10" cy="-7" r="3.4" fill="#1c2333"/><circle cx="14" cy="-7" r="3.4" fill="#1c2333"/><g class="lid" style="transform-origin:0 -15px"><rect x="-20" y="-17" width="40" height="18" fill="#7f9c55"/></g><ellipse cy="4" rx="10" ry="8.5" fill="#f6a47a"/><ellipse cx="-3" cy="1" rx="3" ry="2" fill="#fff" opacity=".6"/><path d="M-9 16 Q0 24 9 16" stroke="#1c2333" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="1" y="18" width="4" height="4" fill="#fffaf0"/><ellipse cx="-22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/><ellipse cx="22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/></g></svg></div><div class="bub"><i class="spark" style="left:110px;top:40px;--dx:-40px;--dy:-50px;animation-delay:0.40s"></i><i class="spark" style="left:200px;top:20px;--dx:10px;--dy:-60px;animation-delay:0.50s"></i><i class="spark" style="left:320px;top:30px;--dx:50px;--dy:-40px;animation-delay:0.45s"></i><i class="spark" style="left:380px;top:90px;--dx:60px;--dy:10px;animation-delay:0.55s"></i><i class="spark" style="left:90px;top:110px;--dx:-50px;--dy:20px;animation-delay:0.50s"></i><i class="spark" style="left:250px;top:0px;--dx:-10px;--dy:-70px;animation-delay:0.60s"></i><h3>Psst&hellip; lend me your ears.</h3><p>I&rsquo;m the troll who keeps the bridge of this tale, and I&rsquo;ll let you in on a secret: half of it is <em>sung</em>. Whales hum, ravens cry, gods thunder and the ink whispers.</p><div class="acts"><button type="button" class="yes" data-popyes="">&#10022; WAKE THE MUSIC</button><button type="button" class="no" data-popno="">WANDER IN SILENCE</button></div><small data-pophint="">Change your mind anytime with SOUND.</small><small class="dk">The dark chapters are asleep. Grown-ups can wake them with &#9790;.</small></div></div>
+<div class="un-gate" data-gate="" role="dialog" aria-modal="true" aria-labelledby="un-gate-h" aria-hidden="true"><div class="card"><i class="moon" aria-hidden="true"></i><h3 id="un-gate-h">For grown-ups only</h3><p>Beyond the lantern woods sleep the dark chapters: a raven of ink, Ragnar&ouml;k, the wolf that swallows the sun and the eye that never blinks. Little readers fly straight on to the rainbow horses.</p><p class="qq" data-gq="">What is 7 &times; 8?</p><div class="ans" data-ga=""></div><button type="button" class="stay" data-gstay="">&#10022; LET THEM SLEEP</button><small data-gmsg="" aria-live="polite"></small></div></div>
 <nav id="un-menu" class="un-menu" data-menu="" aria-label="Menu" aria-hidden="true"></nav>
 <div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
@@ -454,9 +478,19 @@ class Component extends DCLogic {
     //  THE LONG TALE: chapters II-VI. Progress S.s runs 0..PMAX, then the
     //  world is reborn with a new seed, so the story never ends.
     // =====================================================================
-    const PMAX = 9.45, RMAX = PMAX + 1;
+    const PMAX = 9.45; let RMAX = PMAX + 1;
     // raw scroll S.s runs 0..RMAX; story time P stretches chapter I over the first two raw units
     const toRaw = (x) => (x < 1 ? x * 2 : x + 1), toStory = (x) => (x < 2 ? x / 2 : x - 1);
+    // kids' route (the default): I, II, III, then a bridge of light straight into Prism. The dark chapters IV-VII sleep.
+    // Scroll runs in "kid story" k; the engine still gets the real story time P, so every chapter draws as before.
+    const KC = 3.3, KZ = 0.3, KB0 = 7.8, KB1 = 7.95, KG = KB1 - (KC + KZ);
+    const kidToP = (k) => (k <= KC ? k : k < KC + KZ ? KB0 + (k - KC) / KZ * (KB1 - KB0) : k + KG);
+    const pToKid = (P) => (P <= KC ? P : P >= KB1 ? P - KG : P >= KB0 ? KC + (P - KB0) / (KB1 - KB0) * KZ : KC + KZ);
+    const storyOf = (s) => (S.kid ? kidToP(toStory(s)) : toStory(s)), rawOf = (P) => toRaw(S.kid ? pToKid(P) : P);
+    const isDark = (i) => i > 2 && i < 7, chN = (i) => (S.kid && i === 7 ? 'IV' : CH[i].n);
+    const cAt = (P) => { const i = chapterAt(P); return S.kid && isDark(i) ? (P > 7 ? 7 : 2) : i; };
+    { let m = self.props.mode; if (!m) try { m = localStorage.getItem('bb-mode'); } catch (e) {} S.kid = m !== 'adult'; }
+    RMAX = toRaw(S.kid ? PMAX - KG : PMAX);
     const CH = [
       { a: 0, n: 'I', cap: 'I — THE UNREAL NORTH · SCROLL, CLICK, PLAY', aria: 'Kapitel I: levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod' },
       { a: 1.25, n: 'II', cap: 'II — WHERE THE WHALES LEARNED TO SING', aria: 'Kapitel II: stjernehav med en syngende hval af stjernebilleder og svævende vandmænd' },
@@ -1429,6 +1463,7 @@ class Component extends DCLogic {
       { at: 7.02, fn: () => snd('wings') },
       { at: 7.5, fn: () => snd('whoosh') },
       { at: 7.72, fn: () => { snd('boom'); shake(8); } },
+      { at: 7.805, kid: 1, fn: () => { S.flash = 0.45; snd('whoosh'); snd('sparkle'); shake(4); for (let i = 0; i < 8; i++) W0.shoot.push(mkShoot()); } },
       { at: 7.93, fn: () => { snd('chime'); snd('sparkle'); } },
       { at: 8.15, fn: () => snd('neigh') },
       { at: 8.55, fn: () => { snd('whoosh'); snd('chime'); } },
@@ -1442,10 +1477,11 @@ class Component extends DCLogic {
       { at: 0.77, fn: () => snd('chime') },
     ];
     let lastP = 0;
-    const BEAT_REV = { 7.02: ['wings'], 7.72: ['boom'], 7.93: ['chime'], 8.15: ['neigh'], 9.05: ['neigh', 'gallop'], 1.62: ['whale'], 2.02: ['whale', 'sparkle'], 2.95: ['wind'], 3.95: ['caw'], 4.62: ['boom'], 5.18: ['boom', 'caw'], 5.64: ['thunder'], 5.97: ['thunder'], 6.3: ['howl', 'boom'], 6.95: ['blink'], 0.08: ['wake'], 0.17: ['giggle'], 0.4: ['chime'], 0.52: ['splash'], 0.62: ['wind'], 0.77: ['chime'] };
+    const BEAT_REV = { 7.02: ['wings'], 7.72: ['boom'], 7.805: ['whoosh'], 7.93: ['chime'], 8.15: ['neigh'], 9.05: ['neigh', 'gallop'], 1.62: ['whale'], 2.02: ['whale', 'sparkle'], 2.95: ['wind'], 3.95: ['caw'], 4.62: ['boom'], 5.18: ['boom', 'caw'], 5.64: ['thunder'], 5.97: ['thunder'], 6.3: ['howl', 'boom'], 6.95: ['blink'], 0.08: ['wake'], 0.17: ['giggle'], 0.4: ['chime'], 0.52: ['splash'], 0.62: ['wind'], 0.77: ['chime'] };
     function beats(P) {
-      if (P > lastP) { for (const b of BEATS) if (lastP < b.at && P >= b.at) b.fn(); }
-      else if (P < lastP && !S.reborn) { for (const b of BEATS) if (lastP >= b.at && P < b.at) (BEAT_REV[b.at] || []).forEach((n) => sndRev(n)); }
+      const ok = (b) => (S.kid ? !(b.at > KC && b.at < KB0) : !b.kid);
+      if (P > lastP) { for (const b of BEATS) if (ok(b) && lastP < b.at && P >= b.at) b.fn(); }
+      else if (P < lastP && !S.reborn) { for (const b of BEATS) if (ok(b) && lastP >= b.at && P < b.at) (BEAT_REV[b.at] || []).forEach((n) => sndRev(n)); }
       lastP = P;
     }
     function chapterSurprise(P) {
@@ -1527,9 +1563,10 @@ class Component extends DCLogic {
     // ---------- mobile burger menu: sound, chaos, chapters, credit ----------
     const burger = root.querySelector('[data-burger]'), menu = root.querySelector('[data-menu]');
     function menuBuild() {
-      const ci = chapterAt(S.P);
-      menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div><small>CHAPTERS</small>' +
-        '<div class="grid">' + CH.map((c, i) => '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + c.n + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism'][i] + '</button>').join('') + '</div>' +
+      const ci = cAt(S.P);
+      menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div>' +
+        '<small>WHO IS READING?</small><div class="row"><button type="button" class="pill' + (S.kid ? ' hot' : '') + '" data-mmode="kid" aria-pressed="' + S.kid + '">&#10022; KIDS</button><button type="button" class="pill' + (S.kid ? '' : ' hot') + '" data-mmode="adult" aria-pressed="' + !S.kid + '">&#9790; GROWN-UPS</button></div><small>CHAPTERS</small>' +
+        '<div class="grid">' + CH.map((c, i) => S.kid && isDark(i) ? '' : '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + chN(i) + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism'][i] + '</button>').join('') + '</div>' +
         '<small>&nbsp;</small><div class="row"><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
     }
     function menuOpen(open) {
@@ -1544,7 +1581,8 @@ class Component extends DCLogic {
       if (b.hasAttribute('data-msnd')) { AU.asked = true; soundSet(!AU.on); }
       else if (b.hasAttribute('data-mchaos')) { rollChaos(); menuOpen(false); }
       else if (b.hasAttribute('data-morder')) { orderChaos(); menuOpen(false); }
-      else if (b.hasAttribute('data-mch')) { const i = +b.getAttribute('data-mch'); S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); snd('whoosh'); menuOpen(false); }
+      else if (b.hasAttribute('data-mmode')) { const kid = b.getAttribute('data-mmode') === 'kid'; if (kid !== S.kid) { if (kid) setMode(true); else { menuOpen(false); gateOpen(); } } }
+      else if (b.hasAttribute('data-mch')) { const i = +b.getAttribute('data-mch'); S.sT = i ? rawOf(CH[i].a + 0.1) : 0; S.last = performance.now(); snd('whoosh'); menuOpen(false); }
     });
     menu.addEventListener('pointerdown', (e) => e.stopPropagation());
     menu.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
@@ -1553,14 +1591,14 @@ class Component extends DCLogic {
     const railBtns = CH.map((c, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Gå til ' + c.cap.split(' · ')[0]);
       b.innerHTML = '<span>' + c.n + '</span><i></i>';
-      b.addEventListener('click', () => { S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); });
+      b.addEventListener('click', () => { S.sT = i ? rawOf(CH[i].a + 0.1) : 0; S.last = performance.now(); });
       rail.appendChild(b); return b;
     });
     // caption = a short how-to hint only (no chapter names): typed in with runes, then fades away
     const CAP_HINT = { 0: 'SCROLL, CLICK, PLAY', 7: 'SCROLL \u2192' };
     let capIdx = -1, capT = 1, capTxt = '', capHold = 0, capOp = '';
     function uiStep(P, dt) {
-      const i = chapterAt(P);
+      const i = cAt(P);
       if (i !== capIdx) {
         capIdx = i; capT = 0; capHold = 0; capTxt = CAP_HINT[i] || ''; if (!capTxt) { capT = 1; capEl.textContent = ''; }
         railBtns.forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
@@ -1576,6 +1614,52 @@ class Component extends DCLogic {
       if (co !== capOp) { capOp = co; capEl.style.opacity = co; }
       const ho = (1 - sstep(0.02, 0.1, P)).toFixed(2); if (hint.style.opacity !== ho) hint.style.opacity = ho;
     }
+
+    // ---------- who is reading? kids (default) skip the dark chapters; grown-ups pass a little gate ----------
+    const modeBtn = root.querySelector('[data-mode]'), gate = root.querySelector('[data-gate]');
+    function applyMode() {
+      RMAX = toRaw(S.kid ? PMAX - KG : PMAX);
+      modeBtn.setAttribute('data-kid', S.kid ? '1' : '0');
+      railBtns.forEach((b, i) => { b.hidden = S.kid && isDark(i); b.querySelector('span').textContent = chN(i); b.setAttribute('aria-label', 'Gå til ' + chN(i) + CH[i].cap.split(' · ')[0].replace(/^\S+/, '')); });
+      capIdx = -1; if (S.menuOpen) menuBuild();
+    }
+    function setMode(kid) {
+      if (kid === S.kid) return;
+      let P = S.P; if (kid && P > KC && P < KB0) P = KB1 + 0.02; // reading Ragnarok when the kids arrive? off to the horses
+      S.kid = kid; try { localStorage.setItem('bb-mode', kid ? 'kid' : 'adult'); } catch (e) {}
+      applyMode();
+      S.s = S.sT = clamp(rawOf(P), 0, RMAX - 0.05); lastP = S.P = storyOf(S.s); S.reborn = true; S.last = performance.now();
+      S.flash = 0.5; shake(6);
+      if (kid) { toast('THE DARK SLEEPS'); snd('chime'); snd('sparkle'); } else { loadRaven(); toast('THE DARK WAKES'); snd('caw'); snd('boom'); }
+    }
+    let gateAns = 0, gatePrev = null;
+    function gateQuestion() {
+      const a = 6 + ((Math.random() * 4) | 0), b = 6 + ((Math.random() * 4) | 0); gateAns = a * b;
+      const opts = new Set([gateAns]); for (const d of [a, b, -a, -b, 10, -10, 1]) { if (opts.size >= 4) break; opts.add(gateAns + d); }
+      const arr = Array.from(opts).sort(() => Math.random() - 0.5);
+      gate.querySelector('[data-gq]').textContent = 'What is ' + a + ' \u00d7 ' + b + '?';
+      gate.querySelector('[data-ga]').innerHTML = arr.map((v) => '<button type="button" data-gv="' + v + '">' + v + '</button>').join('');
+    }
+    function gateOpen() {
+      gatePrev = document.activeElement; gateQuestion(); gate.querySelector('[data-gmsg]').textContent = '';
+      gate.classList.add('show'); gate.setAttribute('aria-hidden', 'false'); S.gateOpen = true; snd('blink');
+      setTimeout(() => { const f = gate.querySelector('[data-gv]'); if (f) f.focus({ preventScroll: true }); }, 60);
+    }
+    function gateClose() {
+      gate.classList.remove('show'); gate.setAttribute('aria-hidden', 'true'); S.gateOpen = false;
+      if (gatePrev && gatePrev.focus) gatePrev.focus({ preventScroll: true });
+    }
+    gate.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) { if (e.target === gate) gateClose(); return; }
+      if (b.hasAttribute('data-gstay')) { gateClose(); return; }
+      if (+b.getAttribute('data-gv') === gateAns) { gateClose(); setMode(false); return; }
+      gate.classList.remove('no'); void gate.offsetWidth; gate.classList.add('no'); snd('giggle');
+      gate.querySelector('[data-gmsg]').textContent = 'Not quite. The ravens stay asleep. Try another one.'; gateQuestion();
+      const f = gate.querySelector('[data-gv]'); if (f) f.focus({ preventScroll: true });
+    });
+    ['pointerdown', 'pointermove', 'wheel', 'touchmove'].forEach((ev) => gate.addEventListener(ev, (e) => e.stopPropagation(), { passive: true }));
+    modeBtn.addEventListener('click', (e) => { const kid = !!e.target.closest('.mk'), want = e.target.closest('.mk,.ma') ? kid : !S.kid; if (want === S.kid) return; if (want) setMode(true); else gateOpen(); });
+    applyMode();
 
     // ---------- I · more surprises in the North: faces, a troll, a balloon, Bifrost, a sea serpent, snow, a moose ----------
     function genNorth2(w) {
@@ -1867,14 +1951,15 @@ class Component extends DCLogic {
     }
     function audioStep(P, dt) {
       if (!AU.ctx || !AU.on) return;
-      const c = AU.ctx, ci = chapterAt(P), now = c.currentTime, v = S.sv;
+      const c = AU.ctx, ci = cAt(P), now = c.currentTime, v = S.sv;
       if (TAPE.dir > 0) { TAPE.hold = v < -0.05 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.06) { TAPE.dir = -1; TAPE.hold = 0; } }
       else { TAPE.hold = v > -0.012 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.12) { TAPE.dir = 1; TAPE.hold = 0; } }
       TAPE.rate += ((TAPE.dir < 0 ? clamp(0.75 - v * 1.4, 0.75, 2.4) : 1) - TAPE.rate) * Math.min(1, dt * 6);
-      bedLoad(ci); if (ci + 1 < CH.length) bedLoad(ci + 1); if (ci > 0) bedLoad(ci - 1);
+      const seq = S.kid ? [0, 1, 2, 7] : [0, 1, 2, 3, 4, 5, 6, 7], si = seq.indexOf(ci), near = [seq[si - 1], ci, seq[si + 1]];
+      for (const n of near) if (n != null) bedLoad(n);
       AU.beds.forEach((b, i) => {
         const want = i === ci ? 1 : 0;
-        if (Math.abs(i - ci) > 1 && !b.g && b.buf) b.buf = null; // free decoded audio far from the reader
+        if (near.indexOf(i) < 0 && !b.g && b.buf) b.buf = null; // free decoded audio far from the reader
         if (want && b.buf && !b.g) { b.g = c.createGain(); b.g.gain.value = 0.0001; b.g.connect(AU.music); b.on = 0; b.rate = 1; b.pos = b.pos || 0; bedSource(b, TAPE.dir > 0 || !b.rev ? 1 : -1); }
         if (!b.g) return;
         if (b.on !== want) { b.on = want; b.g.gain.cancelScheduledValues(now); b.g.gain.setTargetAtTime(want ? 1 : 0.0001, now, want ? 0.9 : 1.3); }
@@ -2241,6 +2326,20 @@ class Component extends DCLogic {
       if (fk > 0) { const fl = 1 - Math.abs(fy); if (fl > 0.02) { ctx.fillStyle = 'rgba(255,255,255,' + (fl * 0.7).toFixed(3) + ')'; ctx.fillRect(0, 0, W, H); } }
       ctx.globalAlpha = 1;
     }
+    // kids' bridge: a rainbow portal of light opens in the dark woods and the horses' world shines through
+    function kidPortal(k, t) {
+      const W = S.W, H = S.H, d = S.dpr, a = Math.sin(k * Math.PI), M = Math.hypot(W, H) * 0.6, cx = W * 0.5, cy = H * 0.55;
+      if (a < 0.005) return;
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, M * (0.35 + k * 0.9));
+      g.addColorStop(0, css([255, 252, 238], 0.95 * a)); g.addColorStop(0.55, css([255, 236, 200], 0.55 * a)); g.addColorStop(1, 'rgba(255,236,200,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      const r0 = M * (0.08 + k * 1.15), bw = S.u * 0.03; ctx.lineCap = 'round';
+      R8.slice(0, 7).forEach((c, i) => { ctx.strokeStyle = css(c, 0.75 * a); ctx.lineWidth = bw; ctx.beginPath(); ctx.arc(cx, cy, Math.max(1, r0 - i * bw * 1.05), 0, 6.283); ctx.stroke(); });
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < 46; i++) { const an = i * 2.4 + t * 0.6, rr0 = r0 * (0.3 + 0.7 * hash2(i, 5)) + Math.sin(t * 3 + i) * 8, x = cx + Math.cos(an) * rr0, y = cy + Math.sin(an) * rr0 * 0.8, sz = 1.5 + 3 * hash2(i, 7); ctx.fillStyle = css([255, 246, 210], a * (0.5 + 0.5 * Math.sin(t * 7 + i))); ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.283); ctx.fill(); }
+      ctx.globalCompositeOperation = 'source-over';
+    }
     function prismClick(x, y) {
       const pan = x / S.W * 2 - 1;
       for (const h of W0.horses.concat([W0.giant])) if (h.hit && Math.hypot(x - h.hit[0], y - h.hit[1]) < h.hit[2]) { h.rear = 1; snd('neigh', pan); prismBurst(h.hit[0], h.hit[1], true); return; }
@@ -2263,7 +2362,7 @@ class Component extends DCLogic {
       if (S.s > RMAX - 0.012) rebirth();
       S.sv = S.reborn ? 0 : S.sv * 0.8 + ((S.s - ps) / dt) * 0.2; S.reborn = false;
       S.wind *= Math.pow(0.4, dt); S.gust *= Math.pow(0.15, dt);
-      const P = toStory(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt;
+      const P = storyOf(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt;
       S.s1 = s; S.dv = sstep(1, 1.42, P);
       D = sstep(0.15, 0.5, s) * (1 - sstep(0.62, 0.9, s)); N = sstep(0.55, 0.92, s);
       const idle = now - S.last > 4500;
@@ -2298,10 +2397,12 @@ class Component extends DCLogic {
       const a8 = sstep(7.8, 7.95, P), q8 = clamp((P - 7.8) / 1.6, 0, 1);
       S.rwd += ((S.sv < -0.04 ? -1 : 1) - S.rwd) * Math.min(1, dt * 6);
       if (P < 6.95 && W0.wakeDirty) { wkx.clearRect(0, 0, wake.width, wake.height); W0.wakeDirty = false; }
-      if (q7 > 0 && a8 < 1) drawInk(q7, t, dt);
-      let bdir = 1; if (P > 6.9 && P < 8.3) { W0.wakeDirty = true; bdir = drawWings(P, t, dt, a8) || 1; }
+      if (q7 > 0 && a8 < 1 && !S.kid) drawInk(q7, t, dt);
+      if (S.kid && P >= KB0 - 0.01 && a8 < 1) drawWoods(1, (KC - 2.3) / 1.25, t, dt, E); // kids: the woods melt straight into Prism
+      let bdir = 1; if (P > 6.9 && P < 8.3 && !S.kid) { W0.wakeDirty = true; bdir = drawWings(P, t, dt, a8) || 1; }
       if (a8 > 0) { if (q8 > 0.8 && q8 < 0.97 && t - W0.run > 7) { W0.run = t; snd('gallop'); } drawPrism(a8, q8, t, dt, E); }
-      if (P > 6.9 && P < 8.3) drawBirdsTop(t, dt, bdir);
+      if (P > 6.9 && P < 8.3 && !S.kid) drawBirdsTop(t, dt, bdir);
+      if (S.kid && P > KB0 - 0.01 && P < KB1 + 0.06) kidPortal(sstep(KB0 - 0.01, KB1 + 0.06, P), t);
       if (S.flash > 0) { ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = css(C.cream, S.flash); ctx.fillRect(0, 0, W, H); S.flash = Math.max(0, S.flash - dt * 0.8); }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
 
@@ -2497,6 +2598,7 @@ class Component extends DCLogic {
     root.addEventListener('pointerup', onUp); root.addEventListener('pointercancel', onUp); root.addEventListener('pointerleave', onLeave);
     root.addEventListener('wheel', onWheel, { passive: false });
     const onKey = (e) => {
+      if (S.gateOpen) { if (e.key === 'Escape') { e.preventDefault(); gateClose(); } return; }
       if (S.menuOpen) { if (e.key === 'Escape') { e.preventDefault(); menuOpen(false); } return; }
       if (e.key === 'Escape' && S.chaos) { e.preventDefault(); orderChaos(); return; }
       const k = e.key, tg = e.target;
@@ -2507,13 +2609,13 @@ class Component extends DCLogic {
       e.preventDefault(); S.sT = clamp(S.sT + dv, 0, RMAX); S.last = performance.now();
     };
     window.addEventListener('keydown', onKey);
-    setTimeout(loadRaven, 1500);
+    setTimeout(() => { if (!S.kid) loadRaven(); }, 1500);
     const ro = new ResizeObserver(resize); ro.observe(root); resize();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { BL.ok = false; requestAnimationFrame(cacheLetters); });
     let io = null;
     if (window.IntersectionObserver) { io = new IntersectionObserver((es) => { S.vis = es[0].isIntersecting; }); io.observe(root); }
     { const k = self.props.kapitel | 0, p0 = +self.props.p || 0, st = k > 1 && k <= CH.length ? CH[k - 1].a + 0.1 : p0;
-      if (st > 0) { const sp = clamp(st, 0, PMAX - 0.05); lastP = S.P = sp; S.s = S.sT = toRaw(sp); if (sp > 2) loadRaven(); } }
+      if (st > 0) { const sp = clamp(st, 0, PMAX - 0.05); S.s = S.sT = rawOf(sp); lastP = S.P = storyOf(S.s); if (sp > 2 && !S.kid) loadRaven(); } }
     if (self.props.film === 0) root.classList.add('un-off');
     S.raf = requestAnimationFrame(frame);
     this._stop = () => {
@@ -2528,7 +2630,7 @@ class Component extends DCLogic {
 (function () {
   const q = new URLSearchParams(location.search);
   const c = new Component();
-  c.props = { film: q.get('film') === '0' ? 0 : 1, energi: parseFloat(q.get('energi')) || 1, seed: parseInt(q.get('seed'), 10) || 0, kapitel: parseInt(q.get('kapitel'), 10) || 0, p: parseFloat(q.get('p')) || 0 };
+  c.props = { film: q.get('film') === '0' ? 0 : 1, energi: parseFloat(q.get('energi')) || 1, seed: parseInt(q.get('seed'), 10) || 0, kapitel: parseInt(q.get('kapitel'), 10) || 0, p: parseFloat(q.get('p')) || 0, mode: { adult: 'adult', voksen: 'adult', kids: 'kid', kid: 'kid', barn: 'kid' }[(q.get('mode') || '').toLowerCase()] || '' };
   c.root = document.querySelector('[data-k="unreal-a"]');
   c.componentDidMount();
 })();

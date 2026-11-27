@@ -13,6 +13,12 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 | VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. Øjet er tegnet i samme beskidte blæk som guderne, med trævlet iris, tørpensel-rynker, knoglehvide vipper og blodtårer. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
 | VIII | **Prism** | Efter øjet: mytiske blækfugle flyver ind over det, først én langsomt og til sidst en sværm, og deres vinger visker mørket væk til gult. Så bevæger fortællingen sig *sidelæns*: scroll (eller vandret swipe/trackpad) kører verden mod venstre. Verdenen starter i sort-hvid og får sine farver, når hestenes regnbuehaler og din mus maler dem frem. Dalí-agtige heste på stylteben med kæmpeøjne går på spejlblankt vand eller svæver. Svævende øer med regnbuevandfald, marmorbuer og en kæmperegnbue. Undervejs vokser en kæmpehests ben, til den skræver hen over dig, verden vender på hovedet, og et regnbue-stormløb farver alt. Vandfaldene løber opad, når du spoler tilbage. | Prisme-bombe med farve og konfetti; klik på en hest, så stejler den og vrinsker; bobler springer under musen |
 
+## Børn eller voksne
+
+Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism (som i børneversionen hedder kapitel IV). De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
+
+Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
+
 ## Lyd
 
 Ved første besøg popper trolden fra kapitel I op og spørger, om musikken skal vækkes (✦ WAKE THE MUSIC / WANDER IN SILENCE). Ellers tryk **SOUND** i headeren, eller tryk et sted i scenen. Lyden starter ved første tryk (også på mobiler, der tillader det; den låses op, når fingeren slippes), og et fravalg huskes til næste besøg. På iPhone skal lydløs-knappen være slået fra. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–8.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
@@ -41,6 +47,7 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `?kapitel=8` starter i et bestemt kapitel (1–8)
 - `?p=8.5` starter på et præcist punkt i fortællingen (0–9.45, hvor kapitel I er 0–1)
 - `?film=0` slår filmlooket fra
+- `?mode=adult` / `?mode=kids` vælger voksen- eller børneversion (standard er børn)
 
 ### Styring
 
