@@ -806,6 +806,7 @@ class Component extends DCLogic {
         if (j.x < -0.2) j.x = 1.2; else if (j.x > 1.2) j.x = -0.2;
         ctx.globalAlpha = A * sstep(0.5, 1, A); drawJelly(j, jx, jy, j.r * u, pul, t);
       }
+      if (W0.snow2.length) { ctx.fillStyle = css([255, 252, 245], 0.5 * A); ctx.beginPath(); for (const f of W0.snow2) { f.y += (0.02 + f.z * 0.05) * dt; f.x += (Math.sin(t * 0.6 + f.ph) * 0.01 + S.wind * 0.01) * dt; if (f.y > 1.02) { f.y = -0.02; f.x = R(); } const r = 0.6 + f.z * 1.6, x = wrap01(f.x) * W, y = f.y * H; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 6.283); } ctx.fill(); }
       trollSky(A, t, dt);
       ctx.globalAlpha = 1;
     }
@@ -1784,7 +1785,8 @@ class Component extends DCLogic {
       w.troll = { x: rr(0.16, 0.36), up: 0, jump: 0, bl: 0, hit: null };
       w.tj = { jel: null, hop: 0, from: null, wave: 0, hit: null, x: 0.5, lx: 0.5 };
       w.balloon = { popped: false, vik: null, hit: null };
-      w.snow = Array.from({ length: 150 }, () => ({ x: R(), y: R(), z: rr(0.2, 1), ph: rr(0, 6.28), vx: 0 }));
+      w.snow = Array.from({ length: MEM.season === 'xmas' ? 260 : 150 }, () => ({ x: R(), y: R(), z: rr(0.2, 1), ph: rr(0, 6.28), vx: 0 }));
+      w.snow2 = MEM.season === 'xmas' ? Array.from({ length: 60 }, () => ({ x: R(), y: R(), z: rr(0.2, 1), ph: rr(0, 6.28) })) : []; w.fwT = 0;
       w.zz = []; w.fw = [];
     }
     const toScreen = (p, x, y) => [x * p.sc + FX() * (1 - p.sc) + p.ox, y * p.sc + FY() * (1 - p.sc) + p.oy];
@@ -2014,7 +2016,7 @@ class Component extends DCLogic {
       ctx.restore();
     }
     function drawSnowZzzFireworks(t, dt) {
-      const W = S.W, H = S.H, s = S.s1, sn = sstep(0.6, 0.68, s) * (1 - S.dv), has = S.px > -999;
+      const W = S.W, H = S.H, s = S.s1, sn = (MEM.season === 'xmas' ? 1 : sstep(0.6, 0.68, s)) * (1 - S.dv), has = S.px > -999;
       ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0);
       if (sn > 0.01) {
         ctx.fillStyle = css([255, 252, 245], 0.88 * sn); ctx.beginPath();
@@ -2031,6 +2033,7 @@ class Component extends DCLogic {
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         for (let i = W0.zz.length - 1; i >= 0; i--) { const z = W0.zz[i]; z.life -= dt * 0.33; z.y -= dt * 22; z.x += Math.sin(t * 2 + z.ph) * 14 * dt; if (z.life <= 0) { swapPop(W0.zz, i); continue; } ctx.font = 'italic 600 ' + (z.s * (1.4 - z.life * 0.5)).toFixed(1) + 'px Fraunces, Georgia, serif'; ctx.fillStyle = css(C.cream, Math.min(1, z.life * 1.6) * 0.9); ctx.fillText('z', z.x, z.y); }
       }
+      if (MEM.season === 'newyear' && N > 0.6 && S.dv < 0.5 && t > W0.fwT) { W0.fwT = t + rr(0.8, 1.6); const fx = rr(0.1, 0.9) * W; fireworkBurst(fx, rr(0.08, 0.45) * H, fx / W * 2 - 1); }
       if (W0.fw.length) {
         ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
         for (let i = W0.fw.length - 1; i >= 0; i--) {
@@ -2047,12 +2050,13 @@ class Component extends DCLogic {
       if (b) { const q = toPlane(b[3], x, y); if (Math.hypot(q[0] - b[0], q[1] - b[1]) < b[2] * 1.3) return popBalloon(); }
       const tr = W0.troll.hit;
       if (tr) { const q = toPlane(tr[3], x, y); if (Math.hypot(q[0] - tr[0], q[1] - tr[1]) < tr[2] * 1.1) { W0.troll.jump = 1; snd('giggle', pan); return true; } }
-      if (N > 0.4 && y < S.H * 0.55) {
-        const cols = pick([[C.pink, C.yellow, C.cream], [C.mint, C.lav, C.cream], [C.orange, C.yellow, C.pink]]);
-        for (let k = 0; k < 70; k++) { const a = k / 70 * 6.283 + R() * 0.1, v = rr(160, 330); W0.fw.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: rr(0.8, 1), c: pick(cols) }); }
-        snd('firework', pan); return true;
-      }
+      if (N > 0.4 && y < S.H * 0.55) { fireworkBurst(x, y, pan); return true; }
       return false;
+    }
+    function fireworkBurst(x, y, pan) {
+      const cols = pick([[C.pink, C.yellow, C.cream], [C.mint, C.lav, C.cream], [C.orange, C.yellow, C.pink]]);
+      for (let k = 0; k < 70; k++) { const a = k / 70 * 6.283 + R() * 0.1, v = rr(160, 330); W0.fw.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: rr(0.8, 1), c: pick(cols) }); }
+      snd('firework', pan);
     }
 
     // ================= SOUND: a composed bed per chapter, crossfaded, plus synthesized reactive effects =================
