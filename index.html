@@ -245,6 +245,8 @@ class Component extends DCLogic {
       const season = B.season(now), night = B.isNight(hr);
       return { season, night, n: v.n, un: B.unlocks(v.n), line: B.pickLine({ n: v.n, isNewDay: v.isNewDay, gapDays: v.gapDays, season, night, date: now }), tilt: o.tilt };
     })();
+    // the phone's lean (smoothed, -1..1) that every chapter reads; ?tilt=x,y fixes it for testing
+    const TILT = { x: 0, y: 0, tx: MEM.tilt ? MEM.tilt.x : 0, ty: MEM.tilt ? MEM.tilt.y : 0, on: !!MEM.tilt, off: false, asked: false };
     const energy = () => clamp(+(self.props.energi ?? 1) || 1, 0.2, 3) * (reduce ? 0.35 : 1) * (S.cx && S.cx.turbo ? 2.4 : 1) * (S.cx && S.cx.slowmo ? 0.3 : 1);
 
     const C = { blue: hex('#2f4db8'), orange: hex('#ee5a2c'), yellow: hex('#f6c333'), teal: hex('#47c2b1'), mint: hex('#8fdcc0'), lav: hex('#a99be0'), pink: hex('#f2a6b8'), lime: hex('#cfe05a'), navy: hex('#232a6b'), sand: hex('#e8c88c'), brown: hex('#8a5a3c'), moss: hex('#6e8f3e'), cream: hex('#f4eedd'), peach: hex('#f6a47a') };
@@ -798,7 +800,7 @@ class Component extends DCLogic {
       // jellyfish drift up, dodge the cursor
       for (const j of W0.jellies) {
         const ph = t * 2.1 + j.ph, pul = Math.sin(ph), thr = Math.max(0, Math.cos(ph));
-        j.vy -= thr * 0.05 * dt * E; j.vx += Math.sin(t * 0.3 + j.ph) * 0.004 * dt;
+        j.vy -= thr * 0.05 * dt * E; j.vx += Math.sin(t * 0.3 + j.ph) * 0.004 * dt + TILT.x * 0.06 * dt; j.vy -= TILT.y * 0.03 * dt;
         const jx = j.x * W, jy = j.y * H, dx = jx - S.px, dy = jy - S.py, dd = Math.hypot(dx, dy);
         if (dd < 170 && dd > 1) { const f = (1 - dd / 170) * 0.5; j.vx += dx / dd * f * dt; j.vy += dy / dd * f * dt; }
         j.vx *= Math.pow(0.5, dt); j.vy *= Math.pow(0.5, dt); j.x += j.vx * dt; j.y += (j.vy - 0.022 * E) * dt - clamp(S.sv, -2, 2) * 0.18 * dt;
@@ -891,7 +893,7 @@ class Component extends DCLogic {
         const ax = wrap01(l.x - cam * 0.92) * W * 1.3 - W * 0.15, len = l.len * H, ay = -4;
         const lx0 = ax + Math.sin(l.ang) * len, ly0 = ay + Math.cos(l.ang) * len;
         const local = Math.exp(-Math.pow((lx0 - S.px) / 160, 2)) * (Math.abs(ly0 - S.py) < 200 ? 1 : 0.2);
-        l.va += (-(2.2 / (0.25 + l.len)) * Math.sin(l.ang) + wind * local * 2.2 + Math.sin(t * 0.7 + l.ph) * 0.05) * dt; l.va *= Math.pow(0.55, dt); l.ang += l.va * dt;
+        l.va += (-(2.2 / (0.25 + l.len)) * Math.sin(l.ang) + wind * local * 2.2 + Math.sin(t * 0.7 + l.ph) * 0.05 + TILT.x * 1.2) * dt; l.va *= Math.pow(0.55, dt); l.ang += l.va * dt;
         const lx = ax + Math.sin(l.ang) * len, ly = ay + Math.cos(l.ang) * len;
         let lit = 1 - sstep(l.out, l.out + 0.05, q);
         if (q > l.out - 0.05 && q < l.out + 0.05 && Math.random() < 0.35) lit *= 0.15;
@@ -1914,7 +1916,7 @@ class Component extends DCLogic {
         const bx = x + r * 1.7, br = r * 0.55, bb = hillY(W0.hills[1], bx, t), by = bb + br * 0.9 - tr.up * br * 1.9 - Math.abs(Math.sin(t * 5 - 0.7)) * br * 0.35 - Math.abs(Math.sin(t * 14 - 0.5)) * tr.jump * br * 0.6 - ex * ex * (bb + r * 3) * 0.92;
         trollFig(bx, by, br, t, { lx: lx * 0.6, ly, bl: tr.bl, jump: tr.jump, rot: Math.sin(t * 1.7 + 1) * 0.1, noHair: false });
       }
-      trollFig(x, cy, r, t, trollDress({ lx, ly, bl: tr.bl, jump: tr.jump + ex, rot: Math.sin(t * 1.3) * 0.06 + tr.jump * Math.sin(t * 20) * 0.08 - ex * 0.4, prop: MEM.season === 'halloween' ? 'pumpkin' : null }, t));
+      trollFig(x, cy, r, t, trollDress({ lx, ly, bl: tr.bl, jump: tr.jump + ex, rot: Math.sin(t * 1.3) * 0.06 + tr.jump * Math.sin(t * 20) * 0.08 - ex * 0.4 + TILT.x * 0.25, prop: MEM.season === 'halloween' ? 'pumpkin' : null }, t));
     }
     function viking(x, y, sz, t, wave) {
       ctx.lineCap = 'round';
@@ -2106,6 +2108,22 @@ class Component extends DCLogic {
       else if (AU.on && AU.ctx && AU.ctx.state !== 'running') AU.ctx.resume();
     };
     ['pointerup', 'touchend', 'click'].forEach((ev) => root.addEventListener(ev, gesture, { passive: true }));
+    // phones: tilt leans the world, a hard shake brings chaos. iPhone asks once, on the first tap (the one that also wakes the sound)
+    function tiltListen() {
+      if (TILT.on && MEM.tilt) return; TILT.on = true;
+      const shook = window.BBMemory ? BBMemory.makeShake() : () => false;
+      window.addEventListener('deviceorientation', (e) => { if (e.beta == null) return; const a = (screen.orientation && screen.orientation.angle) || window.orientation || 0, v = BBMemory.tiltFromOrientation(e.beta, e.gamma, a); TILT.tx = v.x; TILT.ty = v.y; });
+      window.addEventListener('devicemotion', (e) => { const c = e.acceleration; if (c && !reduce && shook(c.x, c.y, c.z, performance.now())) rollChaos(); });
+    }
+    function tiltAsk() {
+      if (TILT.asked || !window.BBMemory) return; TILT.asked = true;
+      const DO = window.DeviceOrientationEvent;
+      if (DO && typeof DO.requestPermission === 'function') DO.requestPermission().then((r) => { if (r === 'granted') tiltListen(); else TILT.off = true; }).catch(() => { TILT.off = true; });
+      else tiltListen();
+    }
+    const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    if (coarse && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') tiltAsk();
+    else if (coarse) ['touchend', 'click'].forEach((ev) => root.addEventListener(ev, tiltAsk, { once: true }));
     window.addEventListener('keydown', gesture);
     // the troll pops up once, for visitors who have not chosen yet
     const popEl = root.querySelector('[data-pop]');
@@ -2513,7 +2531,7 @@ class Component extends DCLogic {
       // bubbles (pop them), prism bursts, confetti
       if (W0.bubbles.length < 28 && R() < dt * 3) W0.bubbles.push({ x: rr(0, W), y: H + 30, r: rr(10, 34), vy: rr(18, 46), ph: rr(0, 6.28) });
       for (let i = W0.bubbles.length - 1; i >= 0; i--) {
-        const b = W0.bubbles[i]; b.y -= b.vy * dt; b.x += Math.sin(t + b.ph) * 12 * dt - (dxs * 4) * 0.5;
+        const b = W0.bubbles[i]; b.y -= b.vy * dt; b.x += Math.sin(t + b.ph) * 12 * dt - (dxs * 4) * 0.5 + TILT.x * 140 * dt;
         if (S.px > -999 && Math.hypot(S.px - b.x, S.py - b.y) < b.r) { prismBurst(b.x, b.y, false); paint(b.x, b.y, u * 0.2, 0.9); snd('pop', b.x / W * 2 - 1); swapPop(W0.bubbles, i); continue; }
         if (b.y < -40) { swapPop(W0.bubbles, i); continue; }
         g = ctx.createLinearGradient(b.x - b.r, b.y - b.r, b.x + b.r, b.y + b.r); g.addColorStop(0, 'rgba(255,120,200,0.6)'); g.addColorStop(0.5, 'rgba(120,230,255,0.6)'); g.addColorStop(1, 'rgba(255,240,120,0.6)');
@@ -2787,7 +2805,8 @@ class Component extends DCLogic {
           if (s.mode === 'home') { s.vx = rr(-1, 1) * u * 0.9; s.vy = -u * rr(0.7, 1.3); s.va = rr(-5, 5); s.stun = 0.6; if (S.sv > 0) snd('boing', s.x / W * 2 - 1); }
           s.mode = 'free';
           const o = mvTarget(s, t, cur, m, beat, v);
-          if (s.stun > 0 && v < 0.05) { s.stun -= dt; s.vy += H * 2.4 * gd * dt; s.vx *= Math.pow(0.75, dt); s.x += s.vx * dt; s.y += s.vy * dt; s.a += s.va * dt; mvWalls(s, m); }
+          if (TILT.on) { o.x = clamp(o.x + TILT.x * W * 0.12, W * 0.05, W * 0.95); o.y = clamp(o.y + TILT.y * H * 0.08, H * 0.08, H * 0.92); }
+          if (s.stun > 0 && v < 0.05) { s.stun -= dt; s.vy += H * 2.4 * gd * dt; s.vx += TILT.x * H * 1.6 * dt; s.vx *= Math.pow(0.75, dt); s.x += s.vx * dt; s.y += s.vy * dt; s.a += s.va * dt; mvWalls(s, m); }
           else {
             if (s.beh === 'fly' && Math.abs(o.x - s.x) > W * 0.6) { s.x = o.x; s.vx = 0; }
             mvSpring(s, o.x, o.y, o.k, 4.4, dt); s.a = o.spin ? s.a + o.spin * dt : angTo(s.a, o.a, dt * 4);
@@ -2812,7 +2831,7 @@ class Component extends DCLogic {
       // clones from the other universes
       for (let i = m.clones.length - 1; i >= 0; i--) {
         const c = m.clones[i]; c.age += dt;
-        if (!c.drag) { c.vx += Math.sin(t * 1.3 + c.ph) * 120 * dt; c.vy += Math.cos(t * 1.1 + c.ph) * 120 * dt + (m.gflip > 0 ? -1 : 0.25) * H * 0.4 * dt; c.vx *= Math.pow(0.6, dt); c.vy *= Math.pow(0.6, dt); c.x += c.vx * dt; c.y += c.vy * dt; c.a += c.va * dt; mvWalls(c, m); if (v > 0) { c.x = mix(c.x, W / 2, v * dt * 3); c.y = mix(c.y, H / 2, v * dt * 3); } }
+        if (!c.drag) { c.vx += Math.sin(t * 1.3 + c.ph) * 120 * dt + TILT.x * 240 * dt; c.vy += Math.cos(t * 1.1 + c.ph) * 120 * dt + (m.gflip > 0 ? -1 : 0.25) * H * 0.4 * dt; c.vx *= Math.pow(0.6, dt); c.vy *= Math.pow(0.6, dt); c.x += c.vx * dt; c.y += c.vy * dt; c.a += c.va * dt; mvWalls(c, m); if (v > 0) { c.x = mix(c.x, W / 2, v * dt * 3); c.y = mix(c.y, H / 2, v * dt * 3); } }
         const fade = Math.min(1, c.age * 3) * Math.min(1, (c.life - c.age) * 2); if (c.age > c.life) { m.rifts.push({ x: c.x, y: c.y, r: u * 0.06, life: 1 }); swapPop(m.clones, i); continue; }
         mvDrawFig(c.f, c.p, c, fade);
       }
@@ -2932,6 +2951,7 @@ class Component extends DCLogic {
       if (S.s > RMAX - 0.012) rebirth();
       S.sv = S.reborn ? 0 : S.sv * 0.8 + ((S.s - ps) / dt) * 0.2; S.reborn = false;
       S.wind *= Math.pow(0.4, dt); S.gust *= Math.pow(0.15, dt);
+      if (TILT.on) { const k = reduce ? 0.5 : 1; TILT.x += (TILT.tx * k - TILT.x) * Math.min(1, dt * 4); TILT.y += (TILT.ty * k - TILT.y) * Math.min(1, dt * 4); S.wind = clamp(S.wind + TILT.x * 1.6 * dt * 4, -3, 3); }
       const P = storyOf(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt;
       S.s1 = s; S.dv = sstep(1, 1.42, P);
       D = sstep(0.15, 0.5, s) * (1 - sstep(0.62, 0.9, s)); N = sstep(0.55, 0.92, s);
