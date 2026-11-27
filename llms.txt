@@ -4,7 +4,7 @@
 
 Key facts:
 
-- URL: https://bloodybrilliant.vercel.app/
+- URL: https://www.bloodybrilliant.xyz/
 - Maker: Lars Sohl, founder of KodeKid (https://www.kodekid.app) and Klokly (https://klokly.app). Visual work: https://www.larssohl.dk. Contact: hello@larssohl.dk
 - Price: free. No install, no account. Works on desktop, tablet and phone.
 - Audience: kids mode is the default and skips the four dark chapters via a rainbow portal; grown-ups unlock them behind a small parental gate (a multiplication question).
@@ -25,5 +25,5 @@ Key facts:
 
 ## Pages
 
-- [The story](https://bloodybrilliant.vercel.app/): the interactive experience itself (canvas, needs JavaScript)
-- [About](https://bloodybrilliant.vercel.app/about): what the story is, the chapters, how it is made, FAQ, and about Lars Sohl
+- [The story](https://www.bloodybrilliant.xyz/): the interactive experience itself (canvas, needs JavaScript)
+- [About](https://www.bloodybrilliant.xyz/about): what the story is, the chapters, how it is made, FAQ, and about Lars Sohl
