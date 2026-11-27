@@ -31,6 +31,34 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-menu small{font-size:10px;font-weight:600;letter-spacing:.2em;opacity:.55;margin:14px 0 4px}
 .un-menu .mi{all:unset;cursor:pointer;display:flex;align-items:baseline;gap:12px;padding:9px 2px;border-bottom:1px solid rgba(244,238,221,.12);font:italic 600 19px/1.15 Fraunces,Georgia,serif}
 .un-menu-open [data-nav]{color:#f4eedd!important}
+.un-pop{position:absolute;left:50%;bottom:max(26px,env(safe-area-inset-bottom));z-index:8;width:min(440px,calc(100% - 32px));transform:translateX(-50%);pointer-events:none;font-family:Inter,system-ui,sans-serif}
+.un-pop.show{pointer-events:auto}
+.un-pop .bub{position:relative;margin-left:74px;padding:18px 20px 16px;border-radius:22px 22px 22px 6px;background:#fffaf0;color:#1c2333;border:2px solid #1c2333;box-shadow:6px 6px 0 #ee5a2c,0 20px 50px rgba(28,35,51,.25);transform-origin:0 100%;transform:scale(.2) rotate(-8deg);opacity:0;transition:transform .7s cubic-bezier(.2,1.7,.4,1) .35s,opacity .3s .35s}
+.un-pop.show .bub{transform:none;opacity:1}
+.un-pop h3{margin:0 0 6px;font:italic 700 26px/1 Fraunces,Georgia,serif;color:#2f4db8}
+.un-pop p{margin:0 0 14px;font-size:14px;line-height:1.45}
+.un-pop .acts{display:flex;gap:8px;flex-wrap:wrap}
+.un-pop button{all:unset;cursor:pointer;padding:11px 16px;border-radius:99px;font-size:11px;font-weight:600;letter-spacing:.14em;border:2px solid #1c2333;transition:transform .2s cubic-bezier(.3,1.8,.4,1),background .2s,color .2s}
+.un-pop button:hover,.un-pop button:focus-visible{transform:translateY(-2px) rotate(-1.5deg)}
+.un-pop .yes{background:#ee5a2c;border-color:#ee5a2c;color:#fff;animation:unGlow 1.6s ease-in-out infinite}
+.un-pop .no{color:#1c2333}
+.un-pop small{display:block;margin-top:10px;font-size:10px;letter-spacing:.06em;opacity:.6}
+@keyframes unGlow{50%{box-shadow:0 0 0 6px rgba(238,90,44,.25)}}
+.un-pop .troll{position:absolute;left:-6px;bottom:-10px;width:96px;transform:translateY(140%) rotate(-12deg);transition:transform .8s cubic-bezier(.2,1.6,.4,1)}
+.un-pop.show .troll{transform:none}
+.un-pop.show .troll svg{animation:unBob 2.4s ease-in-out infinite}
+@keyframes unBob{50%{transform:translateY(-5px) rotate(2deg)}}
+.un-pop .lid{animation:unBlink 4s infinite}@keyframes unBlink{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
+.un-pop .spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#f6c333;opacity:0}
+.un-pop.show .spark{animation:unSpark 1.3s ease-out forwards}
+@keyframes unSpark{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3)}}
+.un-pop.out{transition:opacity .35s,transform .45s cubic-bezier(.5,0,.8,.3);opacity:0;transform:translateX(-50%) translateY(30px) scale(.9)}
+@supports (height:100dvh){.un-root{height:100dvh!important;min-height:0!important}}
+.un-menu{touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:68px 18px max(22px,env(safe-area-inset-bottom))!important;gap:4px!important}
+.un-menu .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.un-menu .mi{font-size:16px!important;padding:8px 2px!important;gap:8px!important}
+.un-menu .mi em{min-width:22px!important}
+.un-menu small{margin:10px 0 2px!important}
 .un-menu .mi em{font:500 10px/1 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.16em;opacity:.6;min-width:30px}
 .un-menu .mi.on{color:#ee5a2c}
 .un-menu .row{display:flex;gap:10px;flex-wrap:wrap}
@@ -77,7 +105,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </style>
 </head>
 <body>
-<div data-k="unreal-a" style="position: relative; width: 100%; height: 100vh; min-height: 520px; overflow: hidden; background: #f4eedd; font-family: Inter, system-ui, sans-serif; touch-action: none; cursor: crosshair">
+<div data-k="unreal-a" class="un-root" style="position: relative; width: 100%; height: 100vh; min-height: 520px; overflow: hidden; background: #f4eedd; font-family: Inter, system-ui, sans-serif; touch-action: none; cursor: crosshair">
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <button type="button" class="un-logo" data-logo="" aria-label="Kaos: klik for tilfældige effekter, langt tryk eller Esc for orden"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
@@ -99,6 +127,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </p>
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
+<div class="un-pop" data-pop="" role="dialog" aria-label="Sound" aria-hidden="true"><div class="troll"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 58)"><path d="M-8 -36 Q-16 -54 -10 -60 M0 -38 Q2 -58 8 -62 M8 -36 Q18 -52 14 -58" stroke="#ee5a2c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="-40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><ellipse cx="40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><circle r="38" fill="#7f9c55"/><ellipse cy="8" rx="27" ry="21" fill="#b4cc83"/><ellipse cx="-12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><ellipse cx="12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><circle cx="-10" cy="-7" r="3.4" fill="#1c2333"/><circle cx="14" cy="-7" r="3.4" fill="#1c2333"/><g class="lid" style="transform-origin:0 -15px"><rect x="-20" y="-17" width="40" height="18" fill="#7f9c55"/></g><ellipse cy="4" rx="10" ry="8.5" fill="#f6a47a"/><ellipse cx="-3" cy="1" rx="3" ry="2" fill="#fff" opacity=".6"/><path d="M-9 16 Q0 24 9 16" stroke="#1c2333" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="1" y="18" width="4" height="4" fill="#fffaf0"/><ellipse cx="-22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/><ellipse cx="22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/></g></svg></div><div class="bub"><i class="spark" style="left:110px;top:40px;--dx:-40px;--dy:-50px;animation-delay:0.40s"></i><i class="spark" style="left:200px;top:20px;--dx:10px;--dy:-60px;animation-delay:0.50s"></i><i class="spark" style="left:320px;top:30px;--dx:50px;--dy:-40px;animation-delay:0.45s"></i><i class="spark" style="left:380px;top:90px;--dx:60px;--dy:10px;animation-delay:0.55s"></i><i class="spark" style="left:90px;top:110px;--dx:-50px;--dy:20px;animation-delay:0.50s"></i><i class="spark" style="left:250px;top:0px;--dx:-10px;--dy:-70px;animation-delay:0.60s"></i><h3>Psst&hellip; lend me your ears.</h3><p>I&rsquo;m the troll who keeps the bridge of this tale, and I&rsquo;ll let you in on a secret: half of it is <em>sung</em>. Whales hum, ravens cry, gods thunder and the ink whispers.</p><div class="acts"><button type="button" class="yes" data-popyes="">&#10022; WAKE THE MUSIC</button><button type="button" class="no" data-popno="">WANDER IN SILENCE</button></div><small data-pophint="">Change your mind anytime with SOUND.</small></div></div>
 <nav id="un-menu" class="un-menu" data-menu="" aria-label="Menu" aria-hidden="true"></nav>
 <div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
@@ -1510,7 +1539,7 @@ class Component extends DCLogic {
     function menuBuild() {
       const ci = chapterAt(S.P);
       menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div><small>CHAPTERS</small>' +
-        CH.map((c, i) => '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + c.n + '</em>' + c.cap.replace(/^[IVX]+ \u2014 /, '').split(' \u00b7 ')[0].toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()) + '</button>').join('') +
+        '<div class="grid">' + CH.map((c, i) => '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + c.n + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism'][i] + '</button>').join('') + '</div>' +
         '<small>&nbsp;</small><div class="row"><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
     }
     function menuOpen(open) {
@@ -1802,12 +1831,22 @@ class Component extends DCLogic {
     sndBtn.addEventListener('click', () => { AU.asked = true; soundSet(!AU.on); });
     // mobile browsers only unlock audio on a gesture that ends (touchend / pointerup / click), not on pointerdown
     const gesture = (e) => {
-      if (e.target && e.target.closest && e.target.closest('[data-snd],[data-menu],[data-burger],[data-msnd]')) return;
-      if (!AU.asked) { AU.asked = true; if (soundPref !== '0') soundSet(true); }
+      if (e.target && e.target.closest && e.target.closest('[data-snd],[data-menu],[data-burger],[data-msnd],[data-pop]')) return;
+      if (!AU.asked) { AU.asked = true; if (soundPref !== '0') { soundSet(true); if (typeof popHide === 'function') popHide(); } }
       else if (AU.on && AU.ctx && AU.ctx.state !== 'running') AU.ctx.resume();
     };
     ['pointerup', 'touchend', 'click'].forEach((ev) => root.addEventListener(ev, gesture, { passive: true }));
     window.addEventListener('keydown', gesture);
+    // the troll pops up once, for visitors who have not chosen yet
+    const popEl = root.querySelector('[data-pop]');
+    function popHide() { if (!popEl.classList.contains('show')) return; popEl.classList.add('out'); popEl.classList.remove('show'); popEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { popEl.style.display = 'none'; }, 500); }
+    if (soundPref == null) {
+      if (/iPhone|iPad|iPod/.test(navigator.userAgent)) root.querySelector('[data-pophint]').textContent = 'On iPhone, flip off the silent switch. Change your mind anytime with SOUND.';
+      setTimeout(() => { if (!AU.asked) { popEl.classList.add('show'); popEl.setAttribute('aria-hidden', 'false'); } }, 1400);
+    } else popEl.style.display = 'none';
+    root.querySelector('[data-popyes]').addEventListener('click', () => { AU.asked = true; soundSet(true); popHide(); setTimeout(() => { snd('giggle'); snd('chime'); }, 120); });
+    root.querySelector('[data-popno]').addEventListener('click', () => { AU.asked = true; soundSet(false); popHide(); });
+    popEl.addEventListener('pointerdown', (e) => e.stopPropagation());
     // the tape: the current bed plays forward, or while scrolling back, a reversed copy from the mirrored spot,
     // faster and higher the harder you scroll. Beats you pass backwards play their sounds reversed.
     const TAPE = { dir: 1, rate: 1, hold: 0 };
