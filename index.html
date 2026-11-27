@@ -425,7 +425,9 @@ class Component extends DCLogic {
         const vis = inA * (1 - outA);
         for (let i = 0; i < heads[h].length; i++) {
           const L = heads[h][i], el = L.el;
-          if (vis <= 0.001) { if (el.style.opacity !== '0') el.style.opacity = '0'; continue; }
+          // the title evaporates after ~4 wheel notches (P 0.025-0.078), letter by letter, and condenses again on the way back
+          const ev = h === 0 ? sstep(0.025 + 0.025 * (L.ph / 6.28), 0.05 + 0.028 * (L.ph / 6.28), S.P) : 0;
+          if (vis * (1 - ev) <= 0.001) { if (el.style.opacity !== '0') el.style.opacity = '0'; if (L.bl) { L.bl = ''; el.style.filter = ''; } continue; }
           const amb = Math.sin(t * 1.3 + L.ph) * 7 * E, ar = Math.sin(t * 0.9 + L.ph * 1.3) * 3 * E;
           let dx = (1 - inA) * L.rx * W * 0.45 + outA * L.rx * W * 0.25;
           let dy = (1 - inA) * L.ry * H * 0.5 - outA * H * 0.45 * (0.6 + L.ry * 0.5) + amb;
@@ -434,12 +436,16 @@ class Component extends DCLogic {
           const qx = L.cx - S.px, qy = L.cy - S.py, d2 = qx * qx + qy * qy;
           if (d2 < 32000) { const f = 1 - Math.sqrt(d2) / 179; dx += qx / 179 * f * 40; dy += qy / 179 * f * 40; rot += f * L.rr * 25; sc *= 1 + f * 0.25; }
           if (IGL[h]) { const gj = S.gl > 0.05 && Math.random() < S.gl * 0.8; if (gj) { dx += (Math.random() - 0.5) * 70 * S.gl; dy += (Math.random() - 0.5) * 12 * S.gl; } const ts = gj ? (S.gl * 9).toFixed(1) + 'px 0 rgba(255,20,50,.85),' + (-S.gl * 9).toFixed(1) + 'px 0 rgba(20,230,255,.75)' : ''; if (L.ts !== ts) { L.ts = ts; el.style.textShadow = ts; } }
-          el.style.opacity = vis.toFixed(3);
+          if (ev > 0) { dy -= ev * (90 + 70 * (L.ry + 1)) ; dx += ev * L.rx * 55 + Math.sin(t * 2.2 + L.ph) * 14 * ev; rot += ev * L.rr * 35; sy += ev * 0.9; sx -= ev * 0.25; }
+          const bl = ev > 0.01 ? 'blur(' + (ev * 14).toFixed(1) + 'px)' : ''; if (L.bl !== bl) { L.bl = bl; el.style.filter = bl; }
+          el.style.opacity = (vis * (1 - ev)).toFixed(3);
           el.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) rotate(' + rot.toFixed(1) + 'deg) scale(' + (sc * sx).toFixed(3) + ',' + (sc * sy).toFixed(3) + ')';
           el.style.fontVariationSettings = '"SOFT" ' + (50 + 50 * Math.sin(t * 0.7 + L.ph)).toFixed(0) + ', "WONK" ' + (Math.sin(t * 0.5 + L.ph) > 0.6 ? 1 : 0) + ', "wght" ' + (IT[h] ? WB[h] : clamp(WB[h] + 200 * Math.sin(t * 0.6 + L.ph) * E * 0.5 + outA * 250, 100, 900)).toFixed(0);
         }
       }
-      tag.style.transform = 'skewX(' + clamp(S.sv * -20, -40, 40).toFixed(1) + 'deg)';
+      const tev = sstep(0.02, 0.07, S.P), top = (1 - tev).toFixed(3);
+      if (tag.style.opacity !== top) { tag.style.opacity = top; tag.style.filter = tev > 0.01 ? 'blur(' + (tev * 10).toFixed(1) + 'px)' : ''; }
+      if (tev < 1) tag.style.transform = 'translateY(' + (-tev * 40).toFixed(1) + 'px) skewX(' + clamp(S.sv * -20, -40, 40).toFixed(1) + 'deg) scaleY(' + (1 + tev * 0.6).toFixed(2) + ')';
       const nc = css(lc(hex('#1c2333'), C.cream, S.dk));
       if (nc !== S.ncol) { S.ncol = nc; nav.style.color = nc; rail.style.color = nc; capEl.style.color = nc; tag.style.color = nc; const dark = S.dk > 0.5; for (const L of heads[0]) { if (!L.base) L.base = L.el.style.color; L.el.style.color = dark && /47, 77, 184|2f4db8/i.test(L.base) ? '#9fb3ff' : L.base; } }
     }

@@ -56,7 +56,7 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - Ravnen renderes med en lille WebGL-shader (vingeslag, bølgende røg, støjbaseret opløsning med blodrød brændekant og et hul ved musen), som tegnes ind i 2D-canvasset. Hvis GPU-stien er for langsom på en enhed (under ca. 22 fps), skifter den automatisk til 2D.
 - Blækpartiklerne bruger 2400 punkter, som er forudberegnet fra ravnens silhuet og indlejret i `index.html`. Siden læser derfor aldrig pixels fra billedet.
 - Nederst til venstre står kun en kort brugsanvisning (SCROLL, CLICK, PLAY i starten og SCROLL → i Prism), som skrives frem med runer og fader ud efter få sekunder. Kapitelnavnene vises ikke.
-- Den eneste overskrift, BLOODY BRILLIANT., og taglinen under den står fast gennem hele fortællingen. Bogstaverne animeres med Fraunces' variable akser (wght, SOFT, WONK) og lysner på de mørke kapitler.
+- Den eneste overskrift, BLOODY BRILLIANT., og taglinen under den fordamper efter ca. fire scroll: bogstaverne stiger op som damp, slører og forsvinder ét ad gangen. Scroller du tilbage til toppen (eller bliver verden genfødt), fortætter de sig igen. Bogstaverne animeres med Fraunces' variable akser (wght, SOFT, WONK).
 - Ragnarök: runerne er tegnet som linjegeometri (ingen font-afhængighed), og Yggdrasil er et procedurelt træ, der blækkes pr. dybde. Guderne er knoglehvide negativer med skivevis glitch og chromatic aberration, og et efter-pass forskyder billedet i skiver, laver farveblokke og inverterer i korte glimt.
 
 ## Filer
