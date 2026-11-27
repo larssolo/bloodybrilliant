@@ -63,5 +63,6 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `index.html`: hele oplevelsen.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
+- `assets/favicon.svg`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `favicon.ico`: favicon (blodrød dråbe på amber).
 - `assets/audio/ch1.mp3` … `ch8.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.
