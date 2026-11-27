@@ -104,11 +104,17 @@ test('tiltFromOrientation: tilt right, clamped', () => {
   assert.ok(near(M.tiltFromOrientation(40, -200, 0).x, -1));
 });
 
-test('tiltFromOrientation: landscape turns the axes', () => {
-  const a = M.tiltFromOrientation(40, 35, 90), b = M.tiltFromOrientation(40, 35, -90);
-  assert.ok(near(Math.abs(a.y), 1) && near(a.x, 0));
-  assert.ok(near(Math.abs(b.y), 1) && near(b.x, 0));
-  assert.ok(near(a.y, -b.y));
+test('tiltFromOrientation: a landscape phone held normally is (nearly) level', () => {
+  for (const [b, g, ang] of [[0, -45, 90], [0, 45, -90], [0, 45, 270]]) {
+    const t = M.tiltFromOrientation(b, g, ang);
+    assert.ok(Math.abs(t.x) < 0.2 && Math.abs(t.y) < 0.2, JSON.stringify([b, g, ang, t]));
+  }
+});
+
+test('tiltFromOrientation: tilting a landscape phone leans sideways, mirrored between the two landscapes', () => {
+  const a = M.tiltFromOrientation(30, -45, 90), b = M.tiltFromOrientation(30, 45, -90);
+  assert.ok(Math.abs(Math.abs(a.x) - 30 / 35) < 1e-9 && Math.abs(a.y) < 0.2);
+  assert.ok(near(a.x, -b.x));
 });
 
 test('makeShake: fires on a hard shake, then cools down for 2 s', () => {

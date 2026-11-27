@@ -246,7 +246,7 @@ class Component extends DCLogic {
       return { season, night, n: v.n, un: B.unlocks(v.n), line: B.pickLine({ n: v.n, isNewDay: v.isNewDay, gapDays: v.gapDays, season, night, date: now }), tilt: o.tilt };
     })();
     // the phone's lean (smoothed, -1..1) that every chapter reads; ?tilt=x,y fixes it for testing
-    const TILT = { x: 0, y: 0, tx: MEM.tilt ? MEM.tilt.x : 0, ty: MEM.tilt ? MEM.tilt.y : 0, on: !!MEM.tilt, off: false, asked: false };
+    const TILT = { x: 0, y: 0, tx: MEM.tilt ? MEM.tilt.x : 0, ty: MEM.tilt ? MEM.tilt.y : 0, on: !!MEM.tilt, asked: false, busy: false };
     const energy = () => clamp(+(self.props.energi ?? 1) || 1, 0.2, 3) * (reduce ? 0.35 : 1) * (S.cx && S.cx.turbo ? 2.4 : 1) * (S.cx && S.cx.slowmo ? 0.3 : 1);
 
     const C = { blue: hex('#2f4db8'), orange: hex('#ee5a2c'), yellow: hex('#f6c333'), teal: hex('#47c2b1'), mint: hex('#8fdcc0'), lav: hex('#a99be0'), pink: hex('#f2a6b8'), lime: hex('#cfe05a'), navy: hex('#232a6b'), sand: hex('#e8c88c'), brown: hex('#8a5a3c'), moss: hex('#6e8f3e'), cream: hex('#f4eedd'), peach: hex('#f6a47a') };
@@ -815,7 +815,8 @@ class Component extends DCLogic {
     // II · the troll hangs from a jellyfish, waves when the whale sings, and hops to another one when clicked
     function trollSky(A, t, dt) {
       const tj = W0.tj, js = W0.jellies, W = S.W, H = S.H, u = S.u;
-      if (!tj.jel || !js.includes(tj.jel)) tj.jel = js.reduce((a, j) => (j.r > a.r && j.y > 0.45 && j.y < 1.1 ? j : a), js[0]);
+      if (!tj.jel || !js.includes(tj.jel)) { const c = js.filter((j) => j.y > 0.45 && j.y < 1.1); tj.jel = (c.length ? c : js).reduce((a, j) => (j.r > a.r ? j : a)); }
+      else if (tj.hop <= 0 && (tj.jel.y < 0.1 || tj.jel.y > 0.95) && S.P > 1.2) trollHop();
       const j = tj.jel, r = Math.max(j.r, 0.045) * u * 0.75, jx = j.x * W, jy = j.y * H + j.r * u * 2.2;
       tj.hop = Math.max(0, tj.hop - dt / 0.6); tj.wave *= Math.pow(0.3, dt);
       let x = jx, y = jy;
@@ -2116,14 +2117,14 @@ class Component extends DCLogic {
       window.addEventListener('devicemotion', (e) => { const c = e.acceleration; if (c && !reduce && shook(c.x, c.y, c.z, performance.now())) rollChaos(); });
     }
     function tiltAsk() {
-      if (TILT.asked || !window.BBMemory) return; TILT.asked = true;
+      if (TILT.asked || TILT.busy || !window.BBMemory) return;
       const DO = window.DeviceOrientationEvent;
-      if (DO && typeof DO.requestPermission === 'function') DO.requestPermission().then((r) => { if (r === 'granted') tiltListen(); else TILT.off = true; }).catch(() => { TILT.off = true; });
-      else tiltListen();
+      if (DO && typeof DO.requestPermission === 'function') { TILT.busy = true; DO.requestPermission().then((r) => { TILT.asked = true; if (r === 'granted') tiltListen(); }).catch(() => {}).finally(() => { TILT.busy = false; }); }
+      else { TILT.asked = true; tiltListen(); }
     }
     const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     if (coarse && window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') tiltAsk();
-    else if (coarse) ['touchend', 'click'].forEach((ev) => root.addEventListener(ev, tiltAsk, { once: true }));
+    else if (coarse) ['touchend', 'click'].forEach((ev) => root.addEventListener(ev, tiltAsk));
     window.addEventListener('keydown', gesture);
     // the troll pops up once, for visitors who have not chosen yet
     const popEl = root.querySelector('[data-pop]');
@@ -2558,7 +2559,7 @@ class Component extends DCLogic {
     // kids' bridge: a rainbow portal of light opens in the dark woods and the horses' world shines through
     function kidPortal(k, t) {
       const W = S.W, H = S.H, d = S.dpr, a = Math.sin(k * Math.PI), M = Math.hypot(W, H) * 0.6, cx = W * 0.5, cy = H * 0.55;
-      if (a < 0.005) return;
+      if (a < 0.005) { if (k < 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; trollLit(W0.tj.lx * W, H * 0.86, S.u * 0.055, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern' }, t)); } return; }
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, M * (0.35 + k * 0.9));
       g.addColorStop(0, css([255, 252, 238], 0.95 * a)); g.addColorStop(0.55, css([255, 236, 200], 0.55 * a)); g.addColorStop(1, 'rgba(255,236,200,0)');
@@ -2568,8 +2569,8 @@ class Component extends DCLogic {
       ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < 46; i++) { const an = i * 2.4 + t * 0.6, rr0 = r0 * (0.3 + 0.7 * hash2(i, 5)) + Math.sin(t * 3 + i) * 8, x = cx + Math.cos(an) * rr0, y = cy + Math.sin(an) * rr0 * 0.8, sz = 1.5 + 3 * hash2(i, 7); ctx.fillStyle = css([255, 246, 210], a * (0.5 + 0.5 * Math.sin(t * 7 + i))); ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.283); ctx.fill(); }
       ctx.globalCompositeOperation = 'source-over';
-      const tr = S.u * 0.07 * (1 - sstep(0.4, 0.75, k));
-      if (tr > 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1 - sstep(0.55, 0.75, k); trollLit(cx + tr * 1.22, cy - tr * 0.5 + (1 - sstep(0, 0.25, k)) * H * 0.3, tr, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern', glow: 1 + k * 3, rot: 0.1 }, t)); ctx.globalAlpha = 1; }
+      const gl = sstep(0, 0.25, k), tr = mix(S.u * 0.055, S.u * 0.07, gl) * (1 - sstep(0.4, 0.75, k));
+      if (tr > 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1 - sstep(0.55, 0.75, k); trollLit(mix(W0.tj.lx * W, cx + tr * 1.22, gl), mix(H * 0.86, cy - tr * 0.5, gl), tr, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern', glow: 1 + k * 3, rot: 0.1 }, t)); ctx.globalAlpha = 1; }
     }
     // ---------- Prism toys: grab a horse, a pastel comet tail on your cursor, butterflies, and a secret whirlwind ----------
     function hdraw(h, x, gy, s, t, dt) {
@@ -2805,7 +2806,7 @@ class Component extends DCLogic {
           if (s.mode === 'home') { s.vx = rr(-1, 1) * u * 0.9; s.vy = -u * rr(0.7, 1.3); s.va = rr(-5, 5); s.stun = 0.6; if (S.sv > 0) snd('boing', s.x / W * 2 - 1); }
           s.mode = 'free';
           const o = mvTarget(s, t, cur, m, beat, v);
-          if (TILT.on) { o.x = clamp(o.x + TILT.x * W * 0.12, W * 0.05, W * 0.95); o.y = clamp(o.y + TILT.y * H * 0.08, H * 0.08, H * 0.92); }
+          if (TILT.on) { o.x = clamp(o.x + TILT.x * W * 0.12, Math.min(o.x, W * 0.05), Math.max(o.x, W * 0.95)); o.y = clamp(o.y + TILT.y * H * 0.08, Math.min(o.y, H * 0.08), Math.max(o.y, H * 0.92)); }
           if (s.stun > 0 && v < 0.05) { s.stun -= dt; s.vy += H * 2.4 * gd * dt; s.vx += TILT.x * H * 1.6 * dt; s.vx *= Math.pow(0.75, dt); s.x += s.vx * dt; s.y += s.vy * dt; s.a += s.va * dt; mvWalls(s, m); }
           else {
             if (s.beh === 'fly' && Math.abs(o.x - s.x) > W * 0.6) { s.x = o.x; s.vx = 0; }

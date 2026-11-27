@@ -36,11 +36,13 @@
     return VISIT[o.n] || ROTATE[(o.n - 6) % ROTATE.length];
   }
 
-  // beta/gamma in degrees; angle = screen rotation (0, 90, -90, 180). Returns screen-space lean, -1..1.
+  // beta/gamma in degrees; angle = screen rotation (0, 90, -90/270, 180). Returns screen-space lean, -1..1.
+  // The raw angles are turned into the screen's own axes first; then the usual ~40° reading tilt is taken off "down".
   function tiltFromOrientation(beta, gamma, angle) {
-    const x = clamp((gamma || 0) / 35), y = clamp(((beta || 0) - 40) / 35), a = ((angle || 0) * Math.PI) / 180;
-    const c = Math.cos(a), s = Math.sin(a), r = (v) => (Math.abs(v) < 1e-12 ? 0 : v);
-    return { x: r(clamp(x * c + y * s)), y: r(clamp(y * c - x * s)) };
+    const b = beta || 0, g = gamma || 0, a = ((((angle || 0) % 360) + 360) % 360);
+    const [X, Y] = a === 90 ? [b, -g] : a === 270 ? [-b, g] : a === 180 ? [-g, -b] : [g, b];
+    const r = (v) => (Math.abs(v) < 1e-12 ? 0 : v);
+    return { x: r(clamp(X / 35)), y: r(clamp((Y - 40) / 35)) };
   }
 
   function makeShake(thresh = 17, coolMs = 2000) {
