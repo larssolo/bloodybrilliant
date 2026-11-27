@@ -3,15 +3,37 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bloody Brilliant by www.kodekid.app · The Unreal of North</title>
-<meta name="description" content="Bloody Brilliant: en endeløs, interaktiv fortælling fra et pastel-eventyr i nord gennem Ragnarök til blæk, og så forfra. By www.kodekid.app.">
-<meta property="og:title" content="Bloody Brilliant by www.kodekid.app · The Unreal of North">
-<meta property="og:description" content="En endeløs, interaktiv fortælling: pastel-eventyr, en ravn af blæk, nordiske guder og Ragnarök.">
+<title>Bloody Brilliant · An Endless Interactive Nordic Story by Lars Sohl</title>
+<meta name="description" content="Bloody Brilliant is a free, scroll-driven interactive story in nine chapters: a Nordic pastel fairy tale with trolls, northern lights and rainbow horses, built in the browser by Lars Sohl (kodekid.app).">
+<meta name="google-site-verification" content="MiZcZXneouJAoE5U7q7eBK49JFSMVCaDEN5d86miiNE">
+<meta name="author" content="Lars Sohl">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://bloodybrilliant.vercel.app/">
+<link rel="author" href="https://bloodybrilliant.vercel.app/about">
+<meta property="og:site_name" content="Bloody Brilliant">
+<meta property="og:title" content="Bloody Brilliant · The Unreal of North">
+<meta property="og:description" content="Scroll through an endless Nordic fairy tale: trolls, northern lights, rainbow horses and a multiverse of nonsense. Built by Lars Sohl, kodekid.app.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bloodybrilliant.vercel.app/">
+<meta property="og:locale" content="en_GB">
 <meta property="og:image" content="https://bloodybrilliant.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Bloody Brilliant: a pastel Nordic landscape with mountains, trolls and northern lights">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bloody Brilliant · The Unreal of North">
+<meta name="twitter:description" content="Scroll through an endless Nordic fairy tale: trolls, northern lights, rainbow horses and a multiverse of nonsense.">
+<meta name="twitter:image" content="https://bloodybrilliant.vercel.app/assets/og.jpg">
+<meta name="twitter:image:alt" content="Bloody Brilliant: a pastel Nordic landscape with mountains, trolls and northern lights">
 <meta name="theme-color" content="#0b0707">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://bloodybrilliant.vercel.app/#website","url":"https://bloodybrilliant.vercel.app/","name":"Bloody Brilliant","alternateName":"The Unreal of North","inLanguage":"en","publisher":{"@id":"https://www.kodekid.app/#org"},"creator":{"@id":"https://bloodybrilliant.vercel.app/about#lars"}},
+{"@type":["CreativeWork","WebApplication"],"@id":"https://bloodybrilliant.vercel.app/#work","name":"Bloody Brilliant: The Unreal of North","url":"https://bloodybrilliant.vercel.app/","description":"An endless, scroll-driven interactive story in nine chapters that runs in the browser. It starts as a pastel Nordic fairy tale with trolls, northern lights and a sea serpent, can turn dark through a raven of ink, Norse gods and Ragnarök (grown-up mode), continues into a sideways world of rainbow horses and ends in a multiverse of nonsense before the world is reborn.","genre":["Interactive story","Interactive art","Web experience"],"keywords":"interactive story, scroll-driven storytelling, Nordic mythology, Ragnarök, Odin, Fenrir, troll, northern lights, creative coding, canvas, WebGL, kids","applicationCategory":"EntertainmentApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript and HTML5 canvas","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"audience":{"@type":"Audience","audienceType":"Children and adults"},"image":"https://bloodybrilliant.vercel.app/assets/og.jpg","inLanguage":"en","author":{"@id":"https://bloodybrilliant.vercel.app/about#lars"},"publisher":{"@id":"https://www.kodekid.app/#org"},"isPartOf":{"@id":"https://bloodybrilliant.vercel.app/#website"}},
+{"@type":"Person","@id":"https://bloodybrilliant.vercel.app/about#lars","name":"Lars Sohl","url":"https://bloodybrilliant.vercel.app/about","image":"https://bloodybrilliant.vercel.app/assets/lars-sohl.webp","jobTitle":"Founder, designer and developer","worksFor":{"@id":"https://www.kodekid.app/#org"},"sameAs":["https://www.kodekid.app/about","https://www.larssohl.dk"]},
+{"@type":"Organization","@id":"https://www.kodekid.app/#org","name":"KodeKid","url":"https://www.kodekid.app","founder":{"@id":"https://bloodybrilliant.vercel.app/about#lars"}}
+]}
+</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -124,6 +146,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-rail button.on i{background:currentColor;transform:scale(1.4)}
 .un-rail button:hover span,.un-rail button.on span,.un-rail button:focus-visible span{opacity:1;transform:none}
 .un-rail button:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+.un-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 @media (max-width:640px){.un-hr .un-snd,.un-hr .un-credit,.un-hr .un-mode,.un-rail{display:none}.un-burger{display:flex}}
 </style>
 </head>
@@ -132,7 +155,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <button type="button" class="un-logo" data-logo="" aria-label="Kaos: klik for tilfældige effekter, langt tryk eller Esc for orden"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
-<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-mode" data-mode="" data-kid="1" aria-label="Who is reading: kids or grown-ups"><span class="mk"><b>&#10022; KIDS</b></span><span class="ma"><b>&#9790; GROWN-UPS</b></span></button><button type="button" class="un-snd" data-snd="""" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a><button type="button" class="un-burger" data-burger="" aria-expanded="false" aria-controls="un-menu" aria-label="Menu"><i></i><i></i><i></i></button></div>
+<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-mode" data-mode="" data-kid="1" aria-label="Who is reading: kids or grown-ups"><span class="mk"><b>&#10022; KIDS</b></span><span class="ma"><b>&#9790; GROWN-UPS</b></span></button><button type="button" class="un-snd" data-snd="""" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="/about" class="un-credit">ABOUT</a><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a><button type="button" class="un-burger" data-burger="" aria-expanded="false" aria-controls="un-menu" aria-label="Menu"><i></i><i></i><i></i></button></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -148,6 +171,23 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
 <nav data-rail="" class="un-rail" aria-label="Kapitler"></nav>
+<section class="un-sr" aria-label="About this story">
+<h2>An endless, scroll-driven interactive story</h2>
+<p>Bloody Brilliant: The Unreal of North is a free interactive story that runs in the browser. You scroll, and the world moves; you click or tap, and it answers. It begins as a pastel Nordic fairy tale and, when you scroll past the end, the world is reborn with a new seed and the story starts over. It never ends. Made by Lars Sohl of <a href="https://www.kodekid.app">KodeKid</a>. <a href="/about">About the story and the maker</a>.</p>
+<h3>The chapters</h3>
+<ol>
+<li>The Unreal North: day turns to sunset and northern lights, mountains with faces, a troll behind the hill, a Viking balloon, the rainbow bridge Bifrost, a sea serpent and a moose with blooming antlers.</li>
+<li>The Singing Sky: warp stars, aurora that bends towards the cursor, a whale made of constellations that sings, and jellyfish.</li>
+<li>Lantern Woods: a parallax forest of glowing mushrooms and swinging lanterns, and moths that follow you.</li>
+<li>Sunfall: the sun crashes, the sky burns amber and it rains ink (grown-up mode).</li>
+<li>Bloody Brilliant: a raven of ink that dissolves into smoke (grown-up mode).</li>
+<li>Ragnarök: Yggdrasil, burning runes, Odin, Huginn and Muninn, and Fenrir breaking free (grown-up mode).</li>
+<li>The Ink: the eye of Odin opens and follows you (grown-up mode).</li>
+<li>Prism: a sideways world of Dalí-like rainbow horses on stilts, floating islands and waterfalls that you can paint with colour.</li>
+<li>The Multiverse of Nonsense: figures escape a vector drawing and live by their own physics, until everything is pulled into a vortex and the world is reborn.</li>
+</ol>
+<p>Kids mode is the default and skips the dark chapters through a rainbow portal. Grown-ups can unlock them behind a small parental gate. Each chapter has its own music, and sound effects are synthesised live in the browser.</p>
+</section>
 <div data-hint="" aria-hidden="true" style="position: absolute; left: 50%; bottom: 22px; z-index: 2; width: 2px; height: 40px; margin-left: -1px; pointer-events: none">
 <svg class="un-drip" width="12" height="18" viewBox="0 0 12 18" style="position: absolute; left: -5px; top: 0"><path d="M6 1 C6 1 11 8 11 11.5 A5 5 0 0 1 1 11.5 C1 8 6 1 6 1 Z" fill="#47c2b1"></path></svg>
 </div>
@@ -1576,7 +1616,7 @@ class Component extends DCLogic {
       menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div>' +
         '<small>WHO IS READING?</small><div class="row"><button type="button" class="pill' + (S.kid ? ' hot' : '') + '" data-mmode="kid" aria-pressed="' + S.kid + '">&#10022; KIDS</button><button type="button" class="pill' + (S.kid ? '' : ' hot') + '" data-mmode="adult" aria-pressed="' + !S.kid + '">&#9790; GROWN-UPS</button></div><small>CHAPTERS</small>' +
         '<div class="grid">' + CH.map((c, i) => S.kid && isDark(i) ? '' : '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + chN(i) + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism', 'Multiverse'][i] + '</button>').join('') + '</div>' +
-        '<small>&nbsp;</small><div class="row"><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
+        '<small>&nbsp;</small><div class="row"><a class="pill" href="/about">ABOUT</a><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
     }
     function menuOpen(open) {
       S.menuOpen = open; if (open) menuBuild(); root.classList.toggle('un-menu-open', open);
