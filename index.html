@@ -22,6 +22,21 @@
 body{margin:0;background:#f4eedd;overflow:hidden}
 a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-hr{display:flex;align-items:center;gap:20px}
+.un-burger{all:unset;cursor:pointer;display:none;flex-direction:column;justify-content:center;gap:5px;width:24px;height:24px;padding:6px;margin:-6px}
+.un-burger i{display:block;height:2px;background:currentColor;border-radius:2px;transition:transform .35s cubic-bezier(.3,1.6,.5,1),opacity .2s}
+.un-burger[aria-expanded=true] i:nth-child(1){transform:translateY(7px) rotate(45deg)}.un-burger[aria-expanded=true] i:nth-child(2){opacity:0}.un-burger[aria-expanded=true] i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.un-burger:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+.un-menu{position:absolute;inset:0;z-index:8;display:flex;flex-direction:column;gap:6px;padding:76px 22px 28px;background:rgba(12,9,14,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#f4eedd;font-family:Inter,system-ui,sans-serif;opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity .3s,visibility .3s,transform .4s cubic-bezier(.2,1.4,.4,1);overflow-y:auto}
+.un-menu.open{opacity:1;visibility:visible;transform:none}
+.un-menu small{font-size:10px;font-weight:600;letter-spacing:.2em;opacity:.55;margin:14px 0 4px}
+.un-menu .mi{all:unset;cursor:pointer;display:flex;align-items:baseline;gap:12px;padding:9px 2px;border-bottom:1px solid rgba(244,238,221,.12);font:italic 600 19px/1.15 Fraunces,Georgia,serif}
+.un-menu-open [data-nav]{color:#f4eedd!important}
+.un-menu .mi em{font:500 10px/1 Inter,system-ui,sans-serif;font-style:normal;letter-spacing:.16em;opacity:.6;min-width:30px}
+.un-menu .mi.on{color:#ee5a2c}
+.un-menu .row{display:flex;gap:10px;flex-wrap:wrap}
+.un-menu .pill{all:unset;cursor:pointer;padding:11px 16px;border-radius:99px;border:1.5px solid #f4eedd;font-size:11px;font-weight:600;letter-spacing:.16em}
+.un-menu .pill.hot{background:#ee5a2c;border-color:#ee5a2c}
+.un-menu a.pill{color:inherit}
 .un-snd{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:.16em;transition:color .2s}
 .un-rw{font-size:11px;font-weight:500;letter-spacing:.16em;color:#ee5a2c;opacity:0;transition:opacity .15s;animation:unRw .7s steps(2) infinite}
 @keyframes unRw{50%{visibility:hidden}}
@@ -58,6 +73,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-rail button.on i{background:currentColor;transform:scale(1.4)}
 .un-rail button:hover span,.un-rail button.on span,.un-rail button:focus-visible span{opacity:1;transform:none}
 .un-rail button:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+@media (max-width:640px){.un-hr .un-snd,.un-hr .un-credit,.un-rail{display:none}.un-burger{display:flex}}
 </style>
 </head>
 <body>
@@ -65,7 +81,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <canvas class="un-cv" role="img" aria-label="Levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod der reagerer på scroll" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block"></canvas>
 <header data-nav="" style="position: absolute; top: 0; left: 0; right: 0; z-index: 9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 20px clamp(18px, 3vw, 36px); color: #1c2333">
 <button type="button" class="un-logo" data-logo="" aria-label="Kaos: klik for tilfældige effekter, langt tryk eller Esc for orden"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M11 2 L19 17 H3 Z"></path><path d="M7 11 L11 7 L15 11"></path><path d="M3 17 L11 20 L19 17"></path></svg></button>
-<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a></div>
+<div class="un-hr"><span class="un-rw" data-rw="" aria-hidden="true">&#9664;&#9664; REWIND</span><button type="button" class="un-snd" data-snd="" aria-pressed="false" aria-label="Lyd og musik til eller fra"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i><span>SOUND OFF</span></button><a href="https://www.kodekid.app" class="un-credit" target="_blank" rel="noopener">BY KODEKID.APP</a><button type="button" class="un-burger" data-burger="" aria-expanded="false" aria-controls="un-menu" aria-label="Menu"><i></i><i></i><i></i></button></div>
 </header>
 <div style="position: absolute; left: clamp(18px, 4vw, 56px); top: clamp(70px, 11vh, 118px); z-index: 2; pointer-events: none; font-family: Fraunces, Georgia, serif">
 <h1 data-head="0" style="margin: 0; font-weight: 600; font-size: clamp(54px, 10.4vw, 152px); line-height: 0.86; letter-spacing: -0.01em">
@@ -83,6 +99,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </p>
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
+<nav id="un-menu" class="un-menu" data-menu="" aria-label="Menu" aria-hidden="true"></nav>
 <div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
 <nav data-rail="" class="un-rail" aria-label="Kapitler"></nav>
@@ -131,7 +148,7 @@ class Component extends DCLogic {
     const grade = (c) => { const w = lc(c, [Math.min(255, c[0] * 1.05 + 22), c[1] * 0.86, c[2] * 0.78], D * 0.35); return lc(w, [w[0] * 0.28 + 12, w[1] * 0.32 + 14, w[2] * 0.55 + 42], N * 0.78); };
     const G = (c, a) => css(grade(c), a);
 
-    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, chaos: false, chaosT: 0, P: 0, rwd: 1, tx: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
+    const S = { W: 0, H: 0, u: 1, dpr: 1, s: 0, sT: 0, sv: 0, t: 0, tp: 0, px: -9999, py: -9999, mx: 0, my: 0, last: -1e9, down: false, ty: 0, flow: 0, next: 4, vis: true, raf: 0, wind: 0, s1: 0, dv: 0, dk: 0, gust: 0, shake: 0, flash: 0, stf: 0, pvx: 0, ppx: -9999, reborn: false, ncol: '', inkAcc: 0, wsing: 0, wh: null, menuOpen: false, chaos: false, chaosT: 0, P: 0, rwd: 1, tx: 0, gl: 0, bflash: 0, dtt: 0.016, inkC: null };
     let W0 = null;
 
     function gen() {
@@ -1488,6 +1505,30 @@ class Component extends DCLogic {
     logoEl.addEventListener('pointerdown', () => { longDone = false; clearTimeout(pressTimer); pressTimer = setTimeout(() => { longDone = true; orderChaos(); }, 650); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => logoEl.addEventListener(ev, () => clearTimeout(pressTimer)));
     logoEl.addEventListener('click', () => { if (longDone) { longDone = false; return; } rollChaos(); });
+    // ---------- mobile burger menu: sound, chaos, chapters, credit ----------
+    const burger = root.querySelector('[data-burger]'), menu = root.querySelector('[data-menu]');
+    function menuBuild() {
+      const ci = chapterAt(S.P);
+      menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div><small>CHAPTERS</small>' +
+        CH.map((c, i) => '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + c.n + '</em>' + c.cap.replace(/^[IVX]+ \u2014 /, '').split(' \u00b7 ')[0].toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase()) + '</button>').join('') +
+        '<small>&nbsp;</small><div class="row"><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
+    }
+    function menuOpen(open) {
+      S.menuOpen = open; if (open) menuBuild(); root.classList.toggle('un-menu-open', open);
+      menu.classList.toggle('open', open); menu.setAttribute('aria-hidden', open ? 'false' : 'true'); burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) setTimeout(() => { const f = menu.querySelector('.mi.on') || menu.querySelector('button'); if (f) f.focus({ preventScroll: true }); }, 50); else burger.focus({ preventScroll: true });
+    }
+    window.__menuSync = () => { if (S.menuOpen) menuBuild(); };
+    burger.addEventListener('click', () => menuOpen(!S.menuOpen));
+    menu.addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) { if (e.target === menu) menuOpen(false); return; }
+      if (b.hasAttribute('data-msnd')) { AU.asked = true; soundSet(!AU.on); }
+      else if (b.hasAttribute('data-mchaos')) { rollChaos(); menuOpen(false); }
+      else if (b.hasAttribute('data-morder')) { orderChaos(); menuOpen(false); }
+      else if (b.hasAttribute('data-mch')) { const i = +b.getAttribute('data-mch'); S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); snd('whoosh'); menuOpen(false); }
+    });
+    menu.addEventListener('pointerdown', (e) => e.stopPropagation());
+    menu.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
     const capEl = root.querySelector('[data-cap]'), rail = root.querySelector('[data-rail]'), hint = root.querySelector('[data-hint]');
     const RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
     const railBtns = CH.map((c, i) => {
@@ -1750,15 +1791,23 @@ class Component extends DCLogic {
       if (on && !auInit()) return;
       AU.on = on; try { localStorage.setItem('bb-sound', on ? '1' : '0'); } catch (e) {}
       if (AU.ctx) {
-        const c = AU.ctx; if (on) c.resume();
+        const c = AU.ctx; if (on) { c.resume(); try { const sb = c.createBufferSource(); sb.buffer = c.createBuffer(1, 1, 22050); sb.connect(c.destination); sb.start(0); } catch (e) {} }
         if (on && !AU.whirr) { const ws = c.createBufferSource(), wf = c.createBiquadFilter(), wg = c.createGain(); ws.buffer = AU.noise; ws.loop = true; wf.type = 'bandpass'; wf.Q.value = 4; wf.frequency.value = 900; wg.gain.value = 0; ws.connect(wf); wf.connect(wg); wg.connect(AU.music); ws.start(); AU.whirr = { f: wf, g: wg }; REV_PRE.forEach((n, i) => setTimeout(() => prepRev(n), 300 + i * 140)); }
         if (!on) rwEl.style.opacity = '0';
         AU.master.gain.cancelScheduledValues(c.currentTime); AU.master.gain.setTargetAtTime(on ? 0.9 : 0, c.currentTime, 0.35);
         if (!on) setTimeout(() => { if (!AU.on) c.suspend(); }, 1600);
       }
-      sndBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); sndBtn.querySelector('span').textContent = on ? 'SOUND ON' : 'SOUND OFF';
+      sndBtn.setAttribute('aria-pressed', on ? 'true' : 'false'); sndBtn.querySelector('span').textContent = on ? 'SOUND ON' : 'SOUND OFF'; if (window.__menuSync) window.__menuSync();
     }
     sndBtn.addEventListener('click', () => { AU.asked = true; soundSet(!AU.on); });
+    // mobile browsers only unlock audio on a gesture that ends (touchend / pointerup / click), not on pointerdown
+    const gesture = (e) => {
+      if (e.target && e.target.closest && e.target.closest('[data-snd],[data-menu],[data-burger],[data-msnd]')) return;
+      if (!AU.asked) { AU.asked = true; if (soundPref !== '0') soundSet(true); }
+      else if (AU.on && AU.ctx && AU.ctx.state !== 'running') AU.ctx.resume();
+    };
+    ['pointerup', 'touchend', 'click'].forEach((ev) => root.addEventListener(ev, gesture, { passive: true }));
+    window.addEventListener('keydown', gesture);
     // the tape: the current bed plays forward, or while scrolling back, a reversed copy from the mirrored spot,
     // faster and higher the harder you scroll. Beats you pass backwards play their sounds reversed.
     const TAPE = { dir: 1, rate: 1, hold: 0 };
@@ -2392,7 +2441,6 @@ class Component extends DCLogic {
     const onDown = (e) => {
       if (e.target.closest && e.target.closest('a,button')) return;
       const q = pos(e); S.px = q[0]; S.py = q[1]; S.down = true; S.ty = q[1]; S.tx = q[0]; S.last = performance.now();
-      if (!AU.asked) { AU.asked = true; if (soundPref !== '0') soundSet(true); }
       if (chapterAt(S.P) > 0) { chapterClick(q[0], q[1]); return; }
       if (northClick(q[0], q[1])) return;
       const p = plane(0.5), b = toPlane(p, q[0], q[1]);
@@ -2417,6 +2465,7 @@ class Component extends DCLogic {
     root.addEventListener('pointerup', onUp); root.addEventListener('pointercancel', onUp); root.addEventListener('pointerleave', onLeave);
     root.addEventListener('wheel', onWheel, { passive: false });
     const onKey = (e) => {
+      if (S.menuOpen) { if (e.key === 'Escape') { e.preventDefault(); menuOpen(false); } return; }
       if (e.key === 'Escape' && S.chaos) { e.preventDefault(); orderChaos(); return; }
       const k = e.key, tg = e.target;
       if (tg && (/INPUT|TEXTAREA|SELECT/.test(tg.tagName) || (k === ' ' && tg.closest && tg.closest('button,a')))) return;

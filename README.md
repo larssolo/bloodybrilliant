@@ -15,7 +15,7 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 
 ## Lyd
 
-Tryk **SOUND** i headeren, eller klik et sted i scenen. Lyden starter ved første klik og huskes til næste besøg. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–7.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
+Tryk **SOUND** i headeren, eller tryk et sted i scenen. Lyden starter ved første tryk (også på mobiler, der tillader det; den låses op, når fingeren slippes), og et fravalg huskes til næste besøg. På iPhone skal lydløs-knappen være slået fra. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–7.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
 
 **Baglæns:** når du scroller tilbage, spoler lyden også tilbage som et bånd. Musikken skifter til en omvendt kopi af sporet fra præcis samme sted og spiller hurtigere og højere i tonen, jo hurtigere du scroller. Der kommer et spolelyd-sus, og headeren viser ◀◀ REWIND. Beats, du passerer baglæns (hvalsang, ravnekrage, torden, Fenrirs hyl og andre), afspilles omvendt. De omvendte effekter renderes offline i baggrunden med de samme synth-funktioner og vendes. Når du slipper, fortsætter musikken forlæns derfra.
 
@@ -45,7 +45,7 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 ### Styring
 
 - **Scroll / swipe** driver fortællingen. **Piltaster, PageUp/PageDown, mellemrum, Home** virker også.
-- **Kapitel-skinnen** til højre hopper direkte til et kapitel.
+- **Kapitel-skinnen** til højre hopper direkte til et kapitel. På mobil er den erstattet af en **burgermenu** øverst til højre med lyd, kaos, alle kapitler og kodekid-linket.
 - **Trekanten** i hjørnet er kaos-knappen. Hvert klik slår en ny tilfældig blanding af 2–4 effekter til: spejl, på hovedet, regnbue-hjerne, negativ, noir, turbo, slowmotion, glitch-storm, jordskælv, søsyge, stroboskop, warp-puls, 8-bit og smeltning. Et langt tryk på trekanten eller Esc genskaber ordenen.
 - **Trackpad, vandret swipe** giver vind.
 - `prefers-reduced-motion` dæmper bevægelse og rystelser.
