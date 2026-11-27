@@ -4,9 +4,9 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 
 | | Kapitel | Hvad sker der | Klik / tryk |
 |---|---|---|---|
-| I | **The Unreal North** | Dobbelt så langt som de andre. Dag → solnedgang → nat med nordlys. Bjergene vågner med ansigter, der følger musen, og falder i søvn med zzz. En trold kigger frem bag bakken og gemmer sig, når du kommer for tæt på. En ballon med en viking driver forbi, regnbuebroen Bifrost tegner sig over himlen, en søslange svømmer i floden, det sner (musen hvirvler sneen), og en elg med blomstrende gevir går forbi i nordlyset. Til sidst dykker kameraet op i himlen. | Kugler og blomster. Klik på ballonen (viking i faldskærm), på trolden (den fniser) og om natten på himlen (fyrværkeri) |
-| II | **The Singing Sky** | Warp-stjerner (scroll = flyv frem), nordlys der bøjer mod musen, en hval af stjernebilleder der synger, vandmænd. | Ny vandmand; klik på hvalen får den til at synge |
-| III | **Lantern Woods** | Parallaks-skov med lysende svampe og lanterner, der svinger efter musens fart. Lanternerne slukker én efter én, og øjne åbner sig i mørket. | Slipper en sværm af møl løs, som følger musen |
+| I | **The Unreal North** | Dobbelt så langt som de andre. Dag → solnedgang → nat med nordlys. Bjergene vågner med ansigter, der følger musen, og falder i søvn med zzz. En trold kigger frem bag bakken og gemmer sig, når du kommer for tæt på. Den følger dig gennem de første tre kapitler og hopper videre, når kapitlet slutter. En ballon med en viking driver forbi, regnbuebroen Bifrost tegner sig over himlen, en søslange svømmer i floden, det sner (musen hvirvler sneen), og en elg med blomstrende gevir går forbi i nordlyset. Til sidst dykker kameraet op i himlen. | Kugler og blomster. Klik på ballonen (viking i faldskærm), på trolden (den fniser) og om natten på himlen (fyrværkeri) |
+| II | **The Singing Sky** | Warp-stjerner (scroll = flyv frem), nordlys der bøjer mod musen, en hval af stjernebilleder der synger, vandmænd. Trolden hænger under en vandmand og vinker, når hvalen synger. | Ny vandmand; klik på hvalen får den til at synge; klik på trolden, så hopper den over på en anden vandmand |
+| III | **Lantern Woods** | Parallaks-skov med lysende svampe og lanterner, der svinger efter musens fart. Lanternerne slukker én efter én, og øjne åbner sig i mørket. Trolden går på skovbunden med sin egen lanterne, som aldrig slukker, og følger musen. For børn bliver dens lys til regnbueportalen, og den vinker farvel i Prism. Voksne ser den tabe lanternen og løbe, lige før mørket. | Slipper en sværm af møl løs, som følger musen |
 | IV | **Sunfall** | Solen styrter op, himlen brænder ravgul, det regner med blæk (musen er en paraply), og en ravn krydser solen. | Blæksprøjt |
 | V | **Bloody Brilliant** | En ravn af blæk dykker ned. Vingen opløses i røg med en brændende kant, og musen river fjer løs. | Ravnen eksploderer til blæk og samler sig igen |
 | VI | **Ragnarök** | Kulsort, med støj og glitch. Yggdrasil vokser op af mørket, runer brænder i en roterende cirkel, Odin ser med ét rødt øje, Huginn og Muninn kredser, og Fenrir bryder løs og sluger verden. | Thors lyn slår ned, og runerne gløder |
@@ -19,6 +19,17 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism og derfra videre til multiverset (i børneversionen kapitel IV og V). I multiverset skyder tank og soldater kun med konfetti og sæbebobler. De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
 
 Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
+
+## Fra besøg til besøg
+
+Trolden husker dig (kun i din egen browser, ingen konto og ingen sporing). Fra andet besøg siger den en kort replik i en boble, én gang om dagen, og for hvert besøg får den noget nyt: halstørklæde (2), en troldeunge (3), et navn til hvalen, Gertrud (4), og en krone (5). Har du været væk i mere end 30 dage, siger den *Long time no see!*
+
+Siden følger også kalenderen og uret på din enhed:
+
+- **1.–26. december:** nissehue, sne hele dagen i kapitel I og let sne i II, røde og grønne lanterner og taglinen *A LOT OF SNOW.*
+- **31. december – 1. januar:** papirhat, og nattehimlen skyder fyrværkeri af sig selv.
+- **25.–31. oktober:** græskar i stedet for lanterner.
+- **Kl. 21–06:** trolden har nathue, gaber og spørger, om du ikke burde sove.
 
 ## Lyd
 
@@ -49,6 +60,7 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `?p=8.5` starter på et præcist punkt i fortællingen (0–11.15, hvor kapitel I er 0–1)
 - `?film=0` slår filmlooket fra
 - `?mode=adult` / `?mode=kids` vælger voksen- eller børneversion (standard er børn)
+- `?dato=2026-12-24`, `?time=23`, `?besoeg=4`, `?tilt=1,0` viser en anden dato, et andet klokkeslæt, et bestemt besøg eller en vippet telefon (til test; gemmer intet)
 
 ### Styring
 
@@ -56,6 +68,7 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - **Kapitel-skinnen** til højre hopper direkte til et kapitel. På mobil er den erstattet af en **burgermenu** øverst til højre med lyd, kaos, alle kapitler og kodekid-linket.
 - **Trekanten** i hjørnet er kaos-knappen. Hvert klik slår en ny tilfældig blanding af 2–4 effekter til: spejl, på hovedet, regnbue-hjerne, negativ, noir, turbo, slowmotion, glitch-storm, jordskælv, søsyge, stroboskop, warp-puls, 8-bit og smeltning. Et langt tryk på trekanten eller Esc genskaber ordenen.
 - **Trackpad, vandret swipe** giver vind.
+- **Mobil:** vip telefonen, så hælder verden med (sne, vandmænd, lanterner, bobler og multiversets tyngdekraft). Ryst den, så slår kaos til. På iPhone spørger siden om lov ved første tryk.
 - `prefers-reduced-motion` dæmper bevægelse og rystelser.
 
 ## Teknik
@@ -70,6 +83,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 ## Filer
 
 - `index.html`: hele oplevelsen.
+- `assets/bb-memory.js`: troldens hukommelse, årstider, nat, replikker, vip og ryst (ren logik, testet).
+- `tests/`: `node --test` kører logiktestene; `tests/shot.mjs` tager skærmbilleder med headless Edge.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
 - `assets/favicon.svg`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `favicon.ico`: favicon (blodrød dråbe på amber).
