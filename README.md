@@ -1,6 +1,6 @@
 # Bloody Brilliant — The Unreal of North
 
-By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fortælling i otte kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
+By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fortælling i ni kapitler. Den starter som et pastel-eventyr, bliver mørkere undervejs og ender i blæk. Når du scroller forbi slutningen, bliver verden genfødt med et nyt seed, og fortællingen begynder forfra. Den slutter aldrig.
 
 | | Kapitel | Hvad sker der | Klik / tryk |
 |---|---|---|---|
@@ -11,17 +11,18 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 | V | **Bloody Brilliant** | En ravn af blæk dykker ned. Vingen opløses i røg med en brændende kant, og musen river fjer løs. | Ravnen eksploderer til blæk og samler sig igen |
 | VI | **Ragnarök** | Kulsort, med støj og glitch. Yggdrasil vokser op af mørket, runer brænder i en roterende cirkel, Odin ser med ét rødt øje, Huginn og Muninn kredser, og Fenrir bryder løs og sluger verden. | Thors lyn slår ned, og runerne gløder |
 | VII | **The Ink** | Blækket strømmer ud af ulvens gab, og Odins øje åbner sig og følger dig. Øjet er tegnet i samme beskidte blæk som guderne, med trævlet iris, tørpensel-rynker, knoglehvide vipper og blodtårer. *Again?*, og så genfødes verden, ligesom efter Ragnarök. | Øjet blinker |
-| VIII | **Prism** | Efter øjet: mytiske blækfugle flyver ind over det, først én langsomt og til sidst en sværm, og deres vinger visker mørket væk til gult. Så bevæger fortællingen sig *sidelæns*: scroll (eller vandret swipe/trackpad) kører verden mod venstre. Verdenen starter i sort-hvid og får sine farver, når hestenes regnbuehaler og din mus maler dem frem. Dalí-agtige heste på stylteben med kæmpeøjne går på spejlblankt vand eller svæver. Svævende øer med regnbuevandfald, marmorbuer og en kæmperegnbue. Undervejs vokser en kæmpehests ben, til den skræver hen over dig, verden vender på hovedet, og et regnbue-stormløb farver alt. Vandfaldene løber opad, når du spoler tilbage. | Prisme-bombe med farve og konfetti; klik på en hest, så stejler den og vrinsker; bobler springer under musen |
+| VIII | **Prism** | Efter øjet: mytiske blækfugle flyver ind over det, først én langsomt og til sidst en sværm, og deres vinger visker mørket væk til gult. Så bevæger fortællingen sig *sidelæns*: scroll (eller vandret swipe/trackpad) kører verden mod venstre. Verdenen starter i sort-hvid og bliver hurtigt farvestærk pastel, når hestenes regnbuehaler og din mus maler farverne frem. Dalí-agtige heste på stylteben med kæmpeøjne går på spejlblankt vand eller svæver. Svævende øer med regnbuevandfald, marmorbuer og en kæmperegnbue. Undervejs vokser en kæmpehests ben, til den skræver hen over dig, verden vender på hovedet, og et regnbue-stormløb farver alt. Musen trækker en pastelkomethale efter sig, og der klækkes sommerfugle af den. **Kør musen i cirkler**, så rejser en regnbuehvirvelvind sig og løfter hestene. Vandfaldene løber opad, når du spoler tilbage. | **Træk i en hest:** løft den, slyng den, og se den fjedre tilbage og plaske ned. Et klik på en hest får den til at stejle og vrinske. Prisme-bombe med farve og konfetti; bobler springer under musen |
+| IX | **The Multiverse of Nonsense** | Prism splintres i kort, som vender én for én og viser et multivers bygget af en vektortegning (`assets/multiverse.json`, klippet ud af kunstnerens SVG: en baggrund og 21 figurer). Figurerne flygter ud af billedet og lever efter deres egen fysik: biler kører i ottetaller, snemanden hopper, hønsene kredser om musen, tanken svæver i en ballon og skyder sæbebobler, soldaterne skyder konfetti, fiskeren fisker efter din cursor, og buskene danser i takt. Hullerne, de efterlader, viser et andet univers. Kameraet zoomer ud i et tomrum fuld af parallelle verdener i andre farver. Undervejs: *LOGIC HAS LEFT THE BUILDING*, tyngdekraften vender, store og små bytter størrelse, kloner vælter ind fra andre universer, og til sidst suges det hele ind i en hvirvel, og verden genfødes. Musen er en linse ind i universet ved siden af. | **Træk og kast** enhver figur; kaster du den hårdt nok ud over kanten, falder den ind i et andet univers og kommer tilbage i nye farver. **Tryk på en figur**, så formerer den sig. Klik i tomrummet åbner en portal med kloner |
 
 ## Børn eller voksne
 
-Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism (som i børneversionen hedder kapitel IV). De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
+Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism og derfra videre til multiverset (i børneversionen kapitel IV og V). I multiverset skyder tank og soldater kun med konfetti og sæbebobler. De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
 
 Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
 
 ## Lyd
 
-Ved første besøg popper trolden fra kapitel I op og spørger, om musikken skal vækkes (✦ WAKE THE MUSIC / WANDER IN SILENCE). Ellers tryk **SOUND** i headeren, eller tryk et sted i scenen. Lyden starter ved første tryk (også på mobiler, der tillader det; den låses op, når fingeren slippes), og et fravalg huskes til næste besøg. På iPhone skal lydløs-knappen være slået fra. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–8.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
+Ved første besøg popper trolden fra kapitel I op og spørger, om musikken skal vækkes (✦ WAKE THE MUSIC / WANDER IN SILENCE). Ellers tryk **SOUND** i headeren, eller tryk et sted i scenen. Lyden starter ved første tryk (også på mobiler, der tillader det; den låses op, når fingeren slippes), og et fravalg huskes til næste besøg. På iPhone skal lydløs-knappen være slået fra. Hvert kapitel har sit eget instrumentale musikunderlag (`assets/audio/ch1–9.mp3`, AI-komponeret og klippet til sømløse loops), som crossfader, når du skifter kapitel. Kun det aktuelle og det næste kapitel bliver hentet. Lydeffekterne bliver syntetiseret live med Web Audio og reagerer på det, der sker: kugler, gnister, trold og fyrværkeri, hvalsang, glasklokker, møl, vind, blæksprøjt, ravnekrage, eksplosioner, torden, ulvehyl, glitch og blink.
 
 **Baglæns:** når du scroller tilbage, spoler lyden også tilbage som et bånd. Musikken skifter til en omvendt kopi af sporet fra præcis samme sted og spiller hurtigere og højere i tonen, jo hurtigere du scroller. Der kommer et spolelyd-sus, og headeren viser ◀◀ REWIND. Beats, du passerer baglæns (hvalsang, ravnekrage, torden, Fenrirs hyl og andre), afspilles omvendt. De omvendte effekter renderes offline i baggrunden med de samme synth-funktioner og vendes. Når du slipper, fortsætter musikken forlæns derfra.
 
@@ -44,8 +45,8 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 
 - `?seed=1234` låser verdenen (0 eller ingen giver en ny ved hver reload)
 - `?energi=1.5` styrer bevægelsesintensiteten (0.3–2)
-- `?kapitel=8` starter i et bestemt kapitel (1–8)
-- `?p=8.5` starter på et præcist punkt i fortællingen (0–9.45, hvor kapitel I er 0–1)
+- `?kapitel=9` starter i et bestemt kapitel (1–9)
+- `?p=8.5` starter på et præcist punkt i fortællingen (0–11.15, hvor kapitel I er 0–1)
 - `?film=0` slår filmlooket fra
 - `?mode=adult` / `?mode=kids` vælger voksen- eller børneversion (standard er børn)
 
@@ -72,5 +73,6 @@ Ingen build og ingen afhængigheder. Det eneste eksterne er Google Fonts.
 - `assets/raven.webp`, `assets/odin.webp`, `assets/fenrir.webp`: ravnen, Odin og Fenrir (AI-genereret til projektet og frilagt med alfakanal).
 - `assets/og.jpg`: delingsbillede til sociale medier.
 - `assets/favicon.svg`, `assets/favicon-32.png`, `assets/apple-touch-icon.png`, `favicon.ico`: favicon (blodrød dråbe på amber).
-- `assets/audio/ch1.mp3` … `ch8.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
+- `assets/multiverse.json`: kapitel IX's vektorgrafik (baggrund og 21 figurer, klippet ud af den leverede SVG og grupperet efter figur). Den hentes først, når man nærmer sig kapitlet.
+- `assets/audio/ch1.mp3` … `ch9.mp3`: musik pr. kapitel (AI-komponeret, sømløst loopet).
 - `design-canvas/UnrealDiorama.dc.html`: originalen af kapitel I fra Claude-design-lærredet.
