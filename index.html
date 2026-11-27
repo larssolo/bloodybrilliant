@@ -1550,11 +1550,13 @@ class Component extends DCLogic {
       b.addEventListener('click', () => { S.sT = i ? toRaw(CH[i].a + 0.1) : 0; S.last = performance.now(); });
       rail.appendChild(b); return b;
     });
-    let capIdx = -1, capT = 1, capTxt = '';
+    // caption = a short how-to hint only (no chapter names): typed in with runes, then fades away
+    const CAP_HINT = { 0: 'SCROLL, CLICK, PLAY', 7: 'SCROLL \u2192' };
+    let capIdx = -1, capT = 1, capTxt = '', capHold = 0, capOp = '';
     function uiStep(P, dt) {
       const i = chapterAt(P);
       if (i !== capIdx) {
-        capIdx = i; capT = 0; capTxt = CH[i].cap;
+        capIdx = i; capT = 0; capHold = 0; capTxt = CAP_HINT[i] || ''; if (!capTxt) { capT = 1; capEl.textContent = ''; }
         railBtns.forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
         cv.setAttribute('aria-label', CH[i].aria);
       }
@@ -1563,7 +1565,9 @@ class Component extends DCLogic {
         const n = Math.floor(capTxt.length * capT); let out = capTxt.slice(0, n);
         for (let k = n; k < Math.min(capTxt.length, n + 8); k++) out += capTxt[k] === ' ' ? ' ' : RUNES[(Math.random() * RUNES.length) | 0];
         capEl.textContent = out;
-      }
+      } else if (capTxt) capHold += dt;
+      const co = capTxt ? (1 - sstep(4.5, 6, capHold)).toFixed(2) : '0';
+      if (co !== capOp) { capOp = co; capEl.style.opacity = co; }
       const ho = (1 - sstep(0.02, 0.1, P)).toFixed(2); if (hint.style.opacity !== ho) hint.style.opacity = ho;
     }
 
