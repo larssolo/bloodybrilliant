@@ -75,6 +75,9 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-pop .spark{position:absolute;width:8px;height:8px;border-radius:50%;background:#f6c333;opacity:0}
 .un-pop.show .spark{animation:unSpark 1.3s ease-out forwards}
 @keyframes unSpark{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.3)}}
+.un-say{position:absolute;left:0;top:0;z-index:7;max-width:min(240px,62vw);padding:10px 14px 11px;border-radius:18px 18px 18px 4px;background:#fffaf0;color:#1c2333;border:2px solid #1c2333;box-shadow:4px 4px 0 #ee5a2c;font:italic 700 17px/1.2 Fraunces,Georgia,serif;white-space:nowrap;pointer-events:none;opacity:0;transform:translate(-6px,-100%) scale(.3) rotate(-6deg);transform-origin:0 100%;transition:opacity .3s,transform .55s cubic-bezier(.2,1.7,.4,1)}
+.un-say.show{opacity:1;transform:translate(-6px,-100%)}
+@media (max-width:640px){.un-say{white-space:normal;font-size:15px}}
 .un-pop.out{transition:opacity .35s,transform .45s cubic-bezier(.5,0,.8,.3);opacity:0;transform:translateX(-50%) translateY(30px) scale(.9)}
 @supports (height:100dvh){.un-root{height:100dvh!important;min-height:0!important}}
 .un-menu{touch-action:pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:68px 18px max(22px,env(safe-area-inset-bottom))!important;gap:4px!important}
@@ -167,6 +170,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </div>
 <p data-cap="" class="un-cap" aria-hidden="true"></p>
 <div class="un-pop" data-pop="" role="dialog" aria-label="Sound" aria-hidden="true"><div class="troll"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 58)"><path d="M-8 -36 Q-16 -54 -10 -60 M0 -38 Q2 -58 8 -62 M8 -36 Q18 -52 14 -58" stroke="#ee5a2c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="-40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><ellipse cx="40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><circle r="38" fill="#7f9c55"/><ellipse cy="8" rx="27" ry="21" fill="#b4cc83"/><ellipse cx="-12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><ellipse cx="12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><circle cx="-10" cy="-7" r="3.4" fill="#1c2333"/><circle cx="14" cy="-7" r="3.4" fill="#1c2333"/><g class="lid" style="transform-origin:0 -15px"><rect x="-20" y="-17" width="40" height="18" fill="#7f9c55"/></g><ellipse cy="4" rx="10" ry="8.5" fill="#f6a47a"/><ellipse cx="-3" cy="1" rx="3" ry="2" fill="#fff" opacity=".6"/><path d="M-9 16 Q0 24 9 16" stroke="#1c2333" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="1" y="18" width="4" height="4" fill="#fffaf0"/><ellipse cx="-22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/><ellipse cx="22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/></g></svg></div><div class="bub"><i class="spark" style="left:110px;top:40px;--dx:-40px;--dy:-50px;animation-delay:0.40s"></i><i class="spark" style="left:200px;top:20px;--dx:10px;--dy:-60px;animation-delay:0.50s"></i><i class="spark" style="left:320px;top:30px;--dx:50px;--dy:-40px;animation-delay:0.45s"></i><i class="spark" style="left:380px;top:90px;--dx:60px;--dy:10px;animation-delay:0.55s"></i><i class="spark" style="left:90px;top:110px;--dx:-50px;--dy:20px;animation-delay:0.50s"></i><i class="spark" style="left:250px;top:0px;--dx:-10px;--dy:-70px;animation-delay:0.60s"></i><h3>Psst&hellip; lend me your ears.</h3><p>I&rsquo;m the troll who keeps the bridge of this tale, and I&rsquo;ll let you in on a secret: half of it is <em>sung</em>. Whales hum, ravens cry, gods thunder and the ink whispers.</p><div class="acts"><button type="button" class="yes" data-popyes="">&#10022; WAKE THE MUSIC</button><button type="button" class="no" data-popno="">WANDER IN SILENCE</button></div><small data-pophint="">Change your mind anytime with SOUND.</small><small class="dk">The dark chapters are asleep. Grown-ups can wake them with &#9790;.</small></div></div>
+<div class="un-say" data-say="" aria-live="polite"></div>
 <div class="un-gate" data-gate="" role="dialog" aria-modal="true" aria-labelledby="un-gate-h" aria-hidden="true"><div class="card"><i class="moon" aria-hidden="true"></i><h3 id="un-gate-h">For grown-ups only</h3><p>Beyond the lantern woods sleep the dark chapters: a raven of ink, Ragnar&ouml;k, the wolf that swallows the sun and the eye that never blinks. Little readers fly straight on to the rainbow horses.</p><p class="qq" data-gq="">What is 7 &times; 8?</p><div class="ans" data-ga=""></div><button type="button" class="stay" data-gstay="">&#10022; LET THEM SLEEP</button><small data-gmsg="" aria-live="polite"></small></div></div>
 <nav id="un-menu" class="un-menu" data-menu="" aria-label="Menu" aria-hidden="true"></nav>
 <div class="un-toast" data-toast="" aria-live="polite"></div>
@@ -193,6 +197,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <svg class="un-drip" width="12" height="18" viewBox="0 0 12 18" style="position: absolute; left: -5px; top: 0"><path d="M6 1 C6 1 11 8 11 11.5 A5 5 0 0 1 1 11.5 C1 8 6 1 6 1 Z" fill="#47c2b1"></path></svg>
 </div>
 </div>
+<script src="assets/bb-memory.js"></script>
 <script>
 // Raven silhouette samples (x, y in 0..999, grey 0..9), baked from assets/raven.webp so particles never need getImageData.
 const RAVEN_SRC = 'assets/raven.webp';
@@ -225,6 +230,21 @@ class Component extends DCLogic {
     const R = rng(seedP > 0 ? seedP : (Math.random() * 1e9) | 0);
     const rr = (a, b) => a + R() * (b - a), pick = (arr) => arr[(R() * arr.length) | 0];
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // the troll's memory (assets/bb-memory.js): season, night and visits. ?dato ?time ?besoeg ?tilt override and never write.
+    const MEM = (() => {
+      const B = window.BBMemory, none = { season: null, night: false, n: 1, un: { scarf: false, baby: false, whale: false, crown: false }, line: null, tilt: null };
+      if (!B) return none;
+      const o = B.overrides(location.search), test = o.date || o.hour != null || o.visit || o.tilt, now = o.date || new Date(), hr = o.hour != null ? o.hour : new Date().getHours();
+      let v;
+      if (o.visit) v = { n: o.visit, isNewDay: true, gapDays: 0 };
+      else {
+        let prev = null; try { prev = JSON.parse(localStorage.getItem('bb-visit')); } catch (e) {}
+        v = B.recordVisit(prev, B.dayKey(new Date()));
+        if (!test) try { localStorage.setItem('bb-visit', JSON.stringify({ n: v.n, first: v.first, last: v.last })); } catch (e) {}
+      }
+      const season = B.season(now), night = B.isNight(hr);
+      return { season, night, n: v.n, un: B.unlocks(v.n), line: B.pickLine({ n: v.n, isNewDay: v.isNewDay, gapDays: v.gapDays, season, night, date: now }), tilt: o.tilt };
+    })();
     const energy = () => clamp(+(self.props.energi ?? 1) || 1, 0.2, 3) * (reduce ? 0.35 : 1) * (S.cx && S.cx.turbo ? 2.4 : 1) * (S.cx && S.cx.slowmo ? 0.3 : 1);
 
     const C = { blue: hex('#2f4db8'), orange: hex('#ee5a2c'), yellow: hex('#f6c333'), teal: hex('#47c2b1'), mint: hex('#8fdcc0'), lav: hex('#a99be0'), pink: hex('#f2a6b8'), lime: hex('#cfe05a'), navy: hex('#232a6b'), sand: hex('#e8c88c'), brown: hex('#8a5a3c'), moss: hex('#6e8f3e'), cream: hex('#f4eedd'), peach: hex('#f6a47a') };
@@ -477,6 +497,7 @@ class Component extends DCLogic {
     });
     const heads = Array.from({ length: 3 + XH.length }, (_, h) => Array.from(root.querySelectorAll('[data-h="' + h + '"]')).map((el) => ({ el, rx: R() * 2 - 1, ry: R() * 2 - 1, rr: R() * 2 - 1, ph: R() * 6.28, cx: 0, cy: 0 })));
     const tag = root.querySelector('[data-tag]'), nav = root.querySelector('[data-nav]');
+    if (MEM.season === 'xmas') tag.textContent = 'A LITTLE BIT NORDIC. A LOT OF SNOW.';
     const WIN = [[-0.25, 0.36], [0.3, 0.68], [0.62, 1.25]].concat(XH.map((c) => c.win));
     const WB = [600, 420, 600].concat(XH.map((c) => c.wt)), IT = [0, 1, 0].concat(XH.map((c) => c.it || 0)), IGL = [0, 0, 0].concat(XH.map((c) => c.gl || 0));
     function cacheLetters() {
@@ -1744,7 +1765,7 @@ class Component extends DCLogic {
       if (sl > 0.5 && R() < S.dtt * 0.3 && W0.zz.length < 24) { const sc = toScreen(p, bx + mw * 0.1, ey - er * 2); W0.zz.push({ x: sc[0], y: sc[1], life: 1, s: Math.max(10, er * p.sc * 2.6), ph: rr(0, 6.28) }); }
     }
     function drawTroll(t, dt) {
-      const s = S.s1, tr = W0.troll, vis = sstep(0.15, 0.2, s) * (1 - sstep(0.5, 0.56, s));
+      const s = S.s1, tr = W0.troll, vis = (MEM.line ? 1 : sstep(0.15, 0.2, s)) * (1 - sstep(0.5, 0.56, s));
       tr.hit = null;
       if (vis <= 0 && tr.up < 0.01) return;
       const p = plane(0.42); setPlane(p);
@@ -1967,7 +1988,7 @@ class Component extends DCLogic {
     window.addEventListener('keydown', gesture);
     // the troll pops up once, for visitors who have not chosen yet
     const popEl = root.querySelector('[data-pop]');
-    function popHide() { if (!popEl.classList.contains('show')) return; popEl.classList.add('out'); popEl.classList.remove('show'); popEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { popEl.style.display = 'none'; }, 500); }
+    function popHide() { if (!popEl.classList.contains('show')) return; popEl.classList.add('out'); popEl.classList.remove('show'); popEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { popEl.style.display = 'none'; }, 500); if (typeof sayLater === 'function') sayLater(900); }
     if (soundPref == null) {
       if (/iPhone|iPad|iPod/.test(navigator.userAgent)) root.querySelector('[data-pophint]').textContent = 'On iPhone, flip off the silent switch. Change your mind anytime with SOUND.';
       setTimeout(() => { if (!AU.asked) { popEl.classList.add('show'); popEl.setAttribute('aria-hidden', 'false'); } }, 1400);
@@ -1975,6 +1996,19 @@ class Component extends DCLogic {
     root.querySelector('[data-popyes]').addEventListener('click', () => { AU.asked = true; soundSet(true); popHide(); setTimeout(() => { snd('giggle'); snd('chime'); }, 120); });
     root.querySelector('[data-popno]').addEventListener('click', () => { AU.asked = true; soundSet(false); popHide(); });
     popEl.addEventListener('pointerdown', (e) => e.stopPropagation());
+    // the troll's speech bubble: one short line per visit, rides on the troll's head, gone after a few seconds or a scroll
+    const sayEl = root.querySelector('[data-say]'), SAY = { on: false, tm: 0 };
+    function sayHide() { if (!SAY.on) return; SAY.on = false; clearTimeout(SAY.tm); sayEl.classList.remove('show'); }
+    function say(text, ms = 4000) { sayEl.textContent = text; SAY.on = true; sayStep(); sayEl.classList.add('show'); clearTimeout(SAY.tm); SAY.tm = setTimeout(sayHide, ms); snd('giggle'); }
+    function sayStep() {
+      if (!SAY.on) return;
+      if (S.sv > 0.05 || S.P > 0.5) { sayHide(); return; }
+      const h = W0.troll.hit, sc = h ? toScreen(h[3], h[0] + h[2] * 0.55, h[1] - h[2] * 1.25) : [S.W * 0.25, S.H * 0.7];
+      sayEl.style.left = Math.min(sc[0], S.W - sayEl.offsetWidth - 12).toFixed(0) + 'px'; sayEl.style.top = Math.max(sc[1], sayEl.offsetHeight + 70).toFixed(0) + 'px';
+    }
+    // the line waits while the sound pop is up, so the two trolls never talk at once
+    function sayLater(ms) { if (MEM.line && !SAY.said) setTimeout(() => { if (!SAY.said && !popEl.classList.contains('show') && S.P < 0.5) { SAY.said = true; say(MEM.line); } }, ms); }
+    sayLater(1800);
     // the tape: the current bed plays forward, or while scrolling back, a reversed copy from the mirrored spot,
     // faster and higher the harder you scroll. Beats you pass backwards play their sounds reversed.
     const TAPE = { dir: 1, rate: 1, hold: 0 };
@@ -2824,6 +2858,7 @@ class Component extends DCLogic {
       S.dk = Math.round(dk * 40) / 40;
       typo(t, E);
       uiStep(P, dt);
+      sayStep();
       audioStep(P, dt);
       FPG.t += dt; FPG.n++; if (FPG.t > 3) { if (!FPG.lite && FPG.t / FPG.n > 0.04) { FPG.lite = true; root.classList.add('un-lite'); } FPG.t = 0; FPG.n = 0; }
       if (S.shake > 0.3) { cv.style.transform = 'translate(' + ((Math.random() - 0.5) * S.shake).toFixed(1) + 'px,' + ((Math.random() - 0.5) * S.shake).toFixed(1) + 'px) scale(1.02)'; S.shake *= Math.pow(0.02, dt); }
