@@ -7,7 +7,7 @@ Key facts:
 - URL: https://www.bloodybrilliant.xyz/
 - Maker: Lars Sohl, founder of KodeKid (https://www.kodekid.app) and Klokly (https://klokly.app). Visual work: https://www.larssohl.dk. Contact: hello@larssohl.dk
 - Price: free. No install, no account. Works on desktop, tablet and phone.
-- Audience: kids mode is the default and skips the four dark chapters via a rainbow portal; grown-ups unlock them behind a small parental gate (a multiplication question).
+- Audience: kids mode is the default and skips the five dark chapters via a rainbow portal; grown-ups unlock them behind a small parental gate (an easy addition such as 12 + 7).
 - Language of the interface: English.
 - A troll companion follows visitors through chapters I-III, remembers return visits (stored only in the visitor's browser) and unlocks something new each time. The story changes with the date and time: snow in December, fireworks at New Year, pumpkins at Halloween, a sleepy troll at night. On phones, tilting leans the world and shaking triggers chaos mode.
 - Built as a single HTML file with no build step: one 2D canvas for all chapters, a WebGL shader for the ink raven, live Web Audio sound synthesis that also plays in reverse when you scroll back, and AI-composed music loops per chapter.
