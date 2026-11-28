@@ -548,7 +548,7 @@ class Component extends DCLogic {
     const pToKid = (P) => (P <= KC ? P : P >= KB1 ? P - KG : P >= KB0 ? KC + (P - KB0) / (KB1 - KB0) * KZ : KC + KZ);
     // grown-ups: the Bleeding Sky is spliced in after Fenrir swallows the world. It owns BSPAN units of scroll
     // while the engine holds P at PI, so every other chapter keeps its timing. S.bq is its own progress (-1 outside).
-    const PI = 6.36, BSPAN = 1.4;
+    const PI = 6.36, BSPAN = 2.8; // the Bleeding Sky runs twice as long as a normal chapter
     const adToP = (a) => (a <= PI ? a : a < PI + BSPAN ? PI : a - BSPAN);
     const storyOf = (s) => (S.kid ? kidToP(toStory(s)) : adToP(toStory(s))), rawOf = (P) => toRaw(S.kid ? pToKid(P) : P > PI ? P + BSPAN : P);
     const bqOf = (s) => { if (S.kid) return -1; const a = toStory(s); return a > PI && a < PI + BSPAN ? (a - PI) / BSPAN : -1; };
