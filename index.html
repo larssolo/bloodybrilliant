@@ -961,15 +961,23 @@ class Component extends DCLogic {
     }
     // III · the troll lights the way with a lantern that never goes out; grown-ups see it drop the lantern and run
     function trollWoods(A, q, t, dt) {
-      const tj = W0.tj, W = S.W, H = S.H, P = S.P, r = S.u * 0.055, gy = H * 0.86, kind = MEM.season === 'halloween' ? 'pumpkin' : 'lantern';
+      const tj = W0.tj, W = S.W, H = S.H, P = S.P, r = S.u * 0.05, ground = H * 0.975, gy = ground - r * 2.86, kind = MEM.season === 'halloween' ? 'pumpkin' : 'lantern';
       if (S.kid && P >= KB0 - 0.01) return; // the rainbow portal draws it from here
       const drop = S.kid ? 0 : sstep(3.2, 3.27, P), run = S.kid ? 0 : sstep(3.24, 3.36, P), glow = 1 + 0.6 * sstep(0.55, 0.7, q);
       let mv = 0;
       if (drop < 0.01) { const tx = (S.px > -999 ? clamp(S.px, W * 0.08, W * 0.92) : W * 0.5) / W, st = clamp(tx - tj.x, -0.12 * dt, 0.12 * dt); tj.x += st; tj.lx = tj.x; mv = Math.abs(st) / dt / 0.12; }
       const edge = tj.lx < 0.5 ? -0.15 : 1.15, x = mix(tj.lx, edge, run) * W, bob = Math.abs(Math.sin(t * (run > 0 ? 16 : 7))) * r * (0.06 + 0.12 * Math.max(mv, run));
       ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A * sstep(2.38, 2.5, P);
-      if (drop > 0.5) lanternAt(tj.lx * W - r * 1.2, gy + r * 0.75, r, t, 1 - sstep(3.3, 3.36, P), kind);
-      if (run < 1) trollLit(x, gy - bob, r, t, trollDress({ lx: drop > 0.01 ? 0 : clamp((S.px - x) / (W * 0.3), -1, 1), ly: drop > 0.01 ? -1 : 0.2, jump: drop * (1 - run) * 0.8, prop: drop > 0.5 ? null : kind, glow, rot: run > 0 ? Math.sin(t * 18) * 0.15 : Math.sin(t * 2) * 0.05 }, t));
+      if (drop > 0.5) lanternAt(tj.lx * W - r * 1.2, ground - r * 0.45, r, t, 1 - sstep(3.3, 3.36, P), kind);
+      if (run >= 1) return;
+      const wm = clamp(Math.max(mv * 1.2, run * 1.5), 0, 1.3); tj.wk = (tj.wk || 0) + dt * (2 + 10 * wm);
+      // a soft shadow on the forest floor, then the troll, then the woods' darkness wrapped around it with the lantern's warmth on one side
+      ctx.fillStyle = 'rgba(0,10,10,0.45)'; ctx.beginPath(); ctx.ellipse(x, ground, r * 1.2, r * 0.22, 0, 0, 6.283); ctx.fill();
+      const lit = drop > 0.5 ? 0.15 : 1, ly0 = gy - bob + r * 1.05;
+      trollLit(x, gy - bob, r, t, trollDress({ lx: drop > 0.01 ? 0 : clamp((S.px - x) / (W * 0.3), -1, 1), ly: drop > 0.01 ? -1 : 0.2, jump: drop * (1 - run) * 0.8, prop: drop > 0.5 ? null : kind, glow, walk: tj.wk, wm, cap: true, rot: run > 0 ? Math.sin(t * 18) * 0.15 : Math.sin(t * 2) * 0.04 }, t));
+      ctx.save(); ctx.beginPath(); ctx.arc(x, gy - bob, r * 1.02, 0, 6.283); ctx.ellipse(x - r * 0.95, gy - bob - r * 0.15, r * 0.26, r * 0.34, -0.4, 0, 6.283); ctx.ellipse(x + r * 0.95, gy - bob - r * 0.15, r * 0.26, r * 0.34, 0.4, 0, 6.283); ctx.rect(x - r * 0.95, gy - bob + r * 0.8, r * 1.9, r * 2.2); ctx.clip();
+      const sh = ctx.createRadialGradient(x - r * 1.3, ly0, r * 0.2, x - r * 0.6, ly0, r * 3.4); sh.addColorStop(0, css([255, 190, 100], 0.18 * lit)); sh.addColorStop(0.35, 'rgba(0,0,0,0)'); sh.addColorStop(1, css([3, 18, 22], 0.55 + 0.25 * (1 - lit)));
+      ctx.fillStyle = sh; ctx.fillRect(x - r * 3, gy - bob - r * 2, r * 6, r * 6); ctx.restore();
     }
 
     // ---------- IV · sunfall ----------
@@ -1808,6 +1816,22 @@ class Component extends DCLogic {
       for (const sd of [-1, 1]) { const a = Math.sin(ph * 0.8 + (sd > 0 ? 1.6 : 0)) * 0.9, sx = sd * r * 0.5, sy = r * 0.95, ex = sx + sd * Math.cos(a) * r * 0.75, ey = sy + Math.sin(a) * r * 0.55 + r * 0.2;
         ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + sd * r * 0.35, sy - r * 0.1, ex, ey); ctx.stroke(); ctx.beginPath(); ctx.arc(ex, ey, r * 0.13, 0, 6.283); ctx.fillStyle = fur; ctx.fill(); }
     }
+    // the forest troll: a mossy cloak with a leafy hem, legs in little boots that walk when it walks, one free arm
+    function trollWalker(r, t, ph, m, fur, furD, holds) {
+      const sw = Math.sin(ph) * m;
+      ctx.fillStyle = G(hex('#3d5a2e')); ctx.beginPath(); ctx.moveTo(-r * 0.62, r * 0.85); ctx.lineTo(r * 0.62, r * 0.85);
+      ctx.lineTo(r * (0.86 - sw * 0.1), r * 2.25); for (let i = 0; i <= 8; i++) { const k = i / 8; ctx.lineTo(mix(r * 0.86, -r * 0.86, k) - sw * r * 0.12, r * (2.25 + (i % 2 ? 0.18 : 0) + Math.sin(t * 3 + i) * 0.03)); } ctx.closePath(); ctx.fill();
+      ctx.lineCap = 'round';
+      for (const sd of [-1, 1]) { const a = Math.sin(ph + (sd > 0 ? 0 : Math.PI)) * m, hx = sd * r * 0.28, hy = r * 2.05, fx = hx + a * r * 0.42, fy = r * 2.72 - Math.max(0, Math.cos(ph + (sd > 0 ? 0 : Math.PI))) * r * 0.22 * m;
+        ctx.strokeStyle = furD; ctx.lineWidth = r * 0.24; ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(fx, fy); ctx.stroke();
+        ctx.fillStyle = G(hex('#5a3a24')); ctx.beginPath(); ctx.ellipse(fx + sd * r * 0.06, fy + r * 0.12, r * 0.24, r * 0.14, 0, 0, 6.283); ctx.fill(); }
+      ctx.beginPath(); ctx.ellipse(0, r * 1.4, r * 0.55, r * 0.7, 0, 0, 6.283); ctx.fillStyle = fur; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, r * 1.5, r * 0.33, r * 0.45, 0, 0, 6.283); ctx.fillStyle = G(hex('#b4cc83')); ctx.fill();
+      ctx.fillStyle = G(hex('#4f7a37')); for (let i = 0; i < 5; i++) { const a = -0.2 + i * 0.6; ctx.beginPath(); ctx.ellipse(Math.cos(a) * r * 0.62, r * 0.85 + Math.sin(a) * r * 0.08, r * 0.2, r * 0.1, a, 0, 6.283); ctx.fill(); }
+      const ax = r * 0.5, ay = r * 1.0, aa = -Math.sin(ph) * m * 0.7, ex = ax + Math.sin(aa) * r * 0.25 + r * 0.15, ey = ay + Math.cos(aa) * r * 0.7;
+      ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ex, ey); ctx.stroke(); ctx.beginPath(); ctx.arc(ex, ey, r * 0.13, 0, 6.283); ctx.fillStyle = fur; ctx.fill();
+      if (!holds) { ctx.beginPath(); ctx.moveTo(-ax, ay); ctx.lineTo(-ex, ey); ctx.stroke(); ctx.beginPath(); ctx.arc(-ex, ey, r * 0.13, 0, 6.283); ctx.fill(); }
+    }
     // the diving bell on its head: a glass dome with a brass collar, rivets and a valve that lets the bubbles out
     function trollHelmet(r, t) {
       const cy = -r * 0.15, R0 = r * 1.5;
@@ -1824,7 +1848,8 @@ class Component extends DCLogic {
       const jump = o.jump || 0, open = 1 - Math.sin((o.bl || 0) * Math.PI), lx = o.lx || 0, ly = o.ly || 0, wave = o.wave || 0, yawn = o.yawn || 0;
       ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot || 0);
       const fur = G(hex('#7f9c55')), furD = G(hex('#5f7a3c'));
-      if (o.prop) trollProp(o.prop, r, t, o.glow == null ? 1 : o.glow);
+      if (o.walk != null) trollWalker(r, t, o.walk, o.wm || 0, fur, furD, !!o.prop);
+      if (o.prop) { ctx.save(); if (o.walk != null) ctx.translate(-r * 0.05, r * 0.78); trollProp(o.prop, r, t, o.glow == null ? 1 : o.glow); ctx.restore(); }
       if (o.swim != null) trollBody(r, t, o.swim, fur, furD);
       if (o.hang) { ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.lineCap = 'round'; for (const sd of [-1, 1]) { ctx.beginPath(); ctx.moveTo(sd * r * 0.7, -r * 0.3); ctx.lineTo(sd * r * 0.42, -r * 1.45); ctx.stroke(); ctx.beginPath(); ctx.arc(sd * r * 0.42, -r * 1.5, r * 0.13, 0, 6.283); ctx.fillStyle = fur; ctx.fill(); } }
       ctx.fillStyle = furD; for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(sd * r * 0.95, -r * 0.15, r * 0.24, r * 0.32, sd * 0.4, 0, 6.283); ctx.fill(); }
@@ -1833,7 +1858,7 @@ class Component extends DCLogic {
         ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(r * 0.75, r * 0.25); ctx.lineTo(mix(r * 1.0, wx, wave), mix(r * 0.6, wy, wave)); ctx.stroke();
         ctx.beginPath(); ctx.arc(mix(r * 1.0, wx, wave), mix(r * 0.6, wy, wave), r * 0.14, 0, 6.283); ctx.fillStyle = fur; ctx.fill();
       }
-      if (!o.hat && !o.noHair) {
+      if (!o.hat && !o.noHair && !o.cap) {
         ctx.strokeStyle = G(C.orange); ctx.lineWidth = r * 0.09; ctx.lineCap = 'round'; ctx.beginPath();
         for (let k = -1; k <= 1; k++) { ctx.moveTo(k * r * 0.18, -r * 0.92); ctx.quadraticCurveTo(k * r * 0.4, -r * 1.4, k * r * 0.25 + Math.sin(t * 3 + k) * r * 0.08, -r * 1.55); }
         ctx.stroke();
@@ -1873,6 +1898,13 @@ class Component extends DCLogic {
         ctx.beginPath(); ctx.arc(tx, ty, r * 0.13, 0, 6.283); ctx.fillStyle = G(C.cream); ctx.fill();
       }
       if (o.dive) trollHelmet(r, t);
+      if (o.cap && !o.hat) { // a toadstool cap, like the glowing mushrooms of the woods
+        ctx.save(); ctx.translate(r * 0.08, -r * 0.78); ctx.rotate(0.12 + Math.sin(t * 2) * 0.03);
+        ctx.beginPath(); ctx.ellipse(0, r * 0.08, r * 0.95, r * 0.18, 0, 0, 6.283); ctx.fillStyle = G(hex('#f3e3c8')); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(0, 0, r * 1.0, r * 0.62, 0, Math.PI, 6.283); ctx.closePath(); ctx.fillStyle = G(hex('#d8473c')); ctx.fill();
+        ctx.fillStyle = G(C.cream); for (const d of [[-0.5, -0.22, 0.13], [0.05, -0.45, 0.12], [0.5, -0.2, 0.11], [-0.15, -0.12, 0.08], [0.28, -0.42, 0.06]]) { ctx.beginPath(); ctx.ellipse(d[0] * r, d[1] * r, d[2] * r, d[2] * r * 0.8, 0, 0, 6.283); ctx.fill(); }
+        ctx.restore();
+      }
       if (o.crown) {
         ctx.beginPath(); ctx.moveTo(-r * 0.5, -r * 0.78); ctx.lineTo(-r * 0.55, -r * 1.3); ctx.lineTo(-r * 0.25, -r * 1.02); ctx.lineTo(0, -r * 1.42); ctx.lineTo(r * 0.25, -r * 1.02); ctx.lineTo(r * 0.55, -r * 1.3); ctx.lineTo(r * 0.5, -r * 0.78); ctx.closePath(); ctx.fillStyle = G(C.yellow); ctx.fill();
         ctx.fillStyle = G(hex('#d6312b')); for (const k of [-0.28, 0, 0.28]) { ctx.beginPath(); ctx.arc(k * r, -r * 0.9, r * 0.06, 0, 6.283); ctx.fill(); }
@@ -2521,7 +2553,7 @@ class Component extends DCLogic {
     // kids' bridge: a rainbow portal of light opens in the dark woods and the horses' world shines through
     function kidPortal(k, t) {
       const W = S.W, H = S.H, d = S.dpr, a = Math.sin(k * Math.PI), M = Math.hypot(W, H) * 0.6, cx = W * 0.5, cy = H * 0.55;
-      if (a < 0.005) { if (k < 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; trollLit(W0.tj.lx * W, H * 0.86, S.u * 0.055, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern' }, t)); } return; }
+      if (a < 0.005) { if (k < 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; trollLit(W0.tj.lx * W, H * 0.975 - S.u * 0.05 * 2.86, S.u * 0.05, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern', walk: 0, cap: true }, t)); } return; }
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, M * (0.35 + k * 0.9));
       g.addColorStop(0, css([255, 252, 238], 0.95 * a)); g.addColorStop(0.55, css([255, 236, 200], 0.55 * a)); g.addColorStop(1, 'rgba(255,236,200,0)');
@@ -2531,8 +2563,8 @@ class Component extends DCLogic {
       ctx.globalCompositeOperation = 'lighter';
       for (let i = 0; i < 46; i++) { const an = i * 2.4 + t * 0.6, rr0 = r0 * (0.3 + 0.7 * hash2(i, 5)) + Math.sin(t * 3 + i) * 8, x = cx + Math.cos(an) * rr0, y = cy + Math.sin(an) * rr0 * 0.8, sz = 1.5 + 3 * hash2(i, 7); ctx.fillStyle = css([255, 246, 210], a * (0.5 + 0.5 * Math.sin(t * 7 + i))); ctx.beginPath(); ctx.arc(x, y, sz, 0, 6.283); ctx.fill(); }
       ctx.globalCompositeOperation = 'source-over';
-      const gl = sstep(0, 0.25, k), tr = mix(S.u * 0.055, S.u * 0.07, gl) * (1 - sstep(0.4, 0.75, k));
-      if (tr > 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1 - sstep(0.55, 0.75, k); trollLit(mix(W0.tj.lx * W, cx + tr * 1.22, gl), mix(H * 0.86, cy - tr * 0.5, gl), tr, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern', glow: 1 + k * 3, rot: 0.1 }, t)); ctx.globalAlpha = 1; }
+      const gl = sstep(0, 0.25, k), tr = mix(S.u * 0.05, S.u * 0.07, gl) * (1 - sstep(0.4, 0.75, k));
+      if (tr > 0.5) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1 - sstep(0.55, 0.75, k); trollLit(mix(W0.tj.lx * W, cx + tr * 1.22, gl), mix(H * 0.975 - tr * 2.86, cy - tr * 0.5, gl), tr, t, trollDress({ ly: -0.8, prop: MEM.season === 'halloween' ? 'pumpkin' : 'lantern', glow: 1 + k * 3, rot: 0.1, walk: t * 6, wm: gl, cap: true }, t)); ctx.globalAlpha = 1; }
     }
     // ---------- Prism toys: grab a horse, a pastel comet tail on your cursor, butterflies, and a secret whirlwind ----------
     function hdraw(h, x, gy, s, t, dt) {
