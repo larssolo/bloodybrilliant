@@ -813,14 +813,20 @@ class Component extends DCLogic {
       const tj = W0.tj, js = W0.jellies, W = S.W, H = S.H, u = S.u;
       if (!tj.jel || !js.includes(tj.jel)) { const c = js.filter((j) => j.y > 0.45 && j.y < 1.1); tj.jel = (c.length ? c : js).reduce((a, j) => (j.r > a.r ? j : a)); }
       else if (tj.hop <= 0 && (tj.jel.y < 0.1 || tj.jel.y > 0.95) && S.P > 1.2) trollHop();
-      const j = tj.jel, r = Math.max(j.r, 0.045) * u * 0.75, jx = j.x * W, jy = j.y * H + j.r * u * 2.2;
+      const j = tj.jel, r = Math.max(j.r, 0.045) * u * 0.6, jx = j.x * W + Math.sin(t * 0.9 + j.ph) * r * 0.8, jy = j.y * H + j.r * u * 2.6 + Math.sin(t * 1.6) * r * 0.25;
       tj.hop = Math.max(0, tj.hop - dt / 0.6); tj.wave *= Math.pow(0.3, dt);
       let x = jx, y = jy;
       if (tj.hop > 0 && tj.from) { const k = 1 - tj.hop; x = mix(tj.from[0], jx, k); y = mix(tj.from[1], jy, k) - Math.sin(k * Math.PI) * H * 0.12; }
       const out = 1 - sstep(2.26, 2.38, S.P); // one troll at a time: it leaves the sky before the woods troll arrives
-      tj.hit = out > 0.5 ? [x, y, r * 1.3] : null; if (out <= 0) return;
+      tj.hit = out > 0.5 ? [x, y + r * 0.8, r * 2] : null; if (out <= 0) return;
+      const rot = Math.sin(t * 1.4 + j.ph) * 0.12 + Math.sin(t * 2.5) * 0.05;
+      // bubbles rise from the helmet's valve, wobble and pop below the jellyfish
+      const bb = tj.bub || (tj.bub = []);
+      if (R() < dt * 2.6) { const n = R() < 0.3 ? 3 : 1; for (let i = 0; i < n; i++) bb.push({ x: x + Math.sin(rot) * r * 1.9 + rr(-2, 2), y: y - Math.cos(rot) * r * 1.9, r: rr(0.08, 0.2) * r, vy: rr(40, 80), ph: rr(0, 6.28), life: 1 }); if (bb.length > 40) bb.shift(); }
       ctx.globalAlpha = A * sstep(0.5, 1, A) * out;
-      trollLit(x, y, r, t, trollDress({ lx: Math.sin(t * 0.7) * 0.5, ly: -0.6, jump: tj.hop, hang: tj.hop < 0.05, wave: Math.max(tj.wave, tj.hop), rot: Math.sin(t * 1.4 + j.ph) * 0.12 }, t));
+      for (let i = bb.length - 1; i >= 0; i--) { const b = bb[i]; b.y -= b.vy * dt; b.vy *= Math.pow(1.15, dt); b.x += Math.sin(t * 4 + b.ph) * 10 * dt; b.life -= dt * 0.28; if (b.life <= 0 || b.y < -20) { swapPop(bb, i); continue; }
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.283); ctx.strokeStyle = css([200, 235, 255], 0.7 * b.life); ctx.lineWidth = Math.max(1, b.r * 0.15); ctx.stroke(); ctx.beginPath(); ctx.arc(b.x - b.r * 0.35, b.y - b.r * 0.35, b.r * 0.22, 0, 6.283); ctx.fillStyle = css([255, 255, 255], 0.8 * b.life); ctx.fill(); }
+      trollLit(x, y, r, t, trollDress({ lx: Math.sin(t * 0.7) * 0.5, ly: -0.6, jump: tj.hop, swim: j.ph, dive: true, wave: Math.max(tj.wave, tj.hop), rot }, t));
     }
     function trollHop() {
       const tj = W0.tj, cur = tj.jel, cand = W0.jellies.filter((j) => j !== cur && j.y > 0.12 && j.y < 0.9 && j.x > 0.05 && j.x < 0.95);
@@ -1790,11 +1796,36 @@ class Component extends DCLogic {
     }
     // the troll itself, centred on (x, y) with radius r. o = { lx, ly, bl, jump, rot, hat, scarf, crown, prop, glow, wave, yawn, noHair }
     function trollLit(x, y, r, t, o) { const d0 = D, n0 = N; D = N = 0; trollFig(x, y, r, t, o); D = d0; N = n0; }
+    // a whole troll for the deep: furry body, paddling arms, kicking legs with orange flippers
+    function trollBody(r, t, k, fur, furD) {
+      const ph = t * 5 + k;
+      ctx.lineCap = 'round'; ctx.strokeStyle = furD; ctx.lineWidth = r * 0.24;
+      for (const sd of [-1, 1]) { const a = Math.sin(ph + (sd > 0 ? 0 : Math.PI)) * 0.55, hx = sd * r * 0.3, hy = r * 1.75, fx = hx + sd * r * 0.12 + Math.sin(a) * r * 0.5, fy = hy + r * 0.75 + Math.cos(a) * r * 0.15;
+        ctx.beginPath(); ctx.moveTo(hx, hy); ctx.quadraticCurveTo(hx + sd * r * 0.1, hy + r * 0.4, fx, fy); ctx.stroke();
+        ctx.save(); ctx.translate(fx, fy); ctx.rotate(a * 0.8 + sd * 0.25); ctx.beginPath(); ctx.moveTo(-r * 0.14, 0); ctx.lineTo(r * 0.14, 0); ctx.lineTo(r * 0.34 * (1 + 0.2 * Math.sin(ph)), r * 0.5); ctx.lineTo(-r * 0.34, r * 0.5); ctx.closePath(); ctx.fillStyle = G(C.orange); ctx.fill(); ctx.restore(); }
+      ctx.beginPath(); ctx.ellipse(0, r * 1.3, r * 0.62, r * 0.68, 0, 0, 6.283); ctx.fillStyle = fur; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, r * 1.42, r * 0.38, r * 0.46, 0, 0, 6.283); ctx.fillStyle = G(hex('#b4cc83')); ctx.fill();
+      for (const sd of [-1, 1]) { const a = Math.sin(ph * 0.8 + (sd > 0 ? 1.6 : 0)) * 0.9, sx = sd * r * 0.5, sy = r * 0.95, ex = sx + sd * Math.cos(a) * r * 0.75, ey = sy + Math.sin(a) * r * 0.55 + r * 0.2;
+        ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.beginPath(); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + sd * r * 0.35, sy - r * 0.1, ex, ey); ctx.stroke(); ctx.beginPath(); ctx.arc(ex, ey, r * 0.13, 0, 6.283); ctx.fillStyle = fur; ctx.fill(); }
+    }
+    // the diving bell on its head: a glass dome with a brass collar, rivets and a valve that lets the bubbles out
+    function trollHelmet(r, t) {
+      const cy = -r * 0.15, R0 = r * 1.5;
+      ctx.beginPath(); ctx.arc(0, cy, R0, Math.PI * 0.88, Math.PI * 2.12); ctx.closePath();
+      const g = ctx.createRadialGradient(-r * 0.5, cy - r * 0.6, r * 0.1, 0, cy, R0); g.addColorStop(0, 'rgba(230,250,255,0.28)'); g.addColorStop(0.8, 'rgba(150,210,255,0.1)'); g.addColorStop(1, 'rgba(200,240,255,0.35)'); ctx.fillStyle = g; ctx.fill();
+      ctx.strokeStyle = G(hex('#cfeeff'), 0.7); ctx.lineWidth = r * 0.06; ctx.stroke();
+      ctx.beginPath(); ctx.arc(0, cy, R0 * 0.82, Math.PI * 1.18, Math.PI * 1.45); ctx.strokeStyle = 'rgba(255,255,255,0.75)'; ctx.lineWidth = r * 0.09; ctx.lineCap = 'round'; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(0, r * 0.95, r * 1.35, r * 0.24, 0, 0, 6.283); ctx.fillStyle = G(hex('#c9913a')); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(0, r * 0.9, r * 1.35, r * 0.12, 0, Math.PI, 6.283); ctx.fillStyle = G(hex('#f0c368')); ctx.fill();
+      ctx.fillStyle = G(hex('#7a5520')); for (let i = -3; i <= 3; i++) { ctx.beginPath(); ctx.arc(i * r * 0.36, r * 0.98, r * 0.045, 0, 6.283); ctx.fill(); }
+      ctx.fillStyle = G(hex('#c9913a')); ctx.fillRect(-r * 0.12, cy - R0 - r * 0.18, r * 0.24, r * 0.22); ctx.beginPath(); ctx.ellipse(0, cy - R0 - r * 0.18, r * 0.2, r * 0.07, 0, 0, 6.283); ctx.fillStyle = G(hex('#f0c368')); ctx.fill();
+    }
     function trollFig(x, y, r, t, o) {
       const jump = o.jump || 0, open = 1 - Math.sin((o.bl || 0) * Math.PI), lx = o.lx || 0, ly = o.ly || 0, wave = o.wave || 0, yawn = o.yawn || 0;
       ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot || 0);
       const fur = G(hex('#7f9c55')), furD = G(hex('#5f7a3c'));
       if (o.prop) trollProp(o.prop, r, t, o.glow == null ? 1 : o.glow);
+      if (o.swim != null) trollBody(r, t, o.swim, fur, furD);
       if (o.hang) { ctx.strokeStyle = furD; ctx.lineWidth = r * 0.2; ctx.lineCap = 'round'; for (const sd of [-1, 1]) { ctx.beginPath(); ctx.moveTo(sd * r * 0.7, -r * 0.3); ctx.lineTo(sd * r * 0.42, -r * 1.45); ctx.stroke(); ctx.beginPath(); ctx.arc(sd * r * 0.42, -r * 1.5, r * 0.13, 0, 6.283); ctx.fillStyle = fur; ctx.fill(); } }
       ctx.fillStyle = furD; for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(sd * r * 0.95, -r * 0.15, r * 0.24, r * 0.32, sd * 0.4, 0, 6.283); ctx.fill(); }
       if (wave > 0.01) {
@@ -1841,6 +1872,7 @@ class Component extends DCLogic {
         ctx.beginPath(); ctx.ellipse(0, -r * 0.6, r * 0.84, r * 0.15, 0, 0, 6.283); ctx.fillStyle = G(hex('#8fa3f0')); ctx.fill();
         ctx.beginPath(); ctx.arc(tx, ty, r * 0.13, 0, 6.283); ctx.fillStyle = G(C.cream); ctx.fill();
       }
+      if (o.dive) trollHelmet(r, t);
       if (o.crown) {
         ctx.beginPath(); ctx.moveTo(-r * 0.5, -r * 0.78); ctx.lineTo(-r * 0.55, -r * 1.3); ctx.lineTo(-r * 0.25, -r * 1.02); ctx.lineTo(0, -r * 1.42); ctx.lineTo(r * 0.25, -r * 1.02); ctx.lineTo(r * 0.55, -r * 1.3); ctx.lineTo(r * 0.5, -r * 0.78); ctx.closePath(); ctx.fillStyle = G(C.yellow); ctx.fill();
         ctx.fillStyle = G(hex('#d6312b')); for (const k of [-0.28, 0, 0.28]) { ctx.beginPath(); ctx.arc(k * r, -r * 0.9, r * 0.06, 0, 6.283); ctx.fill(); }
