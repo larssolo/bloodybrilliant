@@ -19,7 +19,7 @@ By [www.kodekid.app](https://www.kodekid.app). En scroll-styret, interaktiv fort
 
 Som standard er siden til **børn**: fortællingen går I → II → III, og i slutningen af Lantern Woods åbner en regnbueportal af lys sig og fører direkte ind i Prism og derfra videre til multiverset (i børneversionen kapitel IV og V). I multiverset skyder tank og soldater kun med konfetti og sæbebobler. De mørke kapitler (Sunfall, Bloody Brilliant, Ragnarök, The Bleeding Sky og The Ink) springes over. Deres beats, lyde og billeder bliver aldrig hentet, og kapitlerne er skjult i skinnen og menuen.
 
-Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et gangestykke med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
+Vælg **☾ GROWN-UPS** i headeren (på mobil i burgermenuen under *Who is reading?*) for at vække de mørke kapitler. Først skal man forbi en lille forældrelås: et let plusstykke (fx 12 + 7) med fire svarmuligheder. Forkert svar giver et nyt stykke. Valget huskes til næste besøg. Hvis man skifter til børn midt i Ragnarök, bliver man sendt videre til hestene. `?mode=adult` eller `?mode=kids` vælger direkte via URL'en.
 
 ## Fra besøg til besøg
 
