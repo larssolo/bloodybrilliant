@@ -1,6 +1,6 @@
 # Bloody Brilliant: The Unreal of North
 
-> A free, endless, scroll-driven interactive story in nine chapters that runs in the web browser. It starts as a pastel Nordic fairy tale, can turn dark through Norse mythology and Ragnarök (grown-up mode), moves sideways into a world of rainbow horses and ends in a multiverse of nonsense, after which the world is reborn and the story starts again. Designed and coded by Lars Sohl, founder of the one-person studio KodeKid (kodekid.app).
+> A free, endless, scroll-driven interactive story in ten chapters that runs in the web browser. It starts as a pastel Nordic fairy tale, can turn dark through Norse mythology, Ragnarök and a bleeding sky (grown-up mode), moves sideways into a world of rainbow horses and ends in a multiverse of nonsense, after which the world is reborn and the story starts again. Designed and coded by Lars Sohl, founder of the one-person studio KodeKid (kodekid.app).
 
 Key facts:
 
@@ -20,9 +20,10 @@ Key facts:
 4. Sunfall (grown-ups): the sun crashes and it rains ink.
 5. Bloody Brilliant (grown-ups): a raven of ink dissolving into smoke.
 6. Ragnarök (grown-ups): Yggdrasil, runes, Odin, Huginn and Muninn, Fenrir.
-7. The Ink (grown-ups): the eye of Odin opens and follows you.
-8. Prism: Dalí-like rainbow horses on stilts that you can drag and throw, floating islands, rainbow waterfalls.
-9. The Multiverse of Nonsense: figures escape a vector drawing, live by their own physics, multiply and fall into parallel universes.
+7. The Bleeding Sky (grown-ups): blood runs down the screen over needle towers, eclipsed planets and monsters from outer space that appear in flashes and glitch to dust; the cursor is a dying flashlight.
+8. The Ink (grown-ups): the eye of Odin opens and follows you.
+9. Prism: Dalí-like rainbow horses on stilts that you can drag and throw, floating islands, rainbow waterfalls.
+10. The Multiverse of Nonsense: figures escape a vector drawing, live by their own physics, multiply and fall into parallel universes.
 
 ## Pages
 

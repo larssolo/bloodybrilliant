@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bloody Brilliant · An Endless Interactive Nordic Story by Lars Sohl</title>
-<meta name="description" content="Bloody Brilliant is a free, scroll-driven interactive story in nine chapters: a Nordic pastel fairy tale with trolls, northern lights and rainbow horses, built in the browser by Lars Sohl (kodekid.app).">
+<meta name="description" content="Bloody Brilliant is a free, scroll-driven interactive story in ten chapters: a Nordic pastel fairy tale with trolls, northern lights and rainbow horses, built in the browser by Lars Sohl (kodekid.app).">
 <meta name="google-site-verification" content="MiZcZXneouJAoE5U7q7eBK49JFSMVCaDEN5d86miiNE">
 <meta name="google-site-verification" content="oPdQuFq7atz6uKqPM72RpZiLyM2NB-b3_twsGtSZdYI">
 <meta name="author" content="Lars Sohl">
@@ -30,7 +30,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebSite","@id":"https://www.bloodybrilliant.xyz/#website","url":"https://www.bloodybrilliant.xyz/","name":"Bloody Brilliant","alternateName":"The Unreal of North","inLanguage":"en","publisher":{"@id":"https://www.kodekid.app/#org"},"creator":{"@id":"https://www.bloodybrilliant.xyz/about#lars"}},
-{"@type":["CreativeWork","WebApplication"],"@id":"https://www.bloodybrilliant.xyz/#work","name":"Bloody Brilliant: The Unreal of North","url":"https://www.bloodybrilliant.xyz/","description":"An endless, scroll-driven interactive story in nine chapters that runs in the browser. It starts as a pastel Nordic fairy tale with trolls, northern lights and a sea serpent, can turn dark through a raven of ink, Norse gods and Ragnarök (grown-up mode), continues into a sideways world of rainbow horses and ends in a multiverse of nonsense before the world is reborn.","genre":["Interactive story","Interactive art","Web experience"],"keywords":"interactive story, scroll-driven storytelling, Nordic mythology, Ragnarök, Odin, Fenrir, troll, northern lights, creative coding, canvas, WebGL, kids","applicationCategory":"EntertainmentApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript and HTML5 canvas","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"audience":{"@type":"Audience","audienceType":"Children and adults"},"image":"https://www.bloodybrilliant.xyz/assets/og.jpg","inLanguage":"en","author":{"@id":"https://www.bloodybrilliant.xyz/about#lars"},"publisher":{"@id":"https://www.kodekid.app/#org"},"isPartOf":{"@id":"https://www.bloodybrilliant.xyz/#website"}},
+{"@type":["CreativeWork","WebApplication"],"@id":"https://www.bloodybrilliant.xyz/#work","name":"Bloody Brilliant: The Unreal of North","url":"https://www.bloodybrilliant.xyz/","description":"An endless, scroll-driven interactive story in ten chapters that runs in the browser. It starts as a pastel Nordic fairy tale with trolls, northern lights and a sea serpent, can turn dark through a raven of ink, Norse gods and Ragnarök (grown-up mode), continues into a sideways world of rainbow horses and ends in a multiverse of nonsense before the world is reborn.","genre":["Interactive story","Interactive art","Web experience"],"keywords":"interactive story, scroll-driven storytelling, Nordic mythology, Ragnarök, Odin, Fenrir, troll, northern lights, creative coding, canvas, WebGL, kids","applicationCategory":"EntertainmentApplication","operatingSystem":"Any (web browser)","browserRequirements":"Requires JavaScript and HTML5 canvas","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"audience":{"@type":"Audience","audienceType":"Children and adults"},"image":"https://www.bloodybrilliant.xyz/assets/og.jpg","inLanguage":"en","author":{"@id":"https://www.bloodybrilliant.xyz/about#lars"},"publisher":{"@id":"https://www.kodekid.app/#org"},"isPartOf":{"@id":"https://www.bloodybrilliant.xyz/#website"}},
 {"@type":"Person","@id":"https://www.bloodybrilliant.xyz/about#lars","name":"Lars Sohl","url":"https://www.bloodybrilliant.xyz/about","image":"https://www.bloodybrilliant.xyz/assets/lars-sohl.webp","jobTitle":"Founder, designer and developer","worksFor":{"@id":"https://www.kodekid.app/#org"},"sameAs":["https://www.kodekid.app/about","https://www.larssohl.dk"]},
 {"@type":"Organization","@id":"https://www.kodekid.app/#org","name":"KodeKid","url":"https://www.kodekid.app","founder":{"@id":"https://www.bloodybrilliant.xyz/about#lars"}}
 ]}
@@ -187,6 +187,7 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 <li>Sunfall: the sun crashes, the sky burns amber and it rains ink (grown-up mode).</li>
 <li>Bloody Brilliant: a raven of ink that dissolves into smoke (grown-up mode).</li>
 <li>Ragnarök: Yggdrasil, burning runes, Odin, Huginn and Muninn, and Fenrir breaking free (grown-up mode).</li>
+<li>The Bleeding Sky: blood runs down the screen over needle towers, eclipsed planets and monsters from outer space that flicker, glitch to dust and creep back (grown-up mode).</li>
 <li>The Ink: the eye of Odin opens and follows you (grown-up mode).</li>
 <li>Prism: a sideways world of Dalí-like rainbow horses on stilts, floating islands and waterfalls that you can paint with colour.</li>
 <li>The Multiverse of Nonsense: figures escape a vector drawing and live by their own physics, until everything is pulled into a vortex and the world is reborn.</li>
@@ -550,11 +551,18 @@ class Component extends DCLogic {
     const KC = 3.3, KZ = 0.3, KB0 = 7.8, KB1 = 7.95, KG = KB1 - (KC + KZ);
     const kidToP = (k) => (k <= KC ? k : k < KC + KZ ? KB0 + (k - KC) / KZ * (KB1 - KB0) : k + KG);
     const pToKid = (P) => (P <= KC ? P : P >= KB1 ? P - KG : P >= KB0 ? KC + (P - KB0) / (KB1 - KB0) * KZ : KC + KZ);
-    const storyOf = (s) => (S.kid ? kidToP(toStory(s)) : toStory(s)), rawOf = (P) => toRaw(S.kid ? pToKid(P) : P);
-    const isDark = (i) => i > 2 && i < 7, chN = (i) => (S.kid && i > 6 ? ['IV', 'V'][i - 7] : CH[i].n);
-    const cAt = (P) => { const i = chapterAt(P); return S.kid && isDark(i) ? (P > 7 ? 7 : 2) : i; };
+    // grown-ups: the Bleeding Sky is spliced in after Fenrir swallows the world. It owns BSPAN units of scroll
+    // while the engine holds P at PI, so every other chapter keeps its timing. S.bq is its own progress (-1 outside).
+    const PI = 6.36, BSPAN = 1.4;
+    const adToP = (a) => (a <= PI ? a : a < PI + BSPAN ? PI : a - BSPAN);
+    const storyOf = (s) => (S.kid ? kidToP(toStory(s)) : adToP(toStory(s))), rawOf = (P) => toRaw(S.kid ? pToKid(P) : P > PI ? P + BSPAN : P);
+    const bqOf = (s) => { if (S.kid) return -1; const a = toStory(s); return a > PI && a < PI + BSPAN ? (a - PI) / BSPAN : -1; };
+    const isDark = (i) => (i > 2 && i < 7) || i === 9, chN = (i) => (S.kid && i > 6 && i < 9 ? ['IV', 'V'][i - 7] : CH[i].n);
+    const cAt = (P) => { if (S.bq >= 0) return 9; const i = chapterAt(P); return S.kid && isDark(i) ? (P > 7 ? 7 : 2) : i; };
+    const DISP = [0, 1, 2, 3, 4, 5, 9, 6, 7, 8]; // reading order of the chapters
+    const jumpRaw = (i) => (i === 9 ? (S.kid ? rawOf(KB1 + 0.02) : toRaw(PI + BSPAN * 0.04)) : i ? rawOf(CH[i].a + 0.1) : 0);
     { let m = self.props.mode; if (!m) try { m = localStorage.getItem('bb-mode'); } catch (e) {} S.kid = m !== 'adult'; }
-    RMAX = toRaw(S.kid ? PMAX - KG : PMAX);
+    RMAX = toRaw(S.kid ? PMAX - KG : PMAX + BSPAN);
     const CH = [
       { a: 0, n: 'I', cap: 'I — THE UNREAL NORTH · SCROLL, CLICK, PLAY', aria: 'Kapitel I: levende pastelverden med bjerge, skyer, svævende øer, kugler, blomster og en flod' },
       { a: 1.25, n: 'II', cap: 'II — WHERE THE WHALES LEARNED TO SING', aria: 'Kapitel II: stjernehav med en syngende hval af stjernebilleder og svævende vandmænd' },
@@ -562,9 +570,10 @@ class Component extends DCLogic {
       { a: 3.45, n: 'IV', cap: 'IV — THE DAY THE SUN FELL DOWN', aria: 'Kapitel IV: solen styrter, himlen brænder ravgul og det regner med blæk' },
       { a: 4.45, n: 'V', cap: 'V — EVERY FAIRYTALE KEEPS A RAVEN', aria: 'Kapitel V: en sort ravn af blæk dykker ned og opløses i røg og blæksprøjt' },
       { a: 5.5, n: 'VI', cap: 'VI — WHEN THE WOLF SWALLOWS THE SUN', aria: 'Kapitel VI: Ragnarök. Yggdrasil vokser i mørket, runer brænder, Odin ser med ét øje, og Fenrir bryder løs' },
-      { a: 6.6, n: 'VII', cap: 'VII — AND THEN, THE INK', aria: 'Kapitel VII: blækket opsluger alt, Odins øje åbner sig, og mytiske fugle flyver ind over det' },
-      { a: 7.85, n: 'VIII', cap: 'VIII — WHERE THE HORSES WALK ON AIR · SCROLL →', aria: 'Kapitel VIII: Prism. En sidelæns verden, der går fra sort-hvid til regnbue, med langbenede heste med regnbuehaler, svævende øer og vandfald' },
-      { a: 9.45, n: 'IX', cap: 'IX — THE MULTIVERSE OF NONSENSE', aria: 'Kapitel IX: et skørt multivers, hvor figurerne flygter ud af billedet og flyver, kører og hopper mod al logik, mens hullerne efter dem viser andre universer' },
+      { a: 6.6, n: 'VIII', cap: 'VIII — AND THEN, THE INK', aria: 'Kapitel VIII: blækket opsluger alt, Odins øje åbner sig, og mytiske fugle flyver ind over det' },
+      { a: 7.85, n: 'IX', cap: 'IX — WHERE THE HORSES WALK ON AIR · SCROLL →', aria: 'Kapitel IX: Prism. En sidelæns verden, der går fra sort-hvid til regnbue, med langbenede heste med regnbuehaler, svævende øer og vandfald' },
+      { a: 9.45, n: 'X', cap: 'X — THE MULTIVERSE OF NONSENSE', aria: 'Kapitel X: et skørt multivers, hvor figurerne flygter ud af billedet og flyver, kører og hopper mod al logik, mens hullerne efter dem viser andre universer' },
+      { a: 99, n: 'VII', cap: 'VII — THE BLEEDING SKY', aria: 'Kapitel VII, kun for voksne: en blødende himmel over nåletårne, formørkede planeter og monstre fra det ydre rum, der viser sig i glimt og opløses i støv' },
     ];
     const chapterAt = (P) => { let i = 0; for (let k = 1; k < CH.length; k++) if (P >= CH[k].a - 0.06) i = k; return i; };
     const hash2 = (x, y) => { const v = Math.sin(x * 127.1 + y * 311.7) * 43758.5453; return v - Math.floor(v); };
@@ -662,6 +671,7 @@ class Component extends DCLogic {
       genNorth2(w);
       genPrism(w);
       genMulti(w);
+      genBlood(w);
     }
 
     // ---------- II · the singing sky ----------
@@ -1603,7 +1613,7 @@ class Component extends DCLogic {
       lastP = P;
     }
     function chapterSurprise(P) {
-      const ci = chapterAt(P);
+      const ci = cAt(P); if (ci === 9) return;
       if (ci === 0) { if (P < 1) surprise(); }
       else if (ci === 1) { for (let i = 0; i < 3; i++) W0.shoot.push(mkShoot()); }
       else if (ci === 2) { pick(W0.lanterns).va += rr(-2, 2); for (const e of W0.eyes) e.bl = 1; }
@@ -1613,7 +1623,7 @@ class Component extends DCLogic {
       else if (ci === 4 && boomT() > 4 && RVS.rect) { shake(4); const rc = RVS.rect; for (let i = 0; i < 40; i++) { const p = pick(RV.pts); W0.ink.push({ k: 1, x: rc.x + p[0] * rc.w, y: rc.y + p[1] * rc.h, vx: rr(-200, 200), vy: rr(-260, -40), r: rr(1, 3.5), life: 1, dl: rr(0.5, 0.9) }); } }
     }
     function chapterClick(x, y) {
-      const ci = chapterAt(S.P);
+      const ci = cAt(S.P);
       if (ci === 1) {
         const th = W0.tj.hit; if (th && Math.hypot(x - th[0], y - th[1]) < th[2] && trollHop()) return;
         W0.jellies.push(mkJelly(x / S.W, y / S.H, rr(0.03, 0.055))); snd('bell', x / S.W * 2 - 1); if (W0.jellies.length > 18) W0.jellies.shift();
@@ -1630,6 +1640,7 @@ class Component extends DCLogic {
       else if (ci === 6) { W0.eye.bl = 1; shake(3); snd('blink'); }
       else if (ci === 7) prismClick(x, y);
       else if (ci === 8) mvClick(x, y);
+      else if (ci === 9) bloodClick(x, y);
     }
 
     // ---------- chapter UI: caption with rune-scramble, rail, scroll hint ----------
@@ -1687,7 +1698,7 @@ class Component extends DCLogic {
       const ci = cAt(S.P);
       menu.innerHTML = '<small>SOUND &amp; CHAOS</small><div class="row"><button type="button" class="pill" data-msnd="">' + (AU.on ? 'SOUND ON' : 'SOUND OFF') + '</button><button type="button" class="pill hot" data-mchaos="">&#10022; CHAOS</button>' + (S.chaos ? '<button type="button" class="pill" data-morder="">ORDER</button>' : '') + '</div>' +
         '<small>WHO IS READING?</small><div class="row"><button type="button" class="pill' + (S.kid ? ' hot' : '') + '" data-mmode="kid" aria-pressed="' + S.kid + '">&#10022; KIDS</button><button type="button" class="pill' + (S.kid ? '' : ' hot') + '" data-mmode="adult" aria-pressed="' + !S.kid + '">&#9790; GROWN-UPS</button></div><small>CHAPTERS</small>' +
-        '<div class="grid">' + CH.map((c, i) => S.kid && isDark(i) ? '' : '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + chN(i) + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism', 'Multiverse'][i] + '</button>').join('') + '</div>' +
+        '<div class="grid">' + DISP.map((i) => S.kid && isDark(i) ? '' : '<button type="button" class="mi' + (i === ci ? ' on' : '') + '" data-mch="' + i + '"><em>' + chN(i) + '</em>' + ['The Unreal North', 'The Singing Sky', 'Lantern Woods', 'Sunfall', 'Bloody Brilliant', 'Ragnar\u00f6k', 'The Ink', 'Prism', 'Multiverse', 'The Bleeding Sky'][i] + '</button>').join('') + '</div>' +
         '<small>&nbsp;</small><div class="row"><a class="pill" href="/about">ABOUT</a><a class="pill" href="https://www.kodekid.app" target="_blank" rel="noopener">BY KODEKID.APP</a></div>';
     }
     function menuOpen(open) {
@@ -1703,7 +1714,7 @@ class Component extends DCLogic {
       else if (b.hasAttribute('data-mchaos')) { rollChaos(); menuOpen(false); }
       else if (b.hasAttribute('data-morder')) { orderChaos(); menuOpen(false); }
       else if (b.hasAttribute('data-mmode')) { const kid = b.getAttribute('data-mmode') === 'kid'; if (kid !== S.kid) { if (kid) setMode(true); else { menuOpen(false); gateOpen(); } } }
-      else if (b.hasAttribute('data-mch')) { const i = +b.getAttribute('data-mch'); S.sT = i ? rawOf(CH[i].a + 0.1) : 0; S.last = performance.now(); snd('whoosh'); menuOpen(false); }
+      else if (b.hasAttribute('data-mch')) { const i = +b.getAttribute('data-mch'); S.sT = jumpRaw(i); S.last = performance.now(); snd('whoosh'); menuOpen(false); }
     });
     menu.addEventListener('pointerdown', (e) => e.stopPropagation());
     menu.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
@@ -1712,11 +1723,12 @@ class Component extends DCLogic {
     const railBtns = CH.map((c, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Gå til ' + c.cap.split(' · ')[0]);
       b.innerHTML = '<span>' + c.n + '</span><i></i>';
-      b.addEventListener('click', () => { S.sT = i ? rawOf(CH[i].a + 0.1) : 0; S.last = performance.now(); });
-      rail.appendChild(b); return b;
+      b.addEventListener('click', () => { S.sT = jumpRaw(i); S.last = performance.now(); });
+      return b;
     });
+    for (const i of DISP) rail.appendChild(railBtns[i]);
     // caption = a short how-to hint only (no chapter names): typed in with runes, then fades away
-    const CAP_HINT = { 0: 'SCROLL, CLICK, PLAY', 7: 'SCROLL \u2192 \u00b7 DRAG A HORSE', 8: 'DRAG, THROW, TAP' };
+    const CAP_HINT = { 0: 'SCROLL, CLICK, PLAY', 7: 'SCROLL \u2192 \u00b7 DRAG A HORSE', 8: 'DRAG, THROW, TAP', 9: 'MOVE YOUR LIGHT \u00b7 CLICK' };
     let capIdx = -1, capT = 1, capTxt = '', capHold = 0, capOp = '';
     function uiStep(P, dt) {
       const i = cAt(P);
@@ -1739,7 +1751,7 @@ class Component extends DCLogic {
     // ---------- who is reading? kids (default) skip the dark chapters; grown-ups pass a little gate ----------
     const modeBtn = root.querySelector('[data-mode]'), gate = root.querySelector('[data-gate]');
     function applyMode() {
-      RMAX = toRaw(S.kid ? PMAX - KG : PMAX);
+      RMAX = toRaw(S.kid ? PMAX - KG : PMAX + BSPAN);
       modeBtn.setAttribute('data-kid', S.kid ? '1' : '0');
       railBtns.forEach((b, i) => { b.hidden = S.kid && isDark(i); b.querySelector('span').textContent = chN(i); b.setAttribute('aria-label', 'Gå til ' + chN(i) + CH[i].cap.split(' · ')[0].replace(/^\S+/, '')); });
       capIdx = -1; if (S.menuOpen) menuBuild();
@@ -2179,7 +2191,7 @@ class Component extends DCLogic {
       if (TAPE.dir > 0) { TAPE.hold = v < -0.05 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.06) { TAPE.dir = -1; TAPE.hold = 0; } }
       else { TAPE.hold = v > -0.012 ? TAPE.hold + dt : 0; if (TAPE.hold > 0.12) { TAPE.dir = 1; TAPE.hold = 0; } }
       TAPE.rate += ((TAPE.dir < 0 ? clamp(0.75 - v * 1.4, 0.75, 2.4) : 1) - TAPE.rate) * Math.min(1, dt * 6);
-      const seq = S.kid ? [0, 1, 2, 7, 8] : [0, 1, 2, 3, 4, 5, 6, 7, 8], si = seq.indexOf(ci), near = [seq[si - 1], ci, seq[si + 1]];
+      const seq = S.kid ? [0, 1, 2, 7, 8] : DISP, si = seq.indexOf(ci), near = [seq[si - 1], ci, seq[si + 1]];
       for (const n of near) if (n != null) bedLoad(n);
       AU.beds.forEach((b, i) => {
         const want = i === ci ? 1 : 0;
@@ -2272,13 +2284,17 @@ class Component extends DCLogic {
       gallop: () => { const t0 = AU.ctx.currentTime; for (let i = 0; i < 18; i++) { const tt = t0 + Math.floor(i / 3) * 0.42 + (i % 3) * 0.1 + Math.random() * 0.02; osc('sine', 110, 45, tt, 0.09, 0.4, 0.002, 0.15); noiz(tt, 0.03, 0.15, 'bandpass', 1800, 0, 2, 0.001, 0.1); } },
       glitch: () => { const t0 = AU.ctx.currentTime, n = 4 + ((Math.random() * 5) | 0); for (let i = 0; i < n; i++) osc('square', 150 + Math.random() * 2800, 0, t0 + i * 0.03, 0.025, 0.05, 0.001, 0); },
       blink: () => { const t0 = AU.ctx.currentTime; osc('sine', 90, 50, t0, 0.25, 0.45, 0.004, 0.3); noiz(t0, 0.06, 0.12, 'bandpass', 900, 0, 2, 0.002, 0.2); },
+      scream: (x) => { const t0 = AU.ctx.currentTime; voice(t0, 1.6, [[0, 520], [0.15, 980], [0.7, 760], [1.6, 240]], 'sawtooth', [1700, 2400, 900], 3, 0.16, 0.6, 9, 40, x); voice(t0 + 0.05, 1.5, [[0, 690], [0.2, 1210], [1.5, 300]], 'square', [2600, 1800], 4, 0.07, 0.7, 13, 55, x); noiz(t0, 1.2, 0.12, 'bandpass', 3000, 900, 2, 0.05, 0.7, x); },
+      drip: (x) => { const t0 = AU.ctx.currentTime; for (let i = 0; i < 3; i++) osc('sine', 900 - i * 140, 260, t0 + i * 0.42, 0.18, 0.22, 0.002, 0.8, x); },
+      roar: () => { const t0 = AU.ctx.currentTime; voice(t0, 3, [[0, 60], [0.5, 95], [3, 38]], 'sawtooth', [300, 700, 180], 1.5, 0.5, 0.6, 6, 14); noiz(t0, 2.8, 0.4, 'lowpass', 600, 120, 1, 0.2, 0.6); osc('sine', 48, 28, t0, 3, 0.6, 0.3, 0.3); },
+      screech: (x) => { const t0 = AU.ctx.currentTime; osc('sawtooth', 3200, 1400, t0, 0.9, 0.06, 0.02, 0.6, x); osc('square', 3313, 1500, t0, 0.9, 0.04, 0.02, 0.6, x); noiz(t0, 0.9, 0.1, 'highpass', 5000, 0, 3, 0.01, 0.5, x); },
       boing: (x) => { voice(AU.ctx.currentTime, 0.55, [[0, 170], [0.07, 560], [0.55, 240]], 'triangle', [900], 0.8, 0.4, 0.2, 17, 40, x); },
       zap: (x) => { const t0 = AU.ctx.currentTime; osc('sawtooth', 1900, 80, t0, 0.28, 0.1, 0.002, 0.35, x); osc('square', 950, 50, t0 + 0.02, 0.2, 0.05, 0.002, 0.3, x); osc('sine', 300, 2400, t0, 0.18, 0.12, 0.002, 0.4, x); },
       honk: (x) => { const t0 = AU.ctx.currentTime; for (let r = 0; r < 2; r++) { osc('square', 330, 320, t0 + r * 0.22, 0.16, 0.07, 0.01, 0.15, x); osc('square', 415, 400, t0 + r * 0.22, 0.16, 0.055, 0.01, 0.15, x); } },
       cluck: (x) => { const t0 = AU.ctx.currentTime; for (let r = 0; r < 3; r++) voice(t0 + r * 0.13, 0.1, [[0, 520 + r * 60], [0.1, 900]], 'sawtooth', [1400], 2.5, 0.16, 0.1, 28, 50, x); },
       whoosh: () => { const t0 = AU.ctx.currentTime, n = noiz(t0, 1.4, 0.3, 'bandpass', 200, 0, 1.4, 0.5, 0.6); n.f.frequency.exponentialRampToValueAtTime(2600, t0 + 0.8); n.f.frequency.exponentialRampToValueAtTime(300, t0 + 1.9); },
     };
-    const SND_MIN = { boing: 90, zap: 110, honk: 600, cluck: 350, wings: 90, neigh: 400, gallop: 2500, glitch: 160, splat: 70, bloop: 40, whoosh: 900, whale: 600 };
+    const SND_MIN = { scream: 900, roar: 2500, screech: 700, drip: 300, boing: 90, zap: 110, honk: 600, cluck: 350, wings: 90, neigh: 400, gallop: 2500, glitch: 160, splat: 70, bloop: 40, whoosh: 900, whale: 600 };
     function snd(name, a) {
       if (!AU.on || !AU.ctx || AU.ctx.state !== 'running' || !SFX[name]) return;
       const now = performance.now(); if (AU.last[name] && now - AU.last[name] < (SND_MIN[name] || 60)) return; AU.last[name] = now;
@@ -2918,6 +2934,186 @@ class Component extends DCLogic {
       else if (i === 4) { snd('whoosh'); S.flash = 0.3; }
     }
 
+    // =====================================================================
+    //  VII · THE BLEEDING SKY (grown-ups only)
+    //  Fenrir has swallowed the world. Behind it: a black void where the sky bleeds. Blood runs in
+    //  from the top and the sides and slides down the screen; needle towers grow out of the dark,
+    //  eclipsed planets drift, a moon cracks and bleeds, things from outer space show themselves in
+    //  flashes, glitch to dust and creep back. Your cursor is a dying flashlight.
+    //  Story-wise it lives in its own stretch of scroll (BL) at P = PI, so no other chapter moves.
+    // =====================================================================
+    const bloodC = document.createElement('canvas'), blx = bloodC.getContext('2d');     // blood on the lens (1/2 res)
+    const bloodT = document.createElement('canvas'), btx = bloodT.getContext('2d');     // ping-pong for the slide
+    const darkC = document.createElement('canvas'), dkx = darkC.getContext('2d');       // the darkness with your light cut out (1/2 res)
+    const monC = document.createElement('canvas'), mnx = monC.getContext('2d');         // the monsters, drawn here so they can glitch and dissolve
+    function bloodResize(W, H) { bloodC.width = bloodT.width = W; bloodC.height = bloodT.height = H; darkC.width = Math.ceil(W / 2); darkC.height = Math.ceil(H / 2); monC.width = W; monC.height = H; }
+    const BLD = [hex('#3d0004'), hex('#6e0008'), hex('#9a0b10'), hex('#c8161b')];
+    const BL_SAY = [[0.12, 'THE SKY IS BLEEDING'], [0.36, "DON'T LOOK UP"], [0.62, 'THEY CAME FROM ABOVE'], [0.86, 'NOTHING STAYS']];
+    function genBlood(w) {
+      const spike = () => Array.from({ length: 3 + ((R() * 6) | 0) }, () => [rr(0.15, 0.9), rr(0.05, 0.22), R() < 0.5 ? -1 : 1, rr(0.25, 0.7)]);
+      w.bl = {
+        runs: [], dust: [], bolts: [], said: [], last: -1, flash: 0, pour: 0, crack: 0, words: null,
+        towers: [0, 1, 2].map((L) => Array.from({ length: 7 + L * 3 }, (_, i) => ({ x: (i + rr(0.1, 0.9)) / (7 + L * 3) * 1.3 - 0.15, h: rr(0.28, 0.62) + L * 0.12 + (R() < 0.15 ? 0.2 : 0), w: rr(0.018, 0.05) * (1 + L * 0.5), sp: spike(), win: Array.from({ length: 2 + ((R() * 5) | 0) }, () => [rr(-0.25, 0.25), rr(0.15, 0.85), rr(0, 6.28)]), g0: rr(0.05, 0.22) + L * 0.04, tw: rr(-0.02, 0.02) }))),
+        planets: [{ x: 0.78, y: 0.2, r: 0.34, c: hex('#140508'), rim: hex('#ff2a2a'), ring: false, ph: 0 }, { x: 0.16, y: 0.3, r: 0.1, c: hex('#0d0612'), rim: hex('#b14bff'), ring: true, ph: 1.7 }, { x: 0.42, y: 0.12, r: 0.06, c: hex('#1a0a0a'), rim: hex('#ffb38a'), ring: false, ph: 3, moon: true }],
+        auro: Array.from({ length: 5 }, (_, i) => ({ x: rr(0.05, 0.95), w: rr(0.05, 0.16), c: i % 2 ? hex('#7dff9a') : hex('#b14bff'), off: R(), rate: rr(0.05, 0.11) })),
+        crawl: Array.from({ length: 9 }, (_, i) => ({ x: rr(0.05, 0.95), y: rr(0.25, 0.75), s: rr(0.05, 0.11), off: R(), rate: rr(0.07, 0.15), legs: 6 + 2 * ((R() * 2) | 0), ph: rr(0, 6.28), at: 0.22 + i * 0.05, vis: 0, prev: 0 })),
+        watch: Array.from({ length: 7 }, () => ({ x: rr(0.08, 0.92), y: rr(0.08, 0.45), s: rr(0.008, 0.02), n: 2 + ((R() * 4) | 0), off: R(), rate: rr(0.06, 0.12), bl: 0 })),
+        maw: { ph: 0, eyes: Array.from({ length: 14 }, (_, i) => ({ a: i / 14 * 6.283, at: 0.5 + i * 0.012, bl: 0 })) },
+      };
+    }
+    // visible in a flash, glitch to dust, hidden, then a slow creep back
+    function apparition(t, o) { const p = ((t * o.rate + o.off) % 1 + 1) % 1; return p < 0.05 ? 1 : p < 0.09 ? 1 - (p - 0.05) / 0.04 : p < 0.5 ? 0 : 0.55 * sstep(0.5, 1, p); }
+    function bloodRun(x, y, side, big) { const B = W0.bl; if (B.runs.length > 140) B.runs.shift(); B.runs.push({ x, y, vx: side ? -side * rr(1, 5) : rr(-3, 3), vy: rr(30, 90), r: (big ? rr(4, 8) : rr(2, 4.5)) * S.u / 900 * 1.5, side, c: pick(BLD), tr: [[x, y]], stall: 0, ph: rr(0, 6.28) }); }
+    function bloodSplat(x, y, k) {
+      const sc = S.u / 900;
+      blx.setTransform(1, 0, 0, 1, 0, 0); blx.fillStyle = css(BLD[1]); blx.beginPath(); for (let i = 0; i <= 18; i++) { const a = i / 18 * 6.283, rr0 = 40 * sc * k * (i % 2 ? 0.55 : 1) * rr(0.7, 1.3); blx.lineTo(x + Math.cos(a) * rr0, y + Math.sin(a) * rr0); } blx.fill();
+      for (let i = 0; i < 30 * k; i++) { const a = R() * 6.283, d = Math.pow(R(), 1.4) * 150 * sc * k, r = rr(2, 12) * sc * (1 - d / (170 * sc * k)); blx.fillStyle = css(pick(BLD), 0.97); blx.beginPath(); blx.arc(x + Math.cos(a) * d, y + Math.sin(a) * d, Math.max(0.8, r), 0, 6.283); blx.fill(); if (R() < 0.3) { blx.strokeStyle = css(BLD[2]); blx.lineWidth = Math.max(1, r * 0.4); blx.beginPath(); blx.moveTo(x + Math.cos(a) * d * 0.5, y + Math.sin(a) * d * 0.5); blx.lineTo(x + Math.cos(a) * d, y + Math.sin(a) * d); blx.stroke(); } }
+      for (let i = 0; i < 5 * k; i++) bloodRun(x + rr(-50, 50) * sc * k, y + rr(-10, 30) * sc, 0, true);
+    }
+    function spikyTower(x, base, w, h, tw, sp, fill, rim) {
+      // a needle tower: jagged flanks, thorns that point up, a hair-thin tip
+      ctx.beginPath(); ctx.moveTo(x - w, base); const top = base - h, steps = 9;
+      for (let i = 1; i <= steps; i++) { const k = i / steps, y = mix(base, top, k), hw = w * Math.pow(1 - k, 1.25) * (i % 2 ? 1 : 0.72); ctx.lineTo(x - hw + tw * h * k, y); }
+      ctx.lineTo(x + tw * h, top - h * 0.12);
+      for (let i = steps; i >= 1; i--) { const k = i / steps, y = mix(base, top, k), hw = w * Math.pow(1 - k, 1.25) * (i % 2 ? 0.72 : 1); ctx.lineTo(x + hw + tw * h * k, y); }
+      ctx.lineTo(x + w, base); ctx.closePath(); ctx.fillStyle = fill; ctx.fill();
+      for (const s of sp) { const k = s[0], y = mix(base, top, k), hw = w * Math.pow(1 - k, 1.25), sx = x + s[2] * hw + tw * h * k, L = s[1] * h * 0.6; ctx.beginPath(); ctx.moveTo(sx, y - L * 0.08); ctx.lineTo(sx + s[2] * L * Math.cos(s[3]), y - L * Math.sin(s[3]) - L * 0.4); ctx.lineTo(sx, y + L * 0.08); ctx.closePath(); ctx.fill(); }
+      if (rim) { ctx.strokeStyle = rim; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x + w * 0.9, base); ctx.lineTo(x + tw * h, top - h * 0.12); ctx.stroke(); }
+    }
+    function crawler(g, x, y, s, legs, t, ph) {
+      // a spined thing from outer space: armoured body, jointed needle legs that never stop moving
+      g.fillStyle = '#060203'; g.strokeStyle = '#060203'; g.lineCap = 'round';
+      for (let i = 0; i < legs; i++) { const side = i % 2 ? 1 : -1, k = (i >> 1) / (legs / 2 - 1 || 1), a0 = side * (0.5 + k * 1.6) - Math.PI / 2, wig = Math.sin(t * 7 + ph + i) * 0.25, kx = x + Math.cos(a0 + wig) * s * 0.9, ky = y + Math.sin(a0 + wig) * s * 0.9 - s * 0.2, fx = kx + Math.cos(a0 + wig + side * 1.1) * s * 1.2, fy = ky + Math.abs(Math.sin(a0)) * s * 0.9 + s * 0.5; g.lineWidth = s * 0.09; g.beginPath(); g.moveTo(x, y); g.lineTo(kx, ky); g.stroke(); g.lineWidth = s * 0.035; g.beginPath(); g.moveTo(kx, ky); g.lineTo(fx, fy); g.stroke(); g.beginPath(); g.moveTo(kx, ky); g.lineTo(kx + side * s * 0.12, ky - s * 0.35); g.lineTo(kx + side * s * 0.05, ky); g.fill(); }
+      g.beginPath(); g.moveTo(x - s * 0.55, y); for (let i = 0; i <= 10; i++) { const a = Math.PI + i / 10 * Math.PI, r = s * (i % 2 ? 0.75 : 0.5); g.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r * 0.8); } g.quadraticCurveTo(x, y + s * 0.5, x - s * 0.55, y); g.fill();
+      g.beginPath(); g.moveTo(x + s * 0.5, y - s * 0.1); g.lineTo(x + s * 1.15, y - s * 0.32); g.lineTo(x + s * 0.55, y + s * 0.12); g.fill();
+    }
+    function drawMaw(g, cx, cy, r, t, k, B) {
+      // the star-eater: rings of needle teeth that turn against each other, a red throat, eyes around the rim
+      for (let i = 0; i < 7; i++) { const a = Math.PI * (0.15 + i / 6 * 0.7), L = r * (1.6 + 0.5 * Math.sin(t * 0.7 + i)); g.strokeStyle = '#070203'; g.lineWidth = r * 0.09; g.beginPath(); g.moveTo(cx + Math.cos(a) * r * 0.9, cy + Math.sin(a) * r * 0.9); g.quadraticCurveTo(cx + Math.cos(a) * r * 1.3 + Math.sin(t * 1.2 + i) * r * 0.4, cy + L * 0.6, cx + Math.cos(a) * r * 0.7 + Math.sin(t * 0.9 + i * 2) * r * 0.6, cy + L); g.stroke(); }
+      g.fillStyle = '#0a0304'; g.beginPath(); g.arc(cx, cy, r, 0, 6.283); g.fill();
+      const th = g.createRadialGradient(cx, cy, 0, cx, cy, r * 0.62); th.addColorStop(0, css([255, 40, 30], 0.95 * k)); th.addColorStop(0.5, css([120, 0, 8], 0.9)); th.addColorStop(1, '#0a0304'); g.fillStyle = th; g.beginPath(); g.arc(cx, cy, r * 0.62, 0, 6.283); g.fill();
+      for (let ring = 0; ring < 3; ring++) { const rr0 = r * (0.95 - ring * 0.14), n = 26 - ring * 5, rot = t * (ring % 2 ? -0.35 : 0.28) * (1 + ring * 0.4); g.fillStyle = ring ? '#d8ccc0' : '#efe6da';
+        for (let i = 0; i < n; i++) { const a = rot + i / n * 6.283, aw = 6.283 / n * 0.42, L = r * (0.22 + 0.08 * Math.sin(i * 3.1 + ring)); g.beginPath(); g.moveTo(cx + Math.cos(a - aw) * rr0, cy + Math.sin(a - aw) * rr0); g.lineTo(cx + Math.cos(a) * (rr0 - L), cy + Math.sin(a) * (rr0 - L)); g.lineTo(cx + Math.cos(a + aw) * rr0, cy + Math.sin(a + aw) * rr0); g.closePath(); g.fill(); } }
+    }
+    function bloodText(txt, a, t) {
+      const W = S.W, H = S.H; if (a <= 0.01) return; let fs = Math.min(W * 0.085, H * 0.13);
+      ctx.save(); ctx.font = '900 ' + fs.toFixed(0) + 'px Fraunces, Georgia, serif'; const tw0 = ctx.measureText(txt).width; if (tw0 > W * 0.88) { fs *= W * 0.88 / tw0; ctx.font = '900 ' + fs.toFixed(0) + 'px Fraunces, Georgia, serif'; } ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      const y = H * 0.46, jit = a < 0.6 ? (Math.random() - 0.5) * fs * 0.2 : 0;
+      ctx.globalAlpha = a; ctx.fillStyle = 'rgba(255,30,40,0.6)'; ctx.fillText(txt, W / 2 + jit + 3, y); ctx.fillStyle = 'rgba(40,255,200,0.35)'; ctx.fillText(txt, W / 2 - jit - 3, y);
+      ctx.fillStyle = '#e9dfd2'; ctx.fillText(txt, W / 2, y);
+      ctx.fillStyle = '#9a0b10'; for (let i = 0; i < txt.length * 1.5; i++) { const x = W / 2 + (hash2(i, 4) - 0.5) * ctx.measureText(txt).width, L = fs * (0.2 + hash2(i, 9) * 0.9) * Math.min(1, a * 1.5); ctx.fillRect(x, y + fs * 0.32, Math.max(1.5, fs * 0.03), L); }
+      ctx.globalAlpha = 1; ctx.restore();
+    }
+    function drawBlood(A, q, t, dt) {
+      const W = S.W, H = S.H, d = S.dpr, u = S.u, B = W0.bl, E = q;
+      ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A;
+      // beats inside the chapter (forward: sound and spectacle; backward: the sound, reversed)
+      if (B.last >= 0) { for (const [at, txt] of BL_SAY) { if (B.last < at && q >= at) { B.words = { txt, t0: t }; snd('scream'); shake(10); S.gl = 1; } else if (B.last >= at && q < at) sndRev('scream'); } }
+      if (B.last < 0.04 && q >= 0.04) { snd('boom'); snd('drip'); }
+      if (B.last < 0.12 && q >= 0.12) { for (let i = 0; i < 30; i++) bloodRun(rr(0, W), rr(0, 40), 0, true); B.pour = 1; }
+      if (B.last < 0.5 && q >= 0.5) { snd('roar'); shake(22); }
+      if (B.last < 0.62 && q >= 0.62) { for (const c of B.crawl) c.off = rr(0, 0.02); snd('screech'); }
+      if (B.last < 0.72 && q >= 0.72) { B.crack = t; snd('boom'); snd('screech'); shake(14); }
+      B.last = q;
+      const fall = sstep(0.86, 0.97, q), decay = 1 - fall; // the end: everything turns to dust
+      // ---- the void: black, with a sick crimson glow from below
+      let g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#020103'); g.addColorStop(0.5, '#12030a'); g.addColorStop(0.82, css([120, 8, 18])); g.addColorStop(1, css([200, 30, 30])); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      for (let i = 0; i < 90; i++) { const x = hash2(i, 1) * W, y = ((hash2(i, 2) * H + t * 6 * (0.3 + hash2(i, 3))) % H), b = 0.25 + 0.6 * Math.abs(Math.sin(t * 1.3 + i)); ctx.fillStyle = css(i % 7 ? [220, 200, 210] : [255, 80, 80], b * decay); ctx.fillRect(x, y, 1.4, 1.4); }
+      // ---- planets: eclipsed bodies with rims of wrong light, drifting down; the moon cracks and bleeds
+      for (const p of B.planets) {
+        const px = p.x * W + Math.sin(t * 0.05 + p.ph) * u * 0.02, py = (p.y + q * 0.25) * H, pr = p.r * u, al = decay * sstep(0.03 + p.ph * 0.02, 0.2 + p.ph * 0.03, q);
+        if (al <= 0.01) continue; ctx.globalAlpha = A * al;
+        g = ctx.createRadialGradient(px, py, pr * 0.9, px, py, pr * 1.45); g.addColorStop(0, css(p.rim, 0.55)); g.addColorStop(1, css(p.rim, 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, pr * 1.45, 0, 6.283); ctx.fill();
+        ctx.fillStyle = css(p.c); ctx.beginPath(); ctx.arc(px, py, pr, 0, 6.283); ctx.fill();
+        g = ctx.createRadialGradient(px + pr * 0.45, py - pr * 0.4, pr * 0.1, px, py, pr); g.addColorStop(0, css(lc(p.c, p.rim, 0.25))); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, pr, 0, 6.283); ctx.fill();
+        if (p.ring) { ctx.strokeStyle = css(p.rim, 0.5); ctx.lineWidth = pr * 0.06; ctx.beginPath(); ctx.ellipse(px, py, pr * 2.1, pr * 0.42, -0.35, 0, 6.283); ctx.stroke(); }
+        if (p.moon && B.crack) { const ck = clamp((t - B.crack) / 1.5, 0, 1); ctx.strokeStyle = css([255, 60, 40], 0.9); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(px - pr * 0.1, py - pr); for (let i = 1; i <= 8; i++) ctx.lineTo(px + (i % 2 ? pr * 0.18 : -pr * 0.12), py - pr + i / 8 * pr * 2 * ck); ctx.stroke(); if (ck > 0.5 && R() < dt * 30) bloodRun(px + rr(-pr * 0.2, pr * 0.2), py + pr, 0, true); }
+      }
+      ctx.globalAlpha = A;
+      // ---- needle towers grow out of the dark (three layers, the nearest blackest)
+      B.towers.forEach((layer, L) => {
+        const base = H * (1.02 + L * 0.02), fill = L === 0 ? '#3a0a12' : L === 1 ? '#1a0408' : '#030001', rim = L ? 'rgba(255,60,50,' + (L === 2 ? 0.55 : 0.3) + ')' : null, par = (S.px > -999 ? (S.px / W - 0.5) : 0) * W * 0.02 * (L + 1);
+        for (const tw of layer) { const gk = sstep(tw.g0, tw.g0 + 0.25, q) * decay, h = tw.h * H * gk; if (h < 2) continue; spikyTower(tw.x * W + par, base, tw.w * W, h, tw.tw + Math.sin(t * 0.3 + tw.x * 9) * 0.004, tw.sp, fill, rim); }
+      });
+      // ---- the monsters, on their own layer so they can flicker, glitch and fall apart
+      mnx.setTransform(1, 0, 0, 1, 0, 0); mnx.clearRect(0, 0, monC.width, monC.height);
+      const mk = sstep(0.38, 0.6, q), my = mix(-H * 0.45, H * 0.26, backOut(mk)), mr = u * 0.3;
+      if (mk > 0 && decay > 0) drawMaw(mnx, W * 0.5 + Math.sin(t * 0.4) * u * 0.03, my, mr * (1 + 0.03 * Math.sin(t * 2)), t, mk, B);
+      let glitchy = 0;
+      for (const c of B.crawl) {
+        if (q < c.at) { c.vis = 0; continue; }
+        const v = apparition(t, c) * decay, cx = c.x * W + Math.sin(t * 0.3 + c.ph) * u * 0.06, cy = (c.y + (t * 0.01 + c.ph) % 0.2) * H;
+        if (c.prev > 0.6 && v < c.prev - 0.05) { glitchy = 1; for (let i = 0; i < 26; i++) B.dust.push({ x: cx + rr(-1, 1) * c.s * u, y: cy + rr(-0.6, 0.6) * c.s * u, vx: rr(-40, 40), vy: rr(-70, -10), life: 1, c: R() < 0.3 ? [255, 40, 40] : [70, 60, 70] }); if (R() < 0.3) snd('glitch'); }
+        c.prev = v; c.vis = v; if (v <= 0.01) continue;
+        mnx.globalAlpha = v; crawler(mnx, cx, cy, c.s * u, c.legs, t, c.ph); mnx.globalAlpha = 1;
+        c.hx = cx; c.hy = cy;
+      }
+      if (fall > 0 && fall < 1 && R() < 0.5) glitchy = 1;
+      // composite the monster layer; when something vanishes it tears into slices
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      if (glitchy || (S.gl > 0.3 && R() < 0.4)) { const sl = 14, hh = monC.height / sl; for (let i = 0; i < sl; i++) { const y0 = i * hh, off = (R() - 0.5) * 60 * d; ctx.drawImage(monC, 0, y0, monC.width, hh, off, y0 * d, cv.width, hh * d); } }
+      else ctx.drawImage(monC, 0, 0, monC.width, monC.height, 0, 0, cv.width, cv.height);
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      // ---- lightning: sharp, jagged, and for an instant it shows you everything
+      if (q > 0.2 && decay > 0 && R() < dt * (0.25 + q * 0.6)) { const x0 = rr(0.1, 0.9) * W, pts = [[x0, 0]]; let x = x0; for (let y = 0; y < H * rr(0.5, 0.95); y += rr(14, 40)) { x += rr(-34, 34); pts.push([x, y]); } B.bolts.push({ pts, life: 1 }); B.flash = 1; snd('thunder', x0 / W * 2 - 1); }
+      // ---- darkness with your cursor as a cold, dying light
+      const fl = B.flash; B.flash = Math.max(0, B.flash - dt * 4.5);
+      dkx.setTransform(1, 0, 0, 1, 0, 0); dkx.globalCompositeOperation = 'copy'; dkx.fillStyle = css([0, 0, 0], (0.62 - fl * 0.6) * (0.4 + 0.6 * sstep(0.02, 0.12, q))); dkx.fillRect(0, 0, darkC.width, darkC.height);
+      if (S.px > -999) { const flick = 0.75 + 0.25 * Math.sin(t * 23) * Math.sin(t * 7.3) + (R() < 0.03 ? -0.5 : 0), lr = u * 0.24 * flick / 2; dkx.globalCompositeOperation = 'destination-out'; g = dkx.createRadialGradient(S.px / 2, S.py / 2, 0, S.px / 2, S.py / 2, lr); g.addColorStop(0, 'rgba(0,0,0,0.95)'); g.addColorStop(0.6, 'rgba(0,0,0,0.5)'); g.addColorStop(1, 'rgba(0,0,0,0)'); dkx.fillStyle = g; dkx.fillRect(S.px / 2 - lr, S.py / 2 - lr, lr * 2, lr * 2); }
+      ctx.drawImage(darkC, 0, 0, W, H);
+      // ---- things that glow through the dark: wrong-coloured light, eyes, windows, the maw's eyes, bolts
+      ctx.globalCompositeOperation = 'lighter';
+      for (const a of B.auro) { const v = apparition(t, a) * decay * sstep(0.08, 0.2, q); if (v <= 0.01) continue; const x = a.x * W + Math.sin(t * 0.4 + a.off * 9) * W * 0.05, w = a.w * W; g = ctx.createLinearGradient(x - w, 0, x + w, 0); g.addColorStop(0, css(a.c, 0)); g.addColorStop(0.5, css(a.c, 0.22 * v)); g.addColorStop(1, css(a.c, 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x - w, 0); for (let y = 0; y <= H; y += H / 12) ctx.lineTo(x - w + Math.sin(y * 0.01 + t * 1.5 + a.off * 7) * w * 0.4, y); ctx.lineTo(x + w, H); ctx.lineTo(x + w, 0); ctx.closePath(); ctx.fill(); }
+      B.towers[2].forEach((tw) => { const gk = sstep(tw.g0, tw.g0 + 0.25, q) * decay; if (gk < 0.3) return; for (const wn of tw.win) { const on = Math.sin(t * 2 + wn[2] * 5) > 0.2 ? 1 : 0.2; ctx.fillStyle = css([255, 50, 30], 0.7 * on * gk); ctx.fillRect(tw.x * W + wn[0] * tw.w * W, H * 1.02 - tw.h * H * gk * wn[1], 2, 5); } });
+      for (const w of B.watch) { const v = apparition(t, w) * decay * sstep(0.15, 0.3, q); if (v <= 0.01) continue; if (w.bl > 0) w.bl -= dt * 5; else if (R() < dt * 0.4) w.bl = 1; const open = 1 - Math.sin(Math.max(0, w.bl) * Math.PI);
+        for (let i = 0; i < w.n; i++) { const ex = w.x * W + (i - (w.n - 1) / 2) * w.s * u * 3.2, ey = w.y * H + Math.sin(i * 1.7) * w.s * u, es = w.s * u, lx = S.px > -999 ? clamp((S.px - ex) / W, -1, 1) * es * 0.5 : 0; ctx.fillStyle = css([255, 210, 90], 0.75 * v); ctx.beginPath(); ctx.ellipse(ex, ey, es, es * 0.45 * open + 0.3, 0, 0, 6.283); ctx.fill(); ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(ex + lx, ey, es * 0.14, es * 0.4 * open + 0.2, 0, 0, 6.283); ctx.fill(); ctx.globalCompositeOperation = 'lighter'; } }
+      if (mk > 0 && decay > 0) for (const e of B.maw.eyes) { if (q < e.at) continue; const ex = W * 0.5 + Math.cos(e.a + t * 0.05) * mr * 1.12, ey = my + Math.sin(e.a + t * 0.05) * mr * 1.12; ctx.fillStyle = css([255, 30, 20], 0.85 * decay); ctx.beginPath(); ctx.ellipse(ex, ey, mr * 0.05, mr * 0.025, e.a, 0, 6.283); ctx.fill(); }
+      for (let i = B.bolts.length - 1; i >= 0; i--) { const b = B.bolts[i]; b.life -= dt * 5; if (b.life <= 0) { swapPop(B.bolts, i); continue; } ctx.strokeStyle = css([220, 200, 255], b.life); ctx.lineWidth = 1 + 2 * b.life; ctx.beginPath(); b.pts.forEach((p0, k) => (k ? ctx.lineTo(p0[0], p0[1]) : ctx.moveTo(p0[0], p0[1]))); ctx.stroke(); }
+      if (fl > 0) { ctx.fillStyle = css([150, 40, 70], fl * 0.25); ctx.fillRect(0, 0, W, H); }
+      ctx.globalCompositeOperation = 'source-over';
+      // ---- blood: runs from the top and down the sides, everything slides slowly down the glass
+      const spawn = (0.5 + q * 3 + B.pour * 6) * decay * A; B.pour = Math.max(0, B.pour - dt * 0.3);
+      if (q > 0.03) { if (R() < dt * spawn * 2.2) bloodRun(rr(0, W), rr(0, 30), 0, R() < 0.3); if (R() < dt * spawn * 1.2) { const sd = R() < 0.5 ? 1 : -1; bloodRun(sd > 0 ? rr(2, 18) : W - rr(2, 18), rr(-10, H * 0.5), sd, R() < 0.4); } }
+      // the stain layer (splats, pours): slides slowly down the glass and thins out
+      const slide = (10 + q * 22) * dt;
+      btx.setTransform(1, 0, 0, 1, 0, 0); btx.globalCompositeOperation = 'copy'; btx.drawImage(bloodC, 0, slide);
+      blx.setTransform(1, 0, 0, 1, 0, 0); blx.globalCompositeOperation = 'copy'; blx.globalAlpha = Math.pow(0.5, dt * (0.12 + fall * 2)); blx.drawImage(bloodT, 0, 0); blx.globalAlpha = 1; blx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = A; ctx.drawImage(bloodC, 0, 0, W, H); ctx.globalAlpha = A;
+      // the curtain: a sharp, sagging edge of blood along the top, with tongues that stretch
+      if (q > 0.04) { const k0 = sstep(0.04, 0.3, q) * decay, n = 28; ctx.fillStyle = css(BLD[1]); ctx.beginPath(); ctx.moveTo(0, -2);
+        for (let i = 0; i <= n; i++) { const x = i / n * W, tongue = Math.pow(Math.abs(Math.sin(i * 2.71 + 1.3)), 6) * (40 + 140 * Math.abs(Math.sin(t * 0.15 + i))) * k0, y = (8 + 14 * Math.sin(i * 1.7 + t * 0.6)) * k0 + tongue; ctx.lineTo(x - W / n * 0.25, y * 0.4); ctx.lineTo(x, y); ctx.lineTo(x + W / n * 0.25, y * 0.4); }
+        ctx.lineTo(W, -2); ctx.closePath(); ctx.fill(); ctx.fillStyle = css(BLD[3], 0.5); ctx.fillRect(0, 0, W, 2 * k0); }
+      // drips: crisp runs from the top and down both sides, each with a tapering trail and a glossy head
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      for (let i = B.runs.length - 1; i >= 0; i--) {
+        const r0 = B.runs[i];
+        if (r0.stall > 0) r0.stall -= dt; else { r0.vy += (r0.side ? 60 : 110) * dt; r0.vy *= Math.pow(0.55, dt); if (R() < dt * 0.25) { r0.stall = rr(0.3, 1.4); } }
+        if (r0.stall <= 0) { r0.x += (r0.vx + Math.sin(t * 2 + r0.ph) * 4) * dt; r0.y += r0.vy * dt; const lp = r0.tr[r0.tr.length - 1]; if (r0.y - lp[1] > 6) { r0.tr.push([r0.x, r0.y]); if (r0.tr.length > 60) r0.tr.shift(); } }
+        if (r0.tr[0][1] > H + 10) { swapPop(B.runs, i); continue; }
+        const tr = r0.tr, n = tr.length;
+        ctx.strokeStyle = css(r0.c, 0.96); for (let k = 1; k < n; k++) { ctx.lineWidth = r0.r * (0.35 + 0.65 * k / n); ctx.beginPath(); ctx.moveTo(tr[k - 1][0], tr[k - 1][1]); ctx.lineTo(tr[k][0], tr[k][1]); ctx.stroke(); }
+        ctx.lineWidth = r0.r * 0.6; ctx.beginPath(); ctx.moveTo(tr[n - 1][0], tr[n - 1][1]); ctx.lineTo(r0.x, r0.y); ctx.stroke();
+        ctx.fillStyle = css(r0.c); ctx.beginPath(); ctx.ellipse(r0.x, r0.y + r0.r * 0.3, r0.r * 0.78, r0.r * 1.05, 0, 0, 6.283); ctx.fill();
+        ctx.fillStyle = 'rgba(255,170,160,0.55)'; ctx.beginPath(); ctx.ellipse(r0.x - r0.r * 0.25, r0.y, r0.r * 0.16, r0.r * 0.3, -0.3, 0, 6.283); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,120,110,0.25)'; ctx.lineWidth = Math.max(0.8, r0.r * 0.12); ctx.beginPath(); ctx.moveTo(tr[0][0] - r0.r * 0.2, tr[0][1]); for (let k = 1; k < n; k++) ctx.lineTo(tr[k][0] - r0.r * 0.2, tr[k][1]); ctx.stroke();
+      }
+      // ---- dust: what glitched away drifts up as ash
+      if (fall > 0 && R() < 0.9) for (let i = 0; i < 12; i++) B.dust.push({ x: rr(0, W), y: rr(H * 0.3, H), vx: rr(-30, 30), vy: rr(-120, -30), life: 1, c: R() < 0.4 ? [200, 20, 30] : [60, 50, 60] });
+      if (B.dust.length > 900) B.dust.splice(0, B.dust.length - 900);
+      for (let i = B.dust.length - 1; i >= 0; i--) { const p0 = B.dust[i]; p0.life -= dt * 0.6; if (p0.life <= 0) { swapPop(B.dust, i); continue; } p0.x += (p0.vx + Math.sin(t * 2 + i) * 20) * dt; p0.y += p0.vy * dt; ctx.fillStyle = css(p0.c, p0.life); ctx.fillRect(p0.x, p0.y, 2, 2); }
+      // ---- words, carved in blood, that glitch and fade
+      if (B.words) { const age = t - B.words.t0; if (age > 3) B.words = null; else bloodText(B.words.txt, Math.min(1, age * 3) * (1 - sstep(2, 3, age)) * A, t); }
+      if (fall > 0) { ctx.fillStyle = css([0, 0, 0], fall * A); ctx.fillRect(0, 0, W, H); }
+      S.gl = Math.max(S.gl, glitchy ? 0.7 : 0, fall * 0.5 * (R() < 0.3 ? 1 : 0));
+      if (S.gl > 0.04) glitchPass(S.gl);
+      ctx.globalAlpha = 1;
+    }
+    function bloodClick(x, y) {
+      bloodSplat(x, y, 1.4); shake(8); snd('splat', x / S.W * 2 - 1); snd('scream', x / S.W * 2 - 1);
+      const B = W0.bl; for (const c of B.crawl) if (c.vis > 0.2 && Math.hypot(x - c.hx, y - c.hy) < c.s * S.u * 1.4) { c.off = (c.off + 0.3) % 1; for (let i = 0; i < 40; i++) B.dust.push({ x: c.hx + rr(-30, 30), y: c.hy + rr(-20, 20), vx: rr(-160, 160), vy: rr(-200, 40), life: 1, c: [255, 30, 30] }); snd('glitch'); }
+      B.flash = 0.5;
+    }
+
     // ---------- loop ----------
     function surprise() {
       const k = (R() * 3) | 0;
@@ -2935,7 +3131,8 @@ class Component extends DCLogic {
       S.sv = S.reborn ? 0 : S.sv * 0.8 + ((S.s - ps) / dt) * 0.2; S.reborn = false;
       S.wind *= Math.pow(0.4, dt); S.gust *= Math.pow(0.15, dt);
       if (TILT.on) { const k = reduce ? 0.5 : 1; TILT.x += (TILT.tx * k - TILT.x) * Math.min(1, dt * 4); TILT.y += (TILT.ty * k - TILT.y) * Math.min(1, dt * 4); S.wind = clamp(S.wind + TILT.x * 1.6 * dt * 4, -3, 3); }
-      const P = storyOf(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt;
+      const P = storyOf(S.s), s = Math.min(1, P); S.P = P; S.dtt = dt; S.bq = bqOf(S.s);
+      const BA = S.bq < 0 ? 0 : sstep(0, 0.05, S.bq) * (1 - sstep(0.95, 1, S.bq));
       S.s1 = s; S.dv = sstep(1, 1.42, P);
       D = sstep(0.15, 0.5, s) * (1 - sstep(0.62, 0.9, s)); N = sstep(0.55, 0.92, s);
       const idle = now - S.last > 4500;
@@ -2961,12 +3158,13 @@ class Component extends DCLogic {
         rainStep(sstep(0.3, 0.72, q4) * (1 - a5) + a5 * 0.3 * (1 - sstep(0.15, 0.45, q5)), dt, E);
         feathersStep(sstep(0.35, 0.65, q4) * (1 - sstep(0.75, 1, q5)), t, dt, E);
       }
-      if (a6 > 0 && q7 < 0.6) drawRagnarok(a6 < 1 && Math.random() > a6 ? a6 * 0.35 : a6, q6, t, dt, E);
+      if (a6 > 0 && q7 < 0.6 && BA < 0.999) drawRagnarok(a6 < 1 && Math.random() > a6 ? a6 * 0.35 : a6, q6, t, dt, E);
       if (P > 3.36) {
         S.stf += dt; if (S.stf > 0.5) { S.stf = 0; stx.globalCompositeOperation = 'destination-out'; stx.fillStyle = 'rgba(0,0,0,0.05)'; stx.fillRect(0, 0, stain.width, stain.height); stx.globalCompositeOperation = 'source-over'; }
       }
       chaosStep(t, dt);
       if (S.gl > 0.04 && ((P > 5.2 && P < 7.3) || (S.chaos && S.cx.glitch))) glitchPass(S.gl);
+      if (BA > 0) drawBlood(BA, S.bq, t, dt); else if (W0.bl && W0.bl.last >= 0 && S.bq < 0) { W0.bl.last = -1; blx.clearRect(0, 0, bloodC.width, bloodC.height); }
       const a8 = sstep(7.8, 7.95, P), q8 = clamp((P - 7.8) / 1.6, 0, 1), a9 = sstep(9.32, 9.5, P), q9 = clamp((P - 9.4) / 1.75, 0, 1);
       if (P > 8.6 && P < 9.4) { mvLoad(); mvStep(1); } // build the multiverse quietly while the horses play
       S.rwd += ((S.sv < -0.04 ? -1 : 1) - S.rwd) * Math.min(1, dt * 6);
@@ -2981,7 +3179,7 @@ class Component extends DCLogic {
       if (S.flash > 0) { ctx.setTransform(S.dpr, 0, 0, S.dpr, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = css(C.cream, S.flash); ctx.fillRect(0, 0, W, H); S.flash = Math.max(0, S.flash - dt * 0.8); }
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
 
-      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, a6); dk = mix(dk, 0, sstep(7.25, 7.55, P)); dk = mix(dk, 1, sstep(7.68, 7.8, P) * (1 - a8)); dk = mix(dk, 0, a8); dk = mix(dk, 1, a9);
+      let dk = N; dk = mix(dk, 1, a2); dk = mix(dk, 1, a3); dk = mix(dk, 1 - sstep(0.25, 0.55, q4), a4); dk = mix(dk, 0, a5); dk = mix(dk, 1, a6); dk = mix(dk, 0, sstep(7.25, 7.55, P)); dk = mix(dk, 1, sstep(7.68, 7.8, P) * (1 - a8)); dk = mix(dk, 0, a8); dk = mix(dk, 1, a9); dk = mix(dk, 1, BA);
       S.dk = Math.round(dk * 40) / 40;
       typo(t, E);
       uiStep(P, dt);
@@ -3142,7 +3340,7 @@ class Component extends DCLogic {
       if (W === S.W && H === S.H) return;
       S.W = W; S.H = H; S.u = Math.min(W, H * 1.25); S.dpr = S.cx && S.cx.pixel ? 0.16 : Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(W * S.dpr); cv.height = Math.round(H * S.dpr);
-      stain.width = W; stain.height = H; BL.ok = false; grainPat = null; prismResize(W, H); PT.ok = false;
+      stain.width = W; stain.height = H; BL.ok = false; grainPat = null; prismResize(W, H); bloodResize(W, H); PT.ok = false;
       if (!W0) W0 = gen();
       requestAnimationFrame(cacheLetters);
     };
@@ -3199,8 +3397,8 @@ class Component extends DCLogic {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { BL.ok = false; requestAnimationFrame(cacheLetters); });
     let io = null;
     if (window.IntersectionObserver) { io = new IntersectionObserver((es) => { S.vis = es[0].isIntersecting; }); io.observe(root); }
-    { const k = self.props.kapitel | 0, p0 = +self.props.p || 0, st = k > 1 && k <= CH.length ? CH[k - 1].a + 0.1 : p0;
-      if (st > 0) { const sp = clamp(st, 0, PMAX - 0.05); S.s = S.sT = rawOf(sp); lastP = S.P = storyOf(S.s); if (sp > 2 && !S.kid) loadRaven(); } }
+    { const k = self.props.kapitel | 0, p0 = +self.props.p || 0, ci = k > 1 && k <= CH.length ? DISP[k - 1] : -1;
+      if (ci >= 0 || p0 > 0) { S.s = S.sT = ci >= 0 ? jumpRaw(ci) : rawOf(clamp(p0, 0, PMAX - 0.05)); lastP = S.P = storyOf(S.s); S.bq = bqOf(S.s); if (S.P > 2 && !S.kid) loadRaven(); } }
     if (self.props.film === 0) root.classList.add('un-off');
     S.raf = requestAnimationFrame(frame);
     this._stop = () => {
