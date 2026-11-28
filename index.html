@@ -2649,11 +2649,11 @@ class Component extends DCLogic {
     // =====================================================================
     //  IX · THE MULTIVERSE OF NONSENSE
     //  The picture (assets/multiverse.json: the artist's SVG cut into a background and 21 figures)
-    //  breaks apart. Its people, cars and chickens escape and live by their own physics, and the
-    //  figure-shaped holes they leave look into other universes. Scroll zooms out into a void of
+    //  breaks apart. Its people, cars and chickens step out as living twins with their own physics,
+    //  while the drawing itself stays whole. Scroll zooms out into a void of
     //  parallel worlds, gravity turns optional, sizes swap, clones pour in, and it all folds away.
     // =====================================================================
-    const MV = { data: null, loading: false, failed: false, key: '', todo: [], s0: 1, k: 1, bg: null, hole: null, rim: null, home: null, scenes: [], spr: {}, z: 1, rot: 0, cx: 0, cy: 0, snap: null, mvs: null };
+    const MV = { data: null, loading: false, failed: false, key: '', todo: [], s0: 1, k: 1, full: null, scenes: [], spr: {}, z: 1, rot: 0, cx: 0, cy: 0, snap: null, mvs: null };
     const MVW = 980.4, MVH = 779.4;
     function mvLoad() {
       if (MV.loading || MV.data) return; MV.loading = true;
@@ -2683,21 +2683,13 @@ class Component extends DCLogic {
       const k = MV.k, cw = MVW * k, ch = MVH * k, D = MV.data;
       MV.scenes = []; MV.spr = {};
       MV.todo = [
-        () => { MV.bg = mkC(cw, ch); const g = MV.bg.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); mvPaint(g, D.bg, 0); },
-        () => { MV.hole = mkC(cw, ch); const g = MV.hole.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); g.fillStyle = '#fff'; for (const q of D.bg) g.fill(q.p); for (const f of D.figs) for (const q of f.parts) g.fill(q.p); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'destination-out'; g.drawImage(MV.bg, 0, 0); },
-        () => { const g = MV.hole.getContext('2d'), im = g.getImageData(0, 0, MV.hole.width, MV.hole.height), a = im.data; for (let i = 3; i < a.length; i += 4) a[i] = a[i] > 140 ? 255 : 0; g.putImageData(im, 0, 0); },
-        () => { // an inner neon glow along the edges of every hole
-          MV.rim = mkC(cw, ch); const g = MV.rim.getContext('2d'), inv = mkC(cw, ch), gi = inv.getContext('2d');
-          gi.fillRect(0, 0, inv.width, inv.height); gi.globalCompositeOperation = 'destination-out'; gi.drawImage(MV.hole, 0, 0);
-          const off = inv.width + 40; g.shadowOffsetX = off; g.shadowColor = '#ff7ce0'; g.shadowBlur = 10 * k; g.drawImage(inv, -off, 0); g.shadowColor = '#fff3a0'; g.shadowBlur = 2.5 * k; g.drawImage(inv, -off, 0);
-          g.shadowColor = 'transparent'; g.globalCompositeOperation = 'destination-in'; g.drawImage(MV.hole, 0, 0); inv.width = 1;
-          MV.home = mkC(cw, ch);
-        },
+        // the home world stays whole, exactly as drawn: the figures that run off are its living twins
+        () => { MV.full = mkC(cw, ch); const g = MV.full.getContext('2d'); g.setTransform(k, 0, 0, k, 0, 0); mvPaint(g, D.bg, 0); for (const f of D.figs) mvPaint(g, f.parts, 0); },
         ...D.figs.map((f) => () => mvSprite(f, 0)),
         ...[1, 2, 3, 4, 5].map((p) => () => mvScene(p)),
       ];
     }
-    function mvStep(n) { if (!MV.data) return false; mvPlan(); while (n-- > 0 && MV.todo.length) MV.todo.shift()(); return !MV.todo.length || MV.home != null; }
+    function mvStep(n) { if (!MV.data) return false; mvPlan(); while (n-- > 0 && MV.todo.length) MV.todo.shift()(); return !MV.todo.length || MV.full != null; }
     function mvScene(p) {
       let c = MV.scenes[p]; if (c) return c; const kk = Math.min(MV.k, 1100 / MVW); c = MV.scenes[p] = mkC(MVW * kk, MVH * kk);
       const g = c.getContext('2d'); g.setTransform(kk, 0, 0, kk, 0, 0); mvPaint(g, MV.data.bg, p); for (const f of MV.data.figs) mvPaint(g, f.parts, p); return c;
@@ -2747,15 +2739,6 @@ class Component extends DCLogic {
       }
       if (home) ctx.drawImage(home, -MVW / 2, -MVH / 2, MVW, MVH);
       ctx.restore();
-    }
-    function mvHome(m, t) {
-      // our world with figure-shaped holes, and another universe drifting behind them
-      const hc = MV.home, g = hc.getContext('2d'), cw = hc.width, ch = hc.height, alt = mvScene(m.alt);
-      const ox = Math.sin(t * 0.7) * cw * 0.02 + (S.px > -999 ? (S.px / S.W - 0.5) * cw * 0.05 : 0), oy = Math.cos(t * 0.5) * ch * 0.02 + (S.py > -999 ? (S.py / S.H - 0.5) * ch * 0.04 : 0);
-      g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'copy'; g.drawImage(alt, -cw * 0.05 + ox, -ch * 0.05 + oy, cw * 1.1, ch * 1.1);
-      g.globalCompositeOperation = 'destination-in'; g.drawImage(MV.hole, 0, 0);
-      g.globalCompositeOperation = 'source-over'; g.drawImage(MV.rim, 0, 0); g.drawImage(MV.bg, 0, 0);
-      return hc;
     }
     function mvSpring(s, tx, ty, k, c, dt) { s.vx += ((tx - s.x) * k - s.vx * c) * dt; s.vy += ((ty - s.y) * k - s.vy * c) * dt; s.x += s.vx * dt; s.y += s.vy * dt; }
     const angTo = (a, b, k) => { let d0 = (((b - a) % 6.2832) + 9.4248) % 6.2832 - 3.1416; return a + d0 * Math.min(1, k); };
@@ -2875,11 +2858,10 @@ class Component extends DCLogic {
       const bt = t * 2.1, beat = Math.pow(1 - (bt % 1), 3);
       mvLoad(); mvCam(q);
       mvVoid(t, m, beat);
-      if (!MV.data || !mvStep(MV.home ? 1 : 99)) return;
+      if (!MV.data || !mvStep(MV.full ? 1 : 99)) return;
       if (!m.st) mvInit(m);
       m.gflip = Math.max(0, m.gflip - dt); m.swap = Math.max(0, m.swap - dt); m.alt = 1 + (Math.floor(bt / 4) % 4);
-      const holes = m.st.some((s) => s.mode !== 'home');
-      mvIslands(m, t, 0, holes ? mvHome(m, t) : MV.bg);
+      mvIslands(m, t, 0, MV.full);
       mvRifts(m, t, dt);
       mvFigs(m, q, t, dt, beat);
       const v = sstep(0.86, 1, q); if (v > 0) { const g = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.hypot(W, H) * 0.5 * (1.2 - v)); g.addColorStop(0, css([255, 250, 240], v * v)); g.addColorStop(1, 'rgba(255,250,240,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
