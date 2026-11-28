@@ -136,12 +136,9 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 .un-credit:hover{transform:translateY(-2px) rotate(-2deg)}
 .un-logo{all:unset;cursor:pointer;display:inline-block;padding:4px;margin:-4px;border-radius:50%;transition:transform .6s cubic-bezier(.3,1.8,.4,1)}
 .un-logo:focus-visible{outline:2px solid currentColor;outline-offset:3px}
-.un-toast{position:absolute;left:50%;top:50%;z-index:8;width:min(92vw,1100px);text-align:center;transform:translate(-50%,-50%) scale(.8);font:900 clamp(30px,6.5vw,96px)/1 Fraunces,Georgia,serif;color:#ee5a2c;text-shadow:5px 0 #19e6ff,-5px 0 #ff1a2e;opacity:0;pointer-events:none;transition:opacity .25s,transform .5s cubic-bezier(.2,1.6,.4,1)}
-.un-toast.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .un-logo:hover{transform:rotate(180deg) scale(1.2)}
 @keyframes unDrip{0%{transform:translateY(-4px) scaleY(.8);opacity:0}30%{opacity:1}70%{transform:translateY(10px) scaleY(1.15);opacity:1}100%{transform:translateY(18px) scaleY(.6);opacity:0}}
 .un-drip{animation:unDrip 1.8s cubic-bezier(.5,0,.5,1) infinite;transform-origin:50% 0}
-.un-cap{position:absolute;left:clamp(18px,4vw,56px);bottom:20px;z-index:2;margin:0;font:500 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.2em;pointer-events:none;max-width:min(62vw,560px);color:#1c2333}
 .un-rail{position:absolute;right:clamp(6px,1.6vw,22px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:4px;color:#1c2333}
 .un-rail button{all:unset;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:6px;font:500 10px/1 Inter,system-ui,sans-serif;letter-spacing:.14em;opacity:.5;transition:opacity .3s}
 .un-rail button i{display:block;width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;transition:transform .4s cubic-bezier(.3,1.8,.4,1),background .3s}
@@ -168,12 +165,10 @@ a{color:inherit;text-decoration:none}a:hover{color:#ee5a2c}
 </h1>
 <p data-tag="" style="margin: 18px 0 0; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.08em; color: #1c2333">A LITTLE BIT NORDIC. A LOT UNREAL.</p>
 </div>
-<p data-cap="" class="un-cap" aria-hidden="true"></p>
 <div class="un-pop" data-pop="" role="dialog" aria-label="Sound" aria-hidden="true"><div class="troll"><svg viewBox="0 0 100 100" aria-hidden="true"><g transform="translate(50 58)"><path d="M-8 -36 Q-16 -54 -10 -60 M0 -38 Q2 -58 8 -62 M8 -36 Q18 -52 14 -58" stroke="#ee5a2c" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="-40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><ellipse cx="40" cy="-6" rx="9" ry="12" fill="#5f7a3c"/><circle r="38" fill="#7f9c55"/><ellipse cy="8" rx="27" ry="21" fill="#b4cc83"/><ellipse cx="-12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><ellipse cx="12" cy="-8" rx="7" ry="8" fill="#fffaf0"/><circle cx="-10" cy="-7" r="3.4" fill="#1c2333"/><circle cx="14" cy="-7" r="3.4" fill="#1c2333"/><g class="lid" style="transform-origin:0 -15px"><rect x="-20" y="-17" width="40" height="18" fill="#7f9c55"/></g><ellipse cy="4" rx="10" ry="8.5" fill="#f6a47a"/><ellipse cx="-3" cy="1" rx="3" ry="2" fill="#fff" opacity=".6"/><path d="M-9 16 Q0 24 9 16" stroke="#1c2333" stroke-width="2.4" fill="none" stroke-linecap="round"/><rect x="1" y="18" width="4" height="4" fill="#fffaf0"/><ellipse cx="-22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/><ellipse cx="22" cy="8" rx="5" ry="3" fill="#f2a6b8" opacity=".8"/></g></svg></div><div class="bub"><i class="spark" style="left:110px;top:40px;--dx:-40px;--dy:-50px;animation-delay:0.40s"></i><i class="spark" style="left:200px;top:20px;--dx:10px;--dy:-60px;animation-delay:0.50s"></i><i class="spark" style="left:320px;top:30px;--dx:50px;--dy:-40px;animation-delay:0.45s"></i><i class="spark" style="left:380px;top:90px;--dx:60px;--dy:10px;animation-delay:0.55s"></i><i class="spark" style="left:90px;top:110px;--dx:-50px;--dy:20px;animation-delay:0.50s"></i><i class="spark" style="left:250px;top:0px;--dx:-10px;--dy:-70px;animation-delay:0.60s"></i><h3>Psst&hellip; lend me your ears.</h3><p>I&rsquo;m the troll who keeps the bridge of this tale, and I&rsquo;ll let you in on a secret: half of it is <em>sung</em>. Whales hum, ravens cry, gods thunder and the ink whispers.</p><div class="acts"><button type="button" class="yes" data-popyes="">&#10022; WAKE THE MUSIC</button><button type="button" class="no" data-popno="">WANDER IN SILENCE</button></div><small data-pophint="">Change your mind anytime with SOUND.</small><small class="dk">The dark chapters are asleep. Grown-ups can wake them with &#9790;.</small></div></div>
 <div class="un-say" data-say="" aria-live="polite"></div>
 <div class="un-gate" data-gate="" role="dialog" aria-modal="true" aria-labelledby="un-gate-h" aria-hidden="true"><div class="card"><i class="moon" aria-hidden="true"></i><h3 id="un-gate-h">For grown-ups only</h3><p>Beyond the lantern woods sleep the dark chapters: a raven of ink, Ragnar&ouml;k, the wolf that swallows the sun and the eye that never blinks. Little readers fly straight on to the rainbow horses.</p><p class="qq" data-gq="">What is 7 &times; 8?</p><div class="ans" data-ga=""></div><button type="button" class="stay" data-gstay="">&#10022; LET THEM SLEEP</button><small data-gmsg="" aria-live="polite"></small></div></div>
 <nav id="un-menu" class="un-menu" data-menu="" aria-label="Menu" aria-hidden="true"></nav>
-<div class="un-toast" data-toast="" aria-live="polite"></div>
 <div class="un-grain" aria-hidden="true"></div><div class="un-paper" aria-hidden="true"></div>
 <nav data-rail="" class="un-rail" aria-label="Kapitler"></nav>
 <section class="un-sr" aria-label="About this story">
@@ -536,7 +531,7 @@ class Component extends DCLogic {
       if (tag.style.opacity !== top) { tag.style.opacity = top; tag.style.filter = tev > 0.01 ? 'blur(' + (tev * 10).toFixed(1) + 'px)' : ''; }
       if (tev < 1) tag.style.transform = 'translateY(' + (-tev * 40).toFixed(1) + 'px) skewX(' + clamp(S.sv * -20, -40, 40).toFixed(1) + 'deg) scaleY(' + (1 + tev * 0.6).toFixed(2) + ')';
       const nc = css(lc(hex('#1c2333'), C.cream, S.dk));
-      if (nc !== S.ncol) { S.ncol = nc; nav.style.color = nc; rail.style.color = nc; capEl.style.color = nc; tag.style.color = nc; const dark = S.dk > 0.5; for (const L of heads[0]) { if (!L.base) L.base = L.el.style.color; L.el.style.color = dark && /47, 77, 184|2f4db8/i.test(L.base) ? '#9fb3ff' : L.base; } }
+      if (nc !== S.ncol) { S.ncol = nc; nav.style.color = nc; rail.style.color = nc; tag.style.color = nc; const dark = S.dk > 0.5; for (const L of heads[0]) { if (!L.base) L.base = L.el.style.color; L.el.style.color = dark && /47, 77, 184|2f4db8/i.test(L.base) ? '#9fb3ff' : L.base; } }
     }
 
     // =====================================================================
@@ -688,15 +683,6 @@ class Component extends DCLogic {
       for (let i = 0; i < 16 * p; i++) { const a = Math.PI + rr(-0.9, 0.9), v = rr(80, 260) * p; W0.sparks.push({ x: wh.hx, y: wh.hy, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, c: pick([C.mint, C.cream, C.pink, C.yellow]) }); }
       for (const j of W0.jellies) { const dx = j.x * S.W - wh.hx, dy = j.y * S.H - wh.hy, dd = Math.hypot(dx, dy) + 1; if (dd < S.u * 0.6) { j.vx += dx / dd * 0.12 * p; j.vy += dy / dd * 0.12 * p; } }
     }
-    // the troll named the whale: GERTRUD in twinkling star letters along its back
-    function whaleName(wh, t) {
-      const L = wh.L; ctx.font = '600 ' + Math.max(10, L * 0.034).toFixed(0) + 'px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      'GERTRUD'.split('').forEach((ch, k) => {
-        const s = 0.08 + k * 0.034, x = wh.hx + s * L, y = wh.hy + Math.sin(t * 1.3 - s * 3.4) * L * 0.05 * (0.2 + s * s) - L * 0.12 * (1 - Math.pow(s, 1.5) * 0.9) - L * 0.035;
-        ctx.fillStyle = css([255, 246, 210], 0.55 + 0.45 * Math.sin(t * 3 + k * 1.7)); ctx.fillText(ch, x, y);
-      });
-      ctx.textAlign = 'start'; ctx.textBaseline = 'alphabetic';
-    }
     function drawWhale(wh, t) {
       const L = wh.L, n = 48, sp = [], top = [], bot = [], nr = [], ss = [];
       for (let i = 0; i <= n; i++) { const s = Math.pow(i / n, 1.35); ss.push(s); sp.push([wh.hx + s * L, wh.hy + Math.sin(t * 1.3 - s * 3.4) * L * 0.05 * (0.2 + s * s)]); }
@@ -788,7 +774,7 @@ class Component extends DCLogic {
       ctx.globalAlpha = A;
       // the whale
       const wh = whaleState(q, t); S.wh = wh;
-      if (wh.hx < W + wh.L * 0.25 && wh.hx > -wh.L * 1.3) { drawWhale(wh, t); if (MEM.un.whale) whaleName(wh, t); }
+      if (wh.hx < W + wh.L * 0.25 && wh.hx > -wh.L * 1.3) { drawWhale(wh, t); }
       if (q > 0.08 && q < 0.92 && t > S.wsing) { S.wsing = t + rr(3, 5); whaleSing(1); }
       ctx.globalCompositeOperation = 'lighter';
       for (let i = W0.songs.length - 1; i >= 0; i--) {
@@ -1083,45 +1069,6 @@ class Component extends DCLogic {
     }
 
     // ---------- V · the raven ----------
-    const BL = { ok: false, L: [], lines: [{ txt: 'BLOODY', col: [141, 15, 20] }, { txt: 'BRILLIANT.', col: [96, 10, 14] }] };
-    function layoutBloody() {
-      const W = S.W, H = S.H; BL.L = [];
-      BL.lines.forEach((ln, li) => {
-        ctx.font = '900 100px Fraunces, Georgia, serif';
-        const fs = Math.min(W * 0.94 / ctx.measureText(ln.txt).width * 100, H * 0.34), font = '900 ' + fs.toFixed(1) + 'px Fraunces, Georgia, serif';
-        ctx.font = font;
-        let x = (W - ctx.measureText(ln.txt).width) / 2; const y = li === 0 ? H * 0.05 + fs * 0.72 : H - H * 0.05;
-        for (const ch of ln.txt) {
-          const cw = ctx.measureText(ch).width;
-          BL.L.push({ ch, x: x + cw / 2, y, fs, cw, font, col: ln.col, i: BL.L.length, ph: rr(0, 6.28), drops: [], dr: li ? [] : Array.from({ length: (R() * 2.6) | 0 }, () => ({ ox: rr(-0.25, 0.25), len: 0, sp: rr(6, 22), max: rr(0.15, 0.6), w: rr(0.05, 0.1) })) });
-          x += cw;
-        }
-      });
-      BL.ok = true;
-    }
-    function drawBloody(q, t, dt) {
-      if (!BL.ok) layoutBloody();
-      const H = S.H, has = S.px > -999;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-      let font = '';
-      for (const L of BL.L) {
-        const k = sstep(0.18 + L.i * 0.018, 0.3 + L.i * 0.018, q); if (k <= 0) continue;
-        let x = L.x, y = mix(L.y - H * 0.9, L.y, backOut(k)), rot = (1 - k) * (L.i % 2 ? 0.5 : -0.5) + Math.sin(t * 0.8 + L.ph) * 0.015;
-        if (has) { const dx = x - S.px, dy = y - L.fs * 0.35 - S.py, dd = Math.hypot(dx, dy); if (dd < L.fs * 0.9) { const f = 1 - dd / (L.fs * 0.9); x += dx / (dd + 1) * f * 30; y += dy / (dd + 1) * f * 20; rot += f * 0.12 * (L.i % 2 ? 1 : -1); } }
-        if (L.font !== font) { font = L.font; ctx.font = font; }
-        ctx.fillStyle = css(L.col);
-        ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.fillText(L.ch, 0, 0); ctx.restore();
-        if (k < 1) continue;
-        // blood drips from the bottom of the letters
-        for (const dr of L.dr) {
-          dr.len = Math.min(dr.max * L.fs, dr.len + dr.sp * dt);
-          if (dr.len >= dr.max * L.fs && R() < dt * 0.5) { L.drops.push({ x: L.x + dr.ox * L.cw, y: L.y + dr.len, vy: 0, r: L.fs * dr.w * 0.5 }); dr.len *= 0.45; }
-          const bx = L.x + dr.ox * L.cw, ww = L.fs * dr.w, by = L.y - L.fs * 0.05;
-          ctx.beginPath(); ctx.moveTo(bx - ww * 0.6, by); ctx.quadraticCurveTo(bx - ww * 0.3, by + dr.len * 0.5, bx - ww * 0.32, by + dr.len); ctx.arc(bx, by + dr.len, ww * 0.42, Math.PI, 0, true); ctx.quadraticCurveTo(bx + ww * 0.3, by + dr.len * 0.5, bx + ww * 0.6, by); ctx.closePath(); ctx.fill();
-        }
-        for (let i = L.drops.length - 1; i >= 0; i--) { const p = L.drops[i]; p.vy += 900 * dt; p.y += p.vy * dt; if (p.y > H + 20) { swapPop(L.drops, i); continue; } ctx.beginPath(); ctx.ellipse(p.x, p.y, p.r * 0.8, p.r * 1.3, 0, 0, 6.283); ctx.fill(); }
-      }
-    }
     function ravenRect(q) {
       const W = S.W, H = S.H, port = W < H * 0.85, base = port ? W * 1.35 : Math.min(W * 0.9, H * 1.1);
       const w = base * (0.82 + 0.3 * sstep(0.3, 1, q)), h = w * RV.H / RV.W, en = backOut(sstep(0, 0.3, q));
@@ -1568,7 +1515,7 @@ class Component extends DCLogic {
     function rebirth() {
       snd('chime'); snd('whoosh');
       W0 = gen(); S.s = S.sT = 0; S.flash = 1; S.next = S.t + 4; S.reborn = true; lastP = 0;
-      stx.clearRect(0, 0, stain.width, stain.height); BL.ok = false; RVS.rect = null; S.inkC = null; S.gl = 0; wkx.clearRect(0, 0, wake.width, wake.height); mkx.clearRect(0, 0, mask.width, mask.height);
+      stx.clearRect(0, 0, stain.width, stain.height); RVS.rect = null; S.inkC = null; S.gl = 0; wkx.clearRect(0, 0, wake.width, wake.height); mkx.clearRect(0, 0, mask.width, mask.height);
     }
 
     // ---------- beats: one-shot surprises as you scroll forward past them ----------
@@ -1650,8 +1597,7 @@ class Component extends DCLogic {
       gx.putImageData(id, 0, 0); root.style.setProperty('--grain', 'url(' + gc.toDataURL('image/png') + ')'); }
     // ---------- the triangle: one click opens the chapter map, three quick clicks unleash chaos ----------
     // ---------- the triangle: CHAOS. Every click rolls a new random mix of effects; long-press or Esc restores order ----------
-    const logoEl = root.querySelector('[data-logo]'), toastEl = root.querySelector('[data-toast]');
-    function toast(txt) { toastEl.textContent = txt; toastEl.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => toastEl.classList.remove('show'), 1600); }
+    const logoEl = root.querySelector('[data-logo]');
     const FX8 = {
       mirror: 'MIRROR', upside: 'UPSIDE DOWN', hue: 'RAINBOW BRAIN', invert: 'NEGATIVE', noir: 'NOIR', turbo: 'TURBO', slowmo: 'SLOW MOTION',
       glitch: 'GLITCH STORM', quake: 'EARTHQUAKE', wobble: 'SEASICK', strobe: 'STROBE', warp: 'WARP PULSE', pixel: '8-BIT', melt: 'MELT',
@@ -1664,13 +1610,13 @@ class Component extends DCLogic {
       while (Object.keys(pick0).length < n && guard++ < 50) { const k = keys[(Math.random() * keys.length) | 0]; if (CLASH.some((c) => c.includes(k) && c.some((o) => o !== k && pick0[o]))) continue; pick0[k] = 1; }
       const wasPix = !!S.cx.pixel; S.cx = pick0; S.chaos = true; S.chaosT = S.t;
       if (wasPix !== !!pick0.pixel) { S.W = 0; resize(); }
-      toast(Object.keys(pick0).map((k) => FX8[k]).join(' + ')); shake(14); S.gl = 1; snd('glitch'); snd(pick0.slowmo ? 'whale' : 'boom');
+      shake(14); S.gl = 1; snd('glitch'); snd(pick0.slowmo ? 'whale' : 'boom');
     }
     function orderChaos() {
       if (!S.chaos) return; const wasPix = !!S.cx.pixel; S.cx = {}; S.chaos = false;
       cv.style.filter = ''; cv.style.scale = ''; cv.style.rotate = ''; cv.style.imageRendering = '';
       if (wasPix) { S.W = 0; resize(); }
-      toast('ORDER RESTORED'); snd('chime');
+      snd('chime');
     }
     // applied every frame: composable CSS filters and transforms on the canvas
     function chaosStep(t, dt) {
@@ -1718,8 +1664,7 @@ class Component extends DCLogic {
     });
     menu.addEventListener('pointerdown', (e) => e.stopPropagation());
     menu.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
-    const capEl = root.querySelector('[data-cap]'), rail = root.querySelector('[data-rail]'), hint = root.querySelector('[data-hint]');
-    const RUNES = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+    const rail = root.querySelector('[data-rail]'), hint = root.querySelector('[data-hint]');
     const railBtns = CH.map((c, i) => {
       const b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Gå til ' + c.cap.split(' · ')[0]);
       b.innerHTML = '<span>' + c.n + '</span><i></i>';
@@ -1727,24 +1672,14 @@ class Component extends DCLogic {
       return b;
     });
     for (const i of DISP) rail.appendChild(railBtns[i]);
-    // caption = a short how-to hint only (no chapter names): typed in with runes, then fades away
-    const CAP_HINT = { 0: 'SCROLL, CLICK, PLAY', 7: 'SCROLL \u2192 \u00b7 DRAG A HORSE', 8: 'DRAG, THROW, TAP', 9: 'MOVE YOUR LIGHT \u00b7 CLICK' };
-    let capIdx = -1, capT = 1, capTxt = '', capHold = 0, capOp = '';
+    let capIdx = -1;
     function uiStep(P, dt) {
       const i = cAt(P);
       if (i !== capIdx) {
-        capIdx = i; capT = 0; capHold = 0; capTxt = CAP_HINT[i] || ''; if (!capTxt) { capT = 1; capEl.textContent = ''; }
+        capIdx = i;
         railBtns.forEach((b, k) => { b.classList.toggle('on', k === i); if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
         cv.setAttribute('aria-label', CH[i].aria);
       }
-      if (capT < 1) {
-        capT = Math.min(1, capT + dt * 1.3);
-        const n = Math.floor(capTxt.length * capT); let out = capTxt.slice(0, n);
-        for (let k = n; k < Math.min(capTxt.length, n + 8); k++) out += capTxt[k] === ' ' ? ' ' : RUNES[(Math.random() * RUNES.length) | 0];
-        capEl.textContent = out;
-      } else if (capTxt) capHold += dt;
-      const co = capTxt ? (1 - sstep(4.5, 6, capHold)).toFixed(2) : '0';
-      if (co !== capOp) { capOp = co; capEl.style.opacity = co; }
       const ho = (1 - sstep(0.02, 0.1, P)).toFixed(2); if (hint.style.opacity !== ho) hint.style.opacity = ho;
     }
 
@@ -1763,7 +1698,7 @@ class Component extends DCLogic {
       applyMode();
       S.s = S.sT = clamp(rawOf(P), 0, RMAX - 0.05); lastP = S.P = storyOf(S.s); S.reborn = true; S.last = performance.now();
       S.flash = 0.5; shake(6);
-      if (kid) { toast('THE DARK SLEEPS'); snd('chime'); snd('sparkle'); } else { loadRaven(); toast('THE DARK WAKES'); snd('caw'); snd('boom'); }
+      if (kid) { snd('chime'); snd('sparkle'); } else { loadRaven(); snd('caw'); snd('boom'); }
     }
     let gateAns = 0, gatePrev = null;
     function gateQuestion() {
@@ -2046,7 +1981,7 @@ class Component extends DCLogic {
       }
       if (W0.zz.length) {
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        for (let i = W0.zz.length - 1; i >= 0; i--) { const z = W0.zz[i]; z.life -= dt * 0.33; z.y -= dt * 22; z.x += Math.sin(t * 2 + z.ph) * 14 * dt; if (z.life <= 0) { swapPop(W0.zz, i); continue; } ctx.font = 'italic 600 ' + (z.s * (1.4 - z.life * 0.5)).toFixed(1) + 'px Fraunces, Georgia, serif'; ctx.fillStyle = css(C.cream, Math.min(1, z.life * 1.6) * 0.9); ctx.fillText('z', z.x, z.y); }
+        for (let i = W0.zz.length - 1; i >= 0; i--) { const z = W0.zz[i]; z.life -= dt * 0.33; z.y -= dt * 22; z.x += Math.sin(t * 2 + z.ph) * 14 * dt; if (z.life <= 0) { swapPop(W0.zz, i); continue; } const zs = z.s * (1.4 - z.life * 0.5) * 0.55; ctx.strokeStyle = css(C.cream, Math.min(1, z.life * 1.6) * 0.9); ctx.lineWidth = Math.max(1.2, zs * 0.16); ctx.lineJoin = 'round'; ctx.beginPath(); ctx.moveTo(z.x - zs * 0.5, z.y - zs); ctx.lineTo(z.x + zs * 0.5, z.y - zs); ctx.lineTo(z.x - zs * 0.5, z.y); ctx.lineTo(z.x + zs * 0.5, z.y); ctx.stroke(); } // a drawn zigzag, not a letter
       }
       if (MEM.season === 'newyear' && N > 0.6 && S.dv < 0.5 && t > W0.fwT) { W0.fwT = t + rr(0.8, 1.6); const fx = rr(0.1, 0.9) * W; fireworkBurst(fx, rr(0.08, 0.45) * H, fx / W * 2 - 1); }
       if (W0.fw.length) {
@@ -2140,7 +2075,7 @@ class Component extends DCLogic {
     window.addEventListener('keydown', gesture);
     // the troll pops up once, for visitors who have not chosen yet
     const popEl = root.querySelector('[data-pop]');
-    function popHide() { if (!popEl.classList.contains('show')) return; popEl.classList.add('out'); popEl.classList.remove('show'); popEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { popEl.style.display = 'none'; }, 500); if (typeof sayLater === 'function') sayLater(900); }
+    function popHide() { if (!popEl.classList.contains('show')) return; popEl.classList.add('out'); popEl.classList.remove('show'); popEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { popEl.style.display = 'none'; }, 500); }
     if (soundPref == null) {
       if (/iPhone|iPad|iPod/.test(navigator.userAgent)) root.querySelector('[data-pophint]').textContent = 'On iPhone, flip off the silent switch. Change your mind anytime with SOUND.';
       setTimeout(() => { if (!AU.asked) { popEl.classList.add('show'); popEl.setAttribute('aria-hidden', 'false'); } }, 1400);
@@ -2151,16 +2086,13 @@ class Component extends DCLogic {
     // the troll's speech bubble: one short line per visit, rides on the troll's head, gone after a few seconds or a scroll
     const sayEl = root.querySelector('[data-say]'), SAY = { on: false, tm: 0 };
     function sayHide() { if (!SAY.on) return; SAY.on = false; clearTimeout(SAY.tm); sayEl.classList.remove('show'); }
-    function say(text, ms = 4000) { sayEl.textContent = text; SAY.on = true; sayStep(); sayEl.classList.add('show'); clearTimeout(SAY.tm); SAY.tm = setTimeout(sayHide, ms); snd('giggle'); }
+    function say() {} // design rule: no words inside the story (only the title at the start), so the troll stays silent
     function sayStep() {
       if (!SAY.on) return;
       if (S.sv > 0.05 || S.P > 0.5) { sayHide(); return; }
       const h = W0.troll.hit, sc = h ? toScreen(h[3], h[0] + h[2] * 0.55, h[1] - h[2] * 1.25) : [S.W * 0.25, S.H * 0.7];
       sayEl.style.left = Math.min(sc[0], S.W - sayEl.offsetWidth - 12).toFixed(0) + 'px'; sayEl.style.top = Math.max(sc[1], sayEl.offsetHeight + 70).toFixed(0) + 'px';
     }
-    // the line waits while the sound pop is up, so the two trolls never talk at once
-    function sayLater(ms) { if (MEM.line && !SAY.said) setTimeout(() => { if (!SAY.said && !popEl.classList.contains('show') && S.P < 0.5) { SAY.said = true; say(MEM.line); } }, ms); }
-    sayLater(1800);
     // the tape: the current bed plays forward, or while scrolling back, a reversed copy from the mirrored spot,
     // faster and higher the harder you scroll. Beats you pass backwards play their sounds reversed.
     const TAPE = { dir: 1, rate: 1, hold: 0 };
@@ -2429,25 +2361,6 @@ class Component extends DCLogic {
       return tips;
     }
     // ---------- the world title, standing on the water ----------
-    const PT = { ok: false, L: [], fs: 0 };
-    function layoutPrismTitle() {
-      const W = S.W, H = S.H, txt = 'PRISM MARES'; PT.fs = Math.min(H * 0.27, W * 0.17);
-      ctx.font = '900 ' + PT.fs.toFixed(1) + 'px Fraunces, Georgia, serif'; PT.L = []; let x = 0;
-      for (const ch of txt) { const w = ctx.measureText(ch).width; PT.L.push({ ch, x: x + w / 2, w, ph: rr(0, 6.28) }); x += w; }
-      PT.width = x; PT.ok = true;
-    }
-    function drawPrismTitle(x0, y0, t, mirror) {
-      if (!PT.ok) layoutPrismTitle();
-      ctx.font = '900 ' + PT.fs.toFixed(1) + 'px Fraunces, Georgia, serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-      PT.L.forEach((L, i) => {
-        if (L.ch === ' ') return; const x = x0 + L.x, y = y0 + Math.sin(t * 1.1 + L.ph) * PT.fs * 0.02, ext = PT.fs * 0.06;
-        if (x < -PT.fs || x > S.W + PT.fs) return;
-        for (let k = 6; k > 0; k--) { ctx.fillStyle = css(lc(R8[i % 8], [40, 20, 70], 0.55 + k * 0.04)); ctx.fillText(L.ch, x + ext * k / 6, y + ext * k / 6); }
-        const g = ctx.createLinearGradient(0, y - PT.fs * 0.75, 0, y); g.addColorStop(0, css(R8[(i + 7) % 8])); g.addColorStop(0.5, css(R8[i % 8])); g.addColorStop(1, css(R8[(i + 1) % 8]));
-        ctx.fillStyle = g; ctx.fillText(L.ch, x, y);
-        ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.fillText(L.ch, x - PT.fs * 0.012, y - PT.fs * 0.012); ctx.fillStyle = g; ctx.fillText(L.ch, x + PT.fs * 0.004, y + PT.fs * 0.004);
-      });
-    }
     const CLOUD_P = Array.from({ length: 15 }, (_, i) => { const dx = (i / 14 - 0.5) * 2.3, top = 1 - Math.pow(Math.abs(dx) / 1.2, 1.6); return [dx + (Math.random() - 0.5) * 0.15, -top * 0.55 * (0.6 + Math.random() * 0.5), 0.24 + top * 0.34 * (0.7 + Math.random() * 0.5)]; });
     const CLOUD_T = [[hex('#ffd6ec'), hex('#f39fd0')], [hex('#ffe2c2'), hex('#f5ae78')], [hex('#e9ddff'), hex('#b4a0f2')], [hex('#dcf2ff'), hex('#9cc7f2')]];
     function cloud8(x, y, r, t, ph, ti) {
@@ -2724,7 +2637,6 @@ class Component extends DCLogic {
     // in this universe every barrel fires confetti and soap bubbles
     const MV_GUN = { tank: [459, 25, -1, 1], soldier: [387, 65, 1, 0], gunner: [691, 33, -1, 0] };
     const MV_ROD = [791, 125];
-    const MV_SAY = ['LOGIC HAS LEFT THE BUILDING', 'GRAVITY IS OPTIONAL', 'SIZE IS JUST A NUMBER', 'THERE ARE MORE OF US', 'EVERYTHING, EVERYWHERE'];
     function mvInit(m) {
       const D = MV.data, n = D.figs.length;
       m.st = D.figs.map((f, i) => ({ f, beh: MV_BEH[f.id] || 'orbit', det: 0.045 + ((i * 7) % n) / n * 0.1, free: false, mode: 'home', x: 0, y: 0, vx: 0, vy: 0, a: 0, va: 0, sz: 1, sq: 1, stun: 0, p: 0, ph: rr(0, 6.28), w: rr(0.4, 0.85) * (R() < 0.5 ? -1 : 1), r: rr(0.16, 0.34), lx: rr(0.08, 0.92), yb: rr(0.2, 0.72), dir: R() < 0.5 ? -1 : 1, mir: 1, gunT: rr(0.5, 2), area: f.w * f.h }));
@@ -2926,7 +2838,7 @@ class Component extends DCLogic {
     }
     function mvClick(x, y) { const m = W0.mv; for (let i = 0; i < 3; i++) mvClone(m, x, y, null, true); snd('zap', x / S.W * 2 - 1); snd(pick(['cluck', 'honk', 'boing']), x / S.W * 2 - 1); }
     function mvBeat(i) {
-      const m = W0.mv; toast(MV_SAY[i]); shake(10); snd('boing'); snd('glitch');
+      const m = W0.mv; shake(10); snd('boing'); snd('glitch');
       if (!m || !m.st) return;
       if (i === 1) { m.gflip = 5; for (const s of m.st) if (s.mode === 'free') { s.stun = 2.6; s.vy -= S.H * 1.2; s.va = rr(-6, 6); } snd('whoosh'); }
       else if (i === 2) m.swap = 6;
@@ -2948,11 +2860,11 @@ class Component extends DCLogic {
     const monC = document.createElement('canvas'), mnx = monC.getContext('2d');         // the monsters, drawn here so they can glitch and dissolve
     function bloodResize(W, H) { bloodC.width = bloodT.width = W; bloodC.height = bloodT.height = H; darkC.width = Math.ceil(W / 2); darkC.height = Math.ceil(H / 2); monC.width = W; monC.height = H; }
     const BLD = [hex('#3d0004'), hex('#6e0008'), hex('#9a0b10'), hex('#c8161b')];
-    const BL_SAY = [[0.12, 'THE SKY IS BLEEDING'], [0.36, "DON'T LOOK UP"], [0.62, 'THEY CAME FROM ABOVE'], [0.86, 'NOTHING STAYS']];
+    const BL_HIT = [0.12, 0.36, 0.62, 0.86]; // screams, no words
     function genBlood(w) {
       const spike = () => Array.from({ length: 3 + ((R() * 6) | 0) }, () => [rr(0.15, 0.9), rr(0.05, 0.22), R() < 0.5 ? -1 : 1, rr(0.25, 0.7)]);
       w.bl = {
-        runs: [], dust: [], bolts: [], said: [], last: -1, flash: 0, pour: 0, crack: 0, words: null,
+        runs: [], dust: [], bolts: [], said: [], last: -1, flash: 0, pour: 0, crack: 0,
         towers: [0, 1, 2].map((L) => Array.from({ length: 7 + L * 3 }, (_, i) => ({ x: (i + rr(0.1, 0.9)) / (7 + L * 3) * 1.3 - 0.15, h: rr(0.28, 0.62) + L * 0.12 + (R() < 0.15 ? 0.2 : 0), w: rr(0.018, 0.05) * (1 + L * 0.5), sp: spike(), win: Array.from({ length: 2 + ((R() * 5) | 0) }, () => [rr(-0.25, 0.25), rr(0.15, 0.85), rr(0, 6.28)]), g0: rr(0.05, 0.22) + L * 0.04, tw: rr(-0.02, 0.02) }))),
         planets: [{ x: 0.78, y: 0.2, r: 0.34, c: hex('#140508'), rim: hex('#ff2a2a'), ring: false, ph: 0 }, { x: 0.16, y: 0.3, r: 0.1, c: hex('#0d0612'), rim: hex('#b14bff'), ring: true, ph: 1.7 }, { x: 0.42, y: 0.12, r: 0.06, c: hex('#1a0a0a'), rim: hex('#ffb38a'), ring: false, ph: 3, moon: true }],
         auro: Array.from({ length: 5 }, (_, i) => ({ x: rr(0.05, 0.95), w: rr(0.05, 0.16), c: i % 2 ? hex('#7dff9a') : hex('#b14bff'), off: R(), rate: rr(0.05, 0.11) })),
@@ -2995,20 +2907,11 @@ class Component extends DCLogic {
       for (let ring = 0; ring < 3; ring++) { const rr0 = r * (0.95 - ring * 0.14), n = 26 - ring * 5, rot = t * (ring % 2 ? -0.35 : 0.28) * (1 + ring * 0.4); g.fillStyle = ring ? '#d8ccc0' : '#efe6da';
         for (let i = 0; i < n; i++) { const a = rot + i / n * 6.283, aw = 6.283 / n * 0.42, L = r * (0.22 + 0.08 * Math.sin(i * 3.1 + ring)); g.beginPath(); g.moveTo(cx + Math.cos(a - aw) * rr0, cy + Math.sin(a - aw) * rr0); g.lineTo(cx + Math.cos(a) * (rr0 - L), cy + Math.sin(a) * (rr0 - L)); g.lineTo(cx + Math.cos(a + aw) * rr0, cy + Math.sin(a + aw) * rr0); g.closePath(); g.fill(); } }
     }
-    function bloodText(txt, a, t) {
-      const W = S.W, H = S.H; if (a <= 0.01) return; let fs = Math.min(W * 0.085, H * 0.13);
-      ctx.save(); ctx.font = '900 ' + fs.toFixed(0) + 'px Fraunces, Georgia, serif'; const tw0 = ctx.measureText(txt).width; if (tw0 > W * 0.88) { fs *= W * 0.88 / tw0; ctx.font = '900 ' + fs.toFixed(0) + 'px Fraunces, Georgia, serif'; } ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      const y = H * 0.46, jit = a < 0.6 ? (Math.random() - 0.5) * fs * 0.2 : 0;
-      ctx.globalAlpha = a; ctx.fillStyle = 'rgba(255,30,40,0.6)'; ctx.fillText(txt, W / 2 + jit + 3, y); ctx.fillStyle = 'rgba(40,255,200,0.35)'; ctx.fillText(txt, W / 2 - jit - 3, y);
-      ctx.fillStyle = '#e9dfd2'; ctx.fillText(txt, W / 2, y);
-      ctx.fillStyle = '#9a0b10'; for (let i = 0; i < txt.length * 1.5; i++) { const x = W / 2 + (hash2(i, 4) - 0.5) * ctx.measureText(txt).width, L = fs * (0.2 + hash2(i, 9) * 0.9) * Math.min(1, a * 1.5); ctx.fillRect(x, y + fs * 0.32, Math.max(1.5, fs * 0.03), L); }
-      ctx.globalAlpha = 1; ctx.restore();
-    }
     function drawBlood(A, q, t, dt) {
       const W = S.W, H = S.H, d = S.dpr, u = S.u, B = W0.bl, E = q;
       ctx.setTransform(d, 0, 0, d, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = A;
       // beats inside the chapter (forward: sound and spectacle; backward: the sound, reversed)
-      if (B.last >= 0) { for (const [at, txt] of BL_SAY) { if (B.last < at && q >= at) { B.words = { txt, t0: t }; snd('scream'); shake(10); S.gl = 1; } else if (B.last >= at && q < at) sndRev('scream'); } }
+      if (B.last >= 0) { for (const at of BL_HIT) { if (B.last < at && q >= at) { snd('scream'); shake(10); S.gl = 1; } else if (B.last >= at && q < at) sndRev('scream'); } }
       if (B.last < 0.04 && q >= 0.04) { snd('boom'); snd('drip'); }
       if (B.last < 0.12 && q >= 0.12) { for (let i = 0; i < 30; i++) bloodRun(rr(0, W), rr(0, 40), 0, true); B.pour = 1; }
       if (B.last < 0.5 && q >= 0.5) { snd('roar'); shake(22); }
@@ -3101,8 +3004,6 @@ class Component extends DCLogic {
       if (fall > 0 && R() < 0.9) for (let i = 0; i < 12; i++) B.dust.push({ x: rr(0, W), y: rr(H * 0.3, H), vx: rr(-30, 30), vy: rr(-120, -30), life: 1, c: R() < 0.4 ? [200, 20, 30] : [60, 50, 60] });
       if (B.dust.length > 900) B.dust.splice(0, B.dust.length - 900);
       for (let i = B.dust.length - 1; i >= 0; i--) { const p0 = B.dust[i]; p0.life -= dt * 0.6; if (p0.life <= 0) { swapPop(B.dust, i); continue; } p0.x += (p0.vx + Math.sin(t * 2 + i) * 20) * dt; p0.y += p0.vy * dt; ctx.fillStyle = css(p0.c, p0.life); ctx.fillRect(p0.x, p0.y, 2, 2); }
-      // ---- words, carved in blood, that glitch and fade
-      if (B.words) { const age = t - B.words.t0; if (age > 3) B.words = null; else bloodText(B.words.txt, Math.min(1, age * 3) * (1 - sstep(2, 3, age)) * A, t); }
       if (fall > 0) { ctx.fillStyle = css([0, 0, 0], fall * A); ctx.fillRect(0, 0, W, H); }
       S.gl = Math.max(S.gl, glitchy ? 0.7 : 0, fall * 0.5 * (R() < 0.3 ? 1 : 0));
       if (S.gl > 0.04) glitchPass(S.gl);
@@ -3340,7 +3241,7 @@ class Component extends DCLogic {
       if (W === S.W && H === S.H) return;
       S.W = W; S.H = H; S.u = Math.min(W, H * 1.25); S.dpr = S.cx && S.cx.pixel ? 0.16 : Math.min(2, window.devicePixelRatio || 1);
       cv.width = Math.round(W * S.dpr); cv.height = Math.round(H * S.dpr);
-      stain.width = W; stain.height = H; BL.ok = false; grainPat = null; prismResize(W, H); bloodResize(W, H); PT.ok = false;
+      stain.width = W; stain.height = H; grainPat = null; prismResize(W, H); bloodResize(W, H);
       if (!W0) W0 = gen();
       requestAnimationFrame(cacheLetters);
     };
@@ -3394,7 +3295,7 @@ class Component extends DCLogic {
     window.addEventListener('keydown', onKey);
     setTimeout(() => { if (!S.kid) loadRaven(); }, 1500);
     const ro = new ResizeObserver(resize); ro.observe(root); resize();
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { BL.ok = false; requestAnimationFrame(cacheLetters); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { requestAnimationFrame(cacheLetters); });
     let io = null;
     if (window.IntersectionObserver) { io = new IntersectionObserver((es) => { S.vis = es[0].isIntersecting; }); io.observe(root); }
     { const k = self.props.kapitel | 0, p0 = +self.props.p || 0, ci = k > 1 && k <= CH.length ? DISP[k - 1] : -1;
